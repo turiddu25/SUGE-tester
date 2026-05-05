@@ -30,5 +30,9 @@ class Config:
     LLM_TIMEOUT_SECONDS: float = float(_get("LLM_TIMEOUT_SECONDS", "60") or "60")
     LLM_CONCURRENCY: int = int(_get("LLM_CONCURRENCY", "4") or "4")
 
+    # Exam date — drives the spaced-repetition scheduler so intervals compress
+    # as the exam approaches and never push a question past it.
+    EXAM_DATE: str = _get("EXAM_DATE", "2026-05-15") or "2026-05-15"
+
 
 config = Config()

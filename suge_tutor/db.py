@@ -497,6 +497,26 @@ def recent_attempts(user_id: str, limit: int = 50) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def best_exam_session(user_id: str) -> dict | None:
+    """Most recent finished exam session for the user, with computed percentage."""
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            SELECT * FROM exam_sessions
+            WHERE user_id = ? AND finished_at IS NOT NULL AND total_marks_possible > 0
+            ORDER BY (total_marks_awarded / total_marks_possible) DESC, finished_at DESC
+            LIMIT 1
+            """,
+            (user_id,),
+        )
+        row = cur.fetchone()
+    if not row:
+        return None
+    d = dict(row)
+    d["percentage"] = round(100.0 * d["total_marks_awarded"] / d["total_marks_possible"], 1)
+    return d
+
+
 def attempted_question_ids(user_id: str) -> set[str]:
     with db_cursor() as cur:
         cur.execute(

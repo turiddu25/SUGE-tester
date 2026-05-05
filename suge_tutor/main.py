@@ -12,6 +12,7 @@ from fastapi.templating import Jinja2Templates
 from . import db, users
 from .config import config
 from .routes import auth, exam, practice, products, questions, reference, review
+from .spaced_repetition import days_to_exam
 
 BASE_DIR = config.PROJECT_ROOT
 TEMPLATES_DIR = BASE_DIR / "templates"
@@ -99,6 +100,14 @@ async def home(request: Request):
                 )
                 break
 
+    # Grade target context
+    best_exam = db.best_exam_session(user["id"]) if user else None
+    grade_status = (
+        users.grade_for(best_exam["percentage"], user["grade_targets"])
+        if user and best_exam
+        else None
+    )
+
     return templates.TemplateResponse(
         request,
         "home.html",
@@ -111,6 +120,10 @@ async def home(request: Request):
             "weakest": weakest,
             "series": series,
             "recommended": recommended,
+            "best_exam": best_exam,
+            "grade_status": grade_status,
+            "days_to_exam": days_to_exam(),
+            "exam_date": config.EXAM_DATE,
             "config": {
                 "provider": config.LLM_PROVIDER,
                 "model": config.LLM_MODEL,

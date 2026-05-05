@@ -160,12 +160,24 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             except json.JSONDecodeError:
                 marking = {}
             rows.append({"attempt": a, "question": q, "marking": marking})
+
+        user = users.current_user(request)
+        pct = None
+        if session.get("total_marks_awarded") is not None and session.get("total_marks_possible"):
+            pct = round(
+                100.0 * session["total_marks_awarded"] / session["total_marks_possible"], 1
+            )
+        grade_status = (
+            users.grade_for(pct, user["grade_targets"]) if user and pct is not None else None
+        )
         return templates.TemplateResponse(
             request,
             "exam_results.html",
             {
                 "session": session,
                 "rows": rows,
-                "current_user": users.current_user(request),
+                "current_user": user,
+                "percentage": pct,
+                "grade_status": grade_status,
             },
         )
