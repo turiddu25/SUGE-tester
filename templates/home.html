@@ -1,39 +1,159 @@
 {% extends "base.html" %}
-{% block title %}SUGE Tutor — Home{% endblock %}
+{% block title %}SUGE Tutor — {{ current_user.name if current_user else "Home" }}{% endblock %}
 {% block content %}
 <section class="space-y-6">
-  <div>
-    <h1 class="font-serif text-3xl tracking-tight">SUGE Tutor</h1>
-    <p class="mt-1 text-neutral-600">
-      Self-paced revision for COMPSCI4087 Startup Growth Engineering. Practise exam-style questions and get partial-credit AI marking.
-    </p>
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <h1 class="font-serif text-3xl tracking-tight">
+        {% if current_user %}Hi {{ current_user.name }}.{% else %}SUGE Tutor{% endif %}
+      </h1>
+      <p class="mt-1 text-neutral-600">
+        {% if current_user %}
+          {% if today_count == 0 %}You haven't practised yet today. Mark Logan: small, regular, repeated revision.{% else %}{{ today_count }} answered today. Keep it rolling.{% endif %}
+        {% else %}
+          Self-paced revision for COMPSCI4087 Startup Growth Engineering.
+        {% endif %}
+      </p>
+    </div>
+    <a href="/practice/random" class="rounded bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">🎲 Random question</a>
   </div>
 
-  <div class="grid gap-4 md:grid-cols-3">
-    <a href="/questions" class="block rounded-lg border border-neutral-200 bg-white p-5 hover:border-indigo-500 hover:shadow-sm">
-      <div class="text-xs uppercase tracking-wide text-neutral-500">Practise</div>
-      <div class="mt-1 font-semibold">Question Bank</div>
-      <div class="mt-1 text-sm text-neutral-600">{{ question_count }} questions, filterable by topic, source, and marks.</div>
-    </a>
-
-    <a href="/exam-sim" class="block rounded-lg border border-neutral-200 bg-white p-5 hover:border-indigo-500 hover:shadow-sm">
-      <div class="text-xs uppercase tracking-wide text-neutral-500">Simulate</div>
-      <div class="mt-1 font-semibold">Exam Mode</div>
-      <div class="mt-1 text-sm text-neutral-600">16 questions, 60 marks, 105 minutes. Real exam blueprint.</div>
-    </a>
-
-    <div class="block rounded-lg border border-neutral-200 bg-white p-5">
-      <div class="text-xs uppercase tracking-wide text-neutral-500">LLM</div>
-      <div class="mt-1 font-semibold">{{ config.provider }} · {{ config.model }}</div>
-      <div class="mt-1 text-sm {% if config.api_key_set %}text-emerald-700{% else %}text-rose-600{% endif %}">
-        {% if config.api_key_set %}API key configured.{% else %}No API key set — edit <code>.env</code>.{% endif %}
+  <div class="grid gap-4 md:grid-cols-4">
+    <div class="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Today</div>
+      <div class="mt-1 text-2xl font-semibold tracking-tight">{{ today_count }}</div>
+      <div class="text-xs text-neutral-500">questions answered</div>
+    </div>
+    <div class="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">All-time</div>
+      <div class="mt-1 text-2xl font-semibold tracking-tight">{{ total_count }}</div>
+      <div class="text-xs text-neutral-500">attempts</div>
+    </div>
+    <div class="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Bank</div>
+      <div class="mt-1 text-2xl font-semibold tracking-tight">{{ question_count }}</div>
+      <div class="text-xs text-neutral-500">questions available</div>
+    </div>
+    <div class="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Weakest topic</div>
+      <div class="mt-1 text-base font-semibold tracking-tight truncate">
+        {% if weakest %}{{ weakest.topic }}{% else %}<span class="text-neutral-400">no data yet</span>{% endif %}
+      </div>
+      <div class="text-xs text-neutral-500">
+        {% if weakest %}{{ "%.0f"|format(weakest.avg_pct or 0) }}% avg{% endif %}
       </div>
     </div>
   </div>
 
-  <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-    <strong>Mark Logan's revision tips:</strong>
-    Past paper questions and sample questions make all the difference. Activate your knowledge — don't just read. Re-do questions a few days later. Pay attention to marks per question.
+  <div class="grid gap-4 lg:grid-cols-3">
+    <div class="lg:col-span-2 rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-5">
+      <div class="flex items-baseline justify-between">
+        <div>
+          <div class="text-xs uppercase tracking-wide text-neutral-500">Score by topic — last 14 days</div>
+          <p class="text-xs text-neutral-500">Daily average % per topic, using your latest answer per question.</p>
+        </div>
+      </div>
+      <div class="mt-3 h-64">
+        <canvas id="progress-chart"></canvas>
+      </div>
+      {% if topic_avgs %}
+      <div class="mt-3 grid grid-cols-2 gap-1 text-xs md:grid-cols-5">
+        {% for t in topic_avgs %}
+        <div class="flex items-baseline justify-between rounded bg-neutral-50 px-2 py-1">
+          <span class="text-neutral-600 truncate">{{ t.topic }}</span>
+          <span class="ml-2 font-mono text-neutral-800">{{ "%.0f"|format(t.avg_pct or 0) }}%</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-5">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Recommended next</div>
+      {% if recommended %}
+      <ul class="mt-2 space-y-2">
+        {% for r in recommended %}
+        <li>
+          <a href="/practice/{{ r.id }}" class="block rounded border border-neutral-200 p-2 hover:border-indigo-500 hover:bg-indigo-50">
+            <div class="flex items-center gap-2 text-xs">
+              <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-700">{{ r.topic }}</span>
+              <span class="inline-flex items-center rounded-full bg-neutral-200 px-2 py-0.5">{{ r.marks }} mk</span>
+            </div>
+            <div class="mt-1 line-clamp-2 text-sm text-neutral-800">{{ r.question_text }}</div>
+            <div class="mt-1 text-xs text-indigo-600">{{ r.reason }}</div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="mt-2 text-sm text-neutral-500">Nothing yet — practise a few questions and rate them with Got it / Needs / Hard so the queue can fill.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-3">
+    <a href="/questions" class="block rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4 hover:border-indigo-500 hover:shadow-sm">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Practise</div>
+      <div class="mt-1 font-semibold">Question Bank</div>
+      <div class="mt-1 text-sm text-neutral-600">{{ question_count }} questions, filterable.</div>
+    </a>
+    <a href="/review" class="block rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4 hover:border-indigo-500 hover:shadow-sm">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Spaced</div>
+      <div class="mt-1 font-semibold">Review Queue</div>
+      <div class="mt-1 text-sm text-neutral-600">Due: things you've rated come back here.</div>
+    </a>
+    <a href="/exam-sim" class="block rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-4 hover:border-indigo-500 hover:shadow-sm">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Simulate</div>
+      <div class="mt-1 font-semibold">Exam Mode</div>
+      <div class="mt-1 text-sm text-neutral-600">16 questions, 60 marks, 105 minutes.</div>
+    </a>
+  </div>
+
+  <div class="text-xs text-neutral-400">
+    LLM: {{ config.provider }} · {{ config.model }} ·
+    {% if config.api_key_set %}<span class="text-emerald-700">key set</span>{% else %}<span class="text-rose-600">no key</span>{% endif %}
   </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+  (function () {
+    const series = {{ series|tojson }};
+    const ctx = document.getElementById("progress-chart");
+    if (!ctx || !series.datasets || series.datasets.length === 0) {
+      if (ctx) {
+        const p = document.createElement("p");
+        p.className = "text-sm text-neutral-500";
+        p.textContent = "No graded attempts yet — practise a few questions and they'll show up here.";
+        ctx.replaceWith(p);
+      }
+      return;
+    }
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: series.labels,
+        datasets: series.datasets.map((d) => ({
+          label: d.label,
+          data: d.data,
+          borderColor: d.color,
+          backgroundColor: d.color + "22",
+          spanGaps: true,
+          tension: 0.25,
+          pointRadius: 3,
+        })),
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + "%" } },
+        },
+        plugins: { legend: { position: "bottom", labels: { boxWidth: 10 } } },
+      },
+    });
+  })();
+</script>
 {% endblock %}

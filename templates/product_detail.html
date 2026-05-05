@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — Products — SUGE Tutor{% endblock %}
+{% block content %}
+<section class="space-y-5"
+  x-data='productDetail({
+    sections: [
+      ["summary", "Summary", {{ product.summary|tojson }}],
+      ["cgm", "CGM", {{ product.cgm|tojson }}],
+      ["network_effects", "Network effects", {{ product.network_effects|tojson }}],
+      ["activation", "Activation", {{ product.activation|tojson }}],
+      ["nap", "Network as Product (NaP)", {{ product.nap|tojson }}],
+      ["compounding", "Compounding mechanisms", {{ product.compounding|tojson }}]
+    ]
+  })'>
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <a href="/products" class="text-xs text-neutral-500 hover:text-indigo-700">← Products</a>
+      <h1 class="font-serif text-3xl tracking-tight mt-1">{{ product.name }}</h1>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ product.tagline }}</p>
+    </div>
+  </div>
+
+  <div class="space-y-3">
+    <template x-for="s in sections" :key="s[0]">
+      <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+        <div class="text-xs font-medium uppercase tracking-wide text-neutral-500" x-text="s[1]"></div>
+        <div class="prose mt-2 max-w-none text-sm dark:prose-invert" x-html="render(s[2])"></div>
+      </div>
+    </template>
+  </div>
+
+  <div class="rounded-lg border border-amber-200 bg-amber-50 p-5 dark:border-amber-700 dark:bg-amber-900/20">
+    <div class="text-xs font-medium uppercase tracking-wide text-amber-700 dark:text-amber-300">Exam angles to remember</div>
+    <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-amber-900 dark:text-amber-200">
+      {% for angle in product.exam_angles %}
+      <li>{{ angle }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="text-sm">
+    <a href="/practice/random" class="rounded bg-indigo-600 px-3 py-2 text-white hover:bg-indigo-700">🎲 Random practice question</a>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+  function productDetail({ sections }) {
+    return {
+      sections,
+      render(md) { return window.renderMarkdown(md || ""); },
+    };
+  }
+  window.productDetail = productDetail;
+</script>
+{% endblock %}

@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 
-from .. import db
+from .. import db, users
 
 
 def register(app: FastAPI, templates: Jinja2Templates) -> None:
@@ -45,6 +45,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
                 "questions": rows,
                 "topics": topics,
                 "sources": sources,
+                "current_user": users.current_user(request),
                 "filters": {
                     "topic": topic or "",
                     "source": source or "",

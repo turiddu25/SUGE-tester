@@ -8,7 +8,7 @@
   </div>
 
   <div class="grid gap-4 md:grid-cols-2">
-    <div class="rounded-lg border border-neutral-200 bg-white p-5">
+    <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
       <div class="text-xs uppercase tracking-wide text-neutral-500">Format</div>
       <ul class="mt-2 space-y-1 text-sm text-neutral-700">
         <li>· 16 questions, 60 marks total</li>
@@ -17,7 +17,7 @@
         <li>· Mostly written, partial credit, no negative marking</li>
       </ul>
     </div>
-    <div class="rounded-lg border border-neutral-200 bg-white p-5">
+    <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
       <div class="text-xs uppercase tracking-wide text-neutral-500">Topic blueprint</div>
       <ul class="mt-2 space-y-1 text-sm text-neutral-700">
         {% for topic, marks in topic_targets.items() %}
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <form method="post" action="/exam-sim/start" class="rounded-lg border border-neutral-200 bg-white p-5 space-y-3">
+  <form method="post" action="/exam-sim/start" class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900 space-y-3">
     <div>
       <label class="block text-sm font-medium text-neutral-700">Seed (optional)</label>
       <input type="number" name="seed" placeholder="leave blank for random" class="mt-1 w-48 rounded border-neutral-300 px-2 py-1.5 text-sm" />

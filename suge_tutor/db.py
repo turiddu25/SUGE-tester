@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS questions (
   question_text TEXT NOT NULL,
   question_type TEXT,
   model_answer TEXT,
+  model_answer_source TEXT,
   marking_scheme_notes TEXT,
   products_mentioned TEXT,
   related_concepts TEXT,
@@ -31,6 +32,7 @@ CREATE TABLE IF NOT EXISTS questions (
 CREATE TABLE IF NOT EXISTS attempts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   question_id TEXT NOT NULL,
+  user_id TEXT,
   student_answer TEXT NOT NULL,
   marks_awarded REAL,
   marks_total INTEGER,
@@ -44,6 +46,7 @@ CREATE TABLE IF NOT EXISTS attempts (
 
 CREATE TABLE IF NOT EXISTS exam_sessions (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT,
   mode TEXT NOT NULL,
   started_at TEXT NOT NULL,
   finished_at TEXT,
@@ -55,10 +58,13 @@ CREATE TABLE IF NOT EXISTS exam_sessions (
 CREATE TABLE IF NOT EXISTS review_queue (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   question_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
   next_review_at TEXT NOT NULL,
   ease_level INTEGER DEFAULT 0,
+  last_rating TEXT,
+  last_rated_at TEXT,
   FOREIGN KEY (question_id) REFERENCES questions(id),
-  UNIQUE(question_id)
+  UNIQUE(question_id, user_id)
 );
 
 CREATE TABLE IF NOT EXISTS settings (
@@ -90,6 +96,38 @@ def db_cursor() -> Iterator[sqlite3.Cursor]:
 def init_schema() -> None:
     with db_cursor() as cur:
         cur.executescript(SCHEMA)
+        # Online migration: add user_id columns to pre-existing tables.
+        for table in ("attempts", "exam_sessions"):
+            cur.execute(f"PRAGMA table_info({table})")
+            cols = {row["name"] for row in cur.fetchall()}
+            if "user_id" not in cols:
+                cur.execute(f"ALTER TABLE {table} ADD COLUMN user_id TEXT")
+        # review_queue picked up multi-user support; if it pre-dates that, drop & recreate
+        # (it had no per-user data so no loss).
+        cur.execute("PRAGMA table_info(review_queue)")
+        cols = {row["name"] for row in cur.fetchall()}
+        if cols and "user_id" not in cols:
+            cur.execute("DROP TABLE review_queue")
+            cur.executescript(SCHEMA)
+        # Add model_answer_source if missing.
+        cur.execute("PRAGMA table_info(questions)")
+        cols = {row["name"] for row in cur.fetchall()}
+        if "model_answer_source" not in cols:
+            cur.execute("ALTER TABLE questions ADD COLUMN model_answer_source TEXT")
+
+
+# Default provenance for each `source` value. Established by audit:
+#   - past_paper_examples: SUGE_PastPapers.md is a Moodle outline; lecturer's worked
+#     answers are video-only, so JSON model_answers were drafted by AI.
+#   - further_sample_questions / sample_questions: lecturer answers exist in markdown
+#     but JSON is reworded — content-faithful paraphrase.
+#   - study_notes_practice: source is a PDF (unreadable from here) — flag for manual check.
+DEFAULT_MODEL_ANSWER_SOURCE = {
+    "past_paper_examples": "ai_generated",
+    "further_sample_questions": "lecturer_paraphrased",
+    "sample_questions": "lecturer_paraphrased",
+    "study_notes_practice": "needs_manual_check",
+}
 
 
 def load_questions_from_json(path: Path | None = None, *, replace: bool = True) -> int:
@@ -100,13 +138,17 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
         if replace:
             cur.execute("DELETE FROM questions")
         for q in questions:
+            mas = q.get("model_answer_source") or DEFAULT_MODEL_ANSWER_SOURCE.get(
+                q.get("source"), "unknown"
+            )
             cur.execute(
                 """
                 INSERT OR REPLACE INTO questions (
                   id, source, source_label, priority, topic, subtopic, difficulty,
-                  marks, question_text, question_type, model_answer, marking_scheme_notes,
+                  marks, question_text, question_type, model_answer, model_answer_source,
+                  marking_scheme_notes,
                   products_mentioned, related_concepts, is_calculation, exam_technique_notes
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     q.get("id"),
@@ -120,6 +162,7 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
                     q.get("question_text"),
                     q.get("question_type"),
                     q.get("model_answer"),
+                    mas,
                     q.get("marking_scheme_notes"),
                     json.dumps(q.get("products_mentioned") or []),
                     json.dumps(q.get("related_concepts") or []),
@@ -206,17 +249,19 @@ def insert_attempt(
     attempted_at: str,
     duration_seconds: int | None = None,
     exam_session_id: int | None = None,
+    user_id: str | None = None,
 ) -> int:
     with db_cursor() as cur:
         cur.execute(
             """
             INSERT INTO attempts (
-              question_id, student_answer, marks_awarded, marks_total,
+              question_id, user_id, student_answer, marks_awarded, marks_total,
               marking_response_json, attempted_at, duration_seconds, exam_session_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 question_id,
+                user_id,
                 student_answer,
                 marks_awarded,
                 marks_total,
@@ -229,21 +274,26 @@ def insert_attempt(
         return cur.lastrowid or 0
 
 
-def list_attempts_for_question(qid: str) -> list[dict]:
+def list_attempts_for_question(qid: str, *, user_id: str | None = None) -> list[dict]:
+    sql = "SELECT * FROM attempts WHERE question_id = ?"
+    params: list[Any] = [qid]
+    if user_id is not None:
+        sql += " AND user_id = ?"
+        params.append(user_id)
+    sql += " ORDER BY attempted_at DESC"
     with db_cursor() as cur:
-        cur.execute(
-            "SELECT * FROM attempts WHERE question_id = ? ORDER BY attempted_at DESC",
-            (qid,),
-        )
+        cur.execute(sql, params)
         rows = cur.fetchall()
     return [dict(r) for r in rows]
 
 
-def create_exam_session(mode: str, started_at: str, config_json: str) -> int:
+def create_exam_session(
+    mode: str, started_at: str, config_json: str, user_id: str | None = None
+) -> int:
     with db_cursor() as cur:
         cur.execute(
-            "INSERT INTO exam_sessions (mode, started_at, config_json) VALUES (?, ?, ?)",
-            (mode, started_at, config_json),
+            "INSERT INTO exam_sessions (mode, started_at, config_json, user_id) VALUES (?, ?, ?, ?)",
+            (mode, started_at, config_json, user_id),
         )
         return cur.lastrowid or 0
 
@@ -284,3 +334,174 @@ def question_count() -> int:
         cur.execute("SELECT COUNT(*) AS c FROM questions")
         row = cur.fetchone()
     return int(row["c"]) if row else 0
+
+
+# --- review queue ---------------------------------------------------------
+
+def upsert_review(
+    *,
+    question_id: str,
+    user_id: str,
+    next_review_at: str,
+    ease_level: int,
+    rating: str,
+    now: str,
+) -> None:
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO review_queue (question_id, user_id, next_review_at, ease_level, last_rating, last_rated_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(question_id, user_id) DO UPDATE SET
+              next_review_at = excluded.next_review_at,
+              ease_level = excluded.ease_level,
+              last_rating = excluded.last_rating,
+              last_rated_at = excluded.last_rated_at
+            """,
+            (question_id, user_id, next_review_at, ease_level, rating, now),
+        )
+
+
+def get_review(question_id: str, user_id: str) -> dict | None:
+    with db_cursor() as cur:
+        cur.execute(
+            "SELECT * FROM review_queue WHERE question_id = ? AND user_id = ?",
+            (question_id, user_id),
+        )
+        row = cur.fetchone()
+    return dict(row) if row else None
+
+
+def due_reviews(user_id: str, now: str) -> list[dict]:
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            SELECT r.*, q.topic, q.marks, q.priority, q.question_text
+            FROM review_queue r
+            JOIN questions q ON q.id = r.question_id
+            WHERE r.user_id = ? AND r.next_review_at <= ?
+            ORDER BY r.next_review_at ASC
+            """,
+            (user_id, now),
+        )
+        rows = cur.fetchall()
+    return [dict(r) for r in rows]
+
+
+def upcoming_reviews(user_id: str, limit: int = 20) -> list[dict]:
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            SELECT r.*, q.topic, q.marks, q.priority, q.question_text
+            FROM review_queue r
+            JOIN questions q ON q.id = r.question_id
+            WHERE r.user_id = ?
+            ORDER BY r.next_review_at ASC
+            LIMIT ?
+            """,
+            (user_id, limit),
+        )
+        rows = cur.fetchall()
+    return [dict(r) for r in rows]
+
+
+# --- progress / dashboard helpers ---------------------------------------
+
+def attempts_for_user(user_id: str) -> list[dict]:
+    with db_cursor() as cur:
+        cur.execute(
+            "SELECT * FROM attempts WHERE user_id = ? ORDER BY attempted_at DESC",
+            (user_id,),
+        )
+        rows = cur.fetchall()
+    return [dict(r) for r in rows]
+
+
+def latest_attempt_per_question(user_id: str) -> list[dict]:
+    """One row per question, with the user's most recent attempt joined to question metadata."""
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            SELECT a.*, q.topic, q.marks, q.priority, q.question_text
+            FROM attempts a
+            JOIN questions q ON q.id = a.question_id
+            WHERE a.user_id = ? AND a.id IN (
+              SELECT MAX(id) FROM attempts WHERE user_id = ? GROUP BY question_id
+            )
+            ORDER BY a.attempted_at DESC
+            """,
+            (user_id, user_id),
+        )
+        rows = cur.fetchall()
+    return [dict(r) for r in rows]
+
+
+def topic_averages(user_id: str) -> list[dict]:
+    """Average percentage per topic, using each question's most recent attempt."""
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            WITH latest AS (
+              SELECT a.question_id, a.marks_awarded, a.marks_total
+              FROM attempts a
+              WHERE a.user_id = ? AND a.id IN (
+                SELECT MAX(id) FROM attempts WHERE user_id = ? GROUP BY question_id
+              )
+            )
+            SELECT q.topic AS topic,
+                   COUNT(*) AS n,
+                   AVG(CASE WHEN l.marks_total > 0 AND l.marks_awarded IS NOT NULL
+                            THEN 100.0 * l.marks_awarded / l.marks_total ELSE NULL END) AS avg_pct
+            FROM latest l
+            JOIN questions q ON q.id = l.question_id
+            GROUP BY q.topic
+            ORDER BY avg_pct ASC
+            """,
+            (user_id, user_id),
+        )
+        rows = cur.fetchall()
+    return [dict(r) for r in rows]
+
+
+def attempts_today(user_id: str, day_start_iso: str) -> int:
+    with db_cursor() as cur:
+        cur.execute(
+            "SELECT COUNT(*) AS c FROM attempts WHERE user_id = ? AND attempted_at >= ?",
+            (user_id, day_start_iso),
+        )
+        row = cur.fetchone()
+    return int(row["c"]) if row else 0
+
+
+def attempts_total(user_id: str) -> int:
+    with db_cursor() as cur:
+        cur.execute("SELECT COUNT(*) AS c FROM attempts WHERE user_id = ?", (user_id,))
+        row = cur.fetchone()
+    return int(row["c"]) if row else 0
+
+
+def recent_attempts(user_id: str, limit: int = 50) -> list[dict]:
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            SELECT a.attempted_at, a.marks_awarded, a.marks_total, q.topic
+            FROM attempts a
+            JOIN questions q ON q.id = a.question_id
+            WHERE a.user_id = ?
+            ORDER BY a.attempted_at DESC
+            LIMIT ?
+            """,
+            (user_id, limit),
+        )
+        rows = cur.fetchall()
+    return [dict(r) for r in rows]
+
+
+def attempted_question_ids(user_id: str) -> set[str]:
+    with db_cursor() as cur:
+        cur.execute(
+            "SELECT DISTINCT question_id FROM attempts WHERE user_id = ?",
+            (user_id,),
+        )
+        rows = cur.fetchall()
+    return {r["question_id"] for r in rows}

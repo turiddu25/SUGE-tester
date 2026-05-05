@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 
-from .. import db
+from .. import db, users
 from ..config import config
 from ..exam_selector import select_exam_questions, topic_breakdown, TARGET_TOPIC_MARKS
 from ..marking import mark_answer
@@ -21,7 +21,10 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         return templates.TemplateResponse(
             request,
             "exam_setup.html",
-            {"topic_targets": TARGET_TOPIC_MARKS},
+            {
+                "topic_targets": TARGET_TOPIC_MARKS,
+                "current_user": users.current_user(request),
+            },
         )
 
     @app.post("/exam-sim/start")
@@ -41,10 +44,12 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             "total_marks": sum(int(q["marks"]) for q in questions),
             "duration_minutes": 105,
         }
+        user = users.current_user(request)
         session_id = db.create_exam_session(
             mode="exam_simulation",
             started_at=started_at,
             config_json=json.dumps(cfg),
+            user_id=user["id"] if user else None,
         )
 
         return templates.TemplateResponse(
@@ -56,15 +61,17 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
                 "total_marks": cfg["total_marks"],
                 "topic_breakdown": cfg["topic_breakdown"],
                 "duration_seconds": 105 * 60,
+                "current_user": user,
             },
         )
 
     @app.post("/api/exam/submit")
-    async def exam_submit(payload: ExamSubmitRequest):
+    async def exam_submit(payload: ExamSubmitRequest, request: Request):
         session = db.get_exam_session(payload.session_id)
         if not session:
             raise HTTPException(status_code=404, detail="Exam session not found")
 
+        user = users.current_user(request)
         question_ids = [item.question_id for item in payload.items]
         questions = {q["id"]: q for q in db.get_questions_by_ids(question_ids)}
 
@@ -106,6 +113,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
                 marking_response_json=json.dumps(res, ensure_ascii=False),
                 attempted_at=attempted_at,
                 exam_session_id=payload.session_id,
+                user_id=user["id"] if user else None,
             )
             total_possible += total
             total_awarded += awarded_f if awarded is not None else 0.0
@@ -155,5 +163,9 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         return templates.TemplateResponse(
             request,
             "exam_results.html",
-            {"session": session, "rows": rows},
+            {
+                "session": session,
+                "rows": rows,
+                "current_user": users.current_user(request),
+            },
         )

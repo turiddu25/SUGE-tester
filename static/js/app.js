@@ -22,3 +22,13 @@ window.formatSeconds = function (s) {
   const sec = s % 60;
   return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 };
+
+window.toggleTheme = function () {
+  const isDark = document.documentElement.classList.toggle("dark");
+  try { localStorage.setItem("suge_theme", isDark ? "dark" : "light"); } catch (e) {}
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("theme-toggle");
+  if (btn) btn.addEventListener("click", window.toggleTheme);
+});

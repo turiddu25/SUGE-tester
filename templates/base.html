@@ -4,9 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}SUGE Tutor{% endblock %}</title>
+  <script>
+    // Apply theme as early as possible to avoid a flash of light content.
+    (function () {
+      try {
+        var t = localStorage.getItem("suge_theme");
+        if (t === "dark" || (t === null && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -22,16 +34,36 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="/static/css/overrides.css" />
 </head>
-<body class="h-full bg-neutral-50 text-neutral-900 antialiased">
-  <header class="border-b border-neutral-200 bg-white">
+<body class="h-full bg-neutral-50 text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
+  <header class="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
       <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
         <span class="inline-block h-2.5 w-2.5 rounded-full bg-indigo-600"></span>
         SUGE Tutor
       </a>
       <nav class="flex items-center gap-5 text-sm">
-        <a href="/questions" class="text-neutral-600 hover:text-indigo-700">Questions</a>
-        <a href="/exam-sim" class="text-neutral-600 hover:text-indigo-700">Exam Sim</a>
+        <a href="/questions" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Questions</a>
+        <a href="/review" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Review</a>
+        <a href="/exam-sim" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Exam Sim</a>
+        <a href="/products" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Products</a>
+        <a href="/reference" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Reference</a>
+
+        <button type="button" id="theme-toggle"
+                class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 hover:border-indigo-400 hover:text-indigo-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                title="Toggle dark mode (press D)">
+          <svg class="h-4 w-4 hidden dark:block" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.95 2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-2.05 4.95a1 1 0 01-1.41 0l-.71-.71a1 1 0 111.41-1.41l.71.71a1 1 0 010 1.41zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.95-2.05a1 1 0 011.41 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm1.05-4.95a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+          <svg class="h-4 w-4 block dark:hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 116.707 2.707a8.001 8.001 0 0010.586 10.586z"/></svg>
+        </button>
+
+        {% if current_user %}
+        <a href="/users?next={{ request.url.path | urlencode }}"
+           class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs text-neutral-700 hover:border-indigo-400 hover:text-indigo-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+           title="Switch user">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-100 text-[10px] font-semibold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200">{{ current_user.name[0] }}</span>
+          <span>{{ current_user.name }}</span>
+          <span class="text-neutral-400">· switch</span>
+        </a>
+        {% endif %}
       </nav>
     </div>
   </header>
@@ -40,11 +72,12 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="mx-auto max-w-6xl px-6 py-6 text-xs text-neutral-400">
-    Local revision app · COMPSCI4087 Startup Growth Engineering
+  <footer class="mx-auto max-w-6xl px-6 py-6 text-xs text-neutral-400 dark:text-neutral-600">
+    Local revision app · COMPSCI4087 Startup Growth Engineering · press <kbd class="rounded bg-neutral-200 px-1 py-0.5 font-mono text-[10px] dark:bg-neutral-800">?</kbd> for shortcuts
   </footer>
 
   <script src="/static/js/app.js"></script>
+  <script src="/static/js/shortcuts.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

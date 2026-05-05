@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Reference — SUGE Tutor{% endblock %}
+{% block content %}
+<section class="space-y-6" x-data="referenceView({ chunks: {{ chunks|tojson }} })">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <h1 class="font-serif text-2xl tracking-tight">Reference</h1>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400">Lectures, indexed and searchable. Press <kbd class="rounded bg-neutral-200 px-1 py-0.5 font-mono text-[10px] dark:bg-neutral-800">/</kbd> to focus search.</p>
+    </div>
+    <div class="text-xs text-neutral-500 dark:text-neutral-400">{{ chunks|length }} sections</div>
+  </div>
+
+  <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+    <div class="mb-2 text-xs font-medium uppercase tracking-wide text-neutral-500">Key formulas</div>
+    <ul class="grid gap-3 md:grid-cols-2">
+      {% for f in formulas %}
+      <li class="rounded border border-neutral-200 p-3 dark:border-neutral-800">
+        <div class="text-sm font-semibold">{{ f.name }}</div>
+        <pre class="mt-1 whitespace-pre-wrap font-mono text-sm text-indigo-700 dark:text-indigo-300">{{ f.formula }}</pre>
+        <p class="mt-1 text-xs text-neutral-600 dark:text-neutral-400">{{ f.where }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+    <input type="text" x-model="query" id="ref-search" placeholder="Search lectures (e.g. CGM, atomic, activation)…"
+           class="block w-full rounded border-neutral-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100" />
+    <div class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+      <span x-text="filtered.length"></span> match<span x-show="filtered.length !== 1">es</span>
+    </div>
+
+    <ul class="mt-3 divide-y divide-neutral-100 dark:divide-neutral-800">
+      <template x-for="c in filtered" :key="c.slug">
+        <li class="py-3">
+          <button type="button" @click="toggle(c.slug)" class="flex w-full items-baseline justify-between gap-3 text-left">
+            <div class="min-w-0">
+              <div class="text-xs uppercase tracking-wide text-neutral-500" x-text="c.section"></div>
+              <div class="font-semibold" x-text="c.title"></div>
+              <p class="mt-0.5 text-sm text-neutral-600 dark:text-neutral-400" x-show="!isOpen(c.slug)" x-text="c.preview"></p>
+            </div>
+            <span class="shrink-0 text-xs text-neutral-500 font-mono" x-text="isOpen(c.slug) ? '−' : '+'"></span>
+          </button>
+          <div x-show="isOpen(c.slug)" x-cloak class="prose mt-2 max-w-none text-sm dark:prose-invert" x-html="render(c.body)"></div>
+        </li>
+      </template>
+      <li class="py-3 text-sm text-neutral-500" x-show="filtered.length === 0" x-cloak>No matches.</li>
+    </ul>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+  function referenceView({ chunks }) {
+    return {
+      query: "",
+      open: {},
+      get filtered() {
+        const q = this.query.trim().toLowerCase();
+        if (!q) return chunks.slice(0, 50);
+        return chunks.filter((c) =>
+          c.section.toLowerCase().includes(q) ||
+          c.title.toLowerCase().includes(q) ||
+          c.body.toLowerCase().includes(q)
+        );
+      },
+      toggle(slug) { this.open[slug] = !this.open[slug]; },
+      isOpen(slug) { return !!this.open[slug]; },
+      render(md) { return window.renderMarkdown(md || ""); },
+    };
+  }
+  window.referenceView = referenceView;
+
+  // "/" focuses the search input when not typing elsewhere.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "/") return;
+    const el = document.activeElement;
+    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)) return;
+    const search = document.getElementById("ref-search");
+    if (search) { e.preventDefault(); search.focus(); }
+  });
+</script>
+{% endblock %}

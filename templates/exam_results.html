@@ -28,7 +28,7 @@
     {% set a = r.attempt %}
     {% set marking = r.marking %}
     {% set pct = (100.0 * a.marks_awarded / a.marks_total) if (a.marks_awarded is not none and a.marks_total) else None %}
-    <article class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm
+    <article class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900
       {% if pct is not none and pct < 50 %}border-rose-200{% elif pct is not none and pct >= 80 %}border-emerald-200{% endif %}">
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-2 text-xs">

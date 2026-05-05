@@ -13,6 +13,9 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
     renderedModel: "",
     elapsedSeconds: 0,
     elapsedFormatted: "00:00",
+    rating: false,
+    rated: false,
+    ratedAtLabel: "",
     _timer: null,
     _start: 0,
 
@@ -43,6 +46,29 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
       this.result = null;
       this.error = null;
       this.rawResponse = null;
+      this.rated = false;
+      this.ratedAtLabel = "";
+    },
+
+    async rate(rating) {
+      if (this.rating || this.rated) return;
+      this.rating = true;
+      try {
+        const resp = await fetch(`/api/review/${this.questionId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rating }),
+        });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        this.rated = true;
+        const next = new Date(data.next_review_at);
+        this.ratedAtLabel = next.toLocaleString();
+      } catch (e) {
+        alert("Failed to save rating: " + (e.message || e));
+      } finally {
+        this.rating = false;
+      }
     },
 
     async submit() {
