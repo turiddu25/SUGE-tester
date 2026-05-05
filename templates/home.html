@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}SUGE Tutor — Home{% endblock %}
+{% block content %}
+<section class="space-y-6">
+  <div>
+    <h1 class="font-serif text-3xl tracking-tight">SUGE Tutor</h1>
+    <p class="mt-1 text-neutral-600">
+      Self-paced revision for COMPSCI4087 Startup Growth Engineering. Practise exam-style questions and get partial-credit AI marking.
+    </p>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-3">
+    <a href="/questions" class="block rounded-lg border border-neutral-200 bg-white p-5 hover:border-indigo-500 hover:shadow-sm">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Practise</div>
+      <div class="mt-1 font-semibold">Question Bank</div>
+      <div class="mt-1 text-sm text-neutral-600">{{ question_count }} questions, filterable by topic, source, and marks.</div>
+    </a>
+
+    <a href="/exam-sim" class="block rounded-lg border border-neutral-200 bg-white p-5 hover:border-indigo-500 hover:shadow-sm">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Simulate</div>
+      <div class="mt-1 font-semibold">Exam Mode</div>
+      <div class="mt-1 text-sm text-neutral-600">16 questions, 60 marks, 105 minutes. Real exam blueprint.</div>
+    </a>
+
+    <div class="block rounded-lg border border-neutral-200 bg-white p-5">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">LLM</div>
+      <div class="mt-1 font-semibold">{{ config.provider }} · {{ config.model }}</div>
+      <div class="mt-1 text-sm {% if config.api_key_set %}text-emerald-700{% else %}text-rose-600{% endif %}">
+        {% if config.api_key_set %}API key configured.{% else %}No API key set — edit <code>.env</code>.{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+    <strong>Mark Logan's revision tips:</strong>
+    Past paper questions and sample questions make all the difference. Activate your knowledge — don't just read. Re-do questions a few days later. Pay attention to marks per question.
+  </div>
+</section>
+{% endblock %}

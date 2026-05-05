@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}SUGE Tutor{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
+            sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="/static/css/overrides.css" />
+</head>
+<body class="h-full bg-neutral-50 text-neutral-900 antialiased">
+  <header class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+      <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
+        <span class="inline-block h-2.5 w-2.5 rounded-full bg-indigo-600"></span>
+        SUGE Tutor
+      </a>
+      <nav class="flex items-center gap-5 text-sm">
+        <a href="/questions" class="text-neutral-600 hover:text-indigo-700">Questions</a>
+        <a href="/exam-sim" class="text-neutral-600 hover:text-indigo-700">Exam Sim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-6 py-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="mx-auto max-w-6xl px-6 py-6 text-xs text-neutral-400">
+    Local revision app · COMPSCI4087 Startup Growth Engineering
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

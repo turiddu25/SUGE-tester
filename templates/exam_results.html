@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Exam results — SUGE Tutor{% endblock %}
+{% block content %}
+<section class="space-y-5">
+  <div class="flex items-end justify-between">
+    <div>
+      <h1 class="font-serif text-2xl tracking-tight">Exam #{{ session.id }} — Results</h1>
+      <p class="text-sm text-neutral-600">Started {{ session.started_at[:19] }}{% if session.finished_at %} · finished {{ session.finished_at[:19] }}{% endif %}</p>
+    </div>
+    <div class="text-right">
+      <div class="text-xs uppercase tracking-wide text-neutral-500">Total</div>
+      <div class="text-3xl font-semibold tracking-tight">
+        {% if session.total_marks_awarded is not none %}
+          {{ "%.1f"|format(session.total_marks_awarded) }} / {{ session.total_marks_possible }}
+        {% else %}
+          —
+        {% endif %}
+      </div>
+      {% if session.total_marks_awarded is not none and session.total_marks_possible %}
+        <div class="text-sm text-neutral-500">{{ "%.1f"|format(100.0 * session.total_marks_awarded / session.total_marks_possible) }}%</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    {% for r in rows %}
+    {% set q = r.question %}
+    {% set a = r.attempt %}
+    {% set marking = r.marking %}
+    {% set pct = (100.0 * a.marks_awarded / a.marks_total) if (a.marks_awarded is not none and a.marks_total) else None %}
+    <article class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm
+      {% if pct is not none and pct < 50 %}border-rose-200{% elif pct is not none and pct >= 80 %}border-emerald-200{% endif %}">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-xs">
+          <span class="font-mono text-neutral-400">Q{{ loop.index }}</span>
+          <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-700">{{ q.topic }}</span>
+          <span class="inline-flex items-center rounded-full bg-neutral-200 px-2 py-0.5 text-neutral-700">{{ q.marks }} marks</span>
+        </div>
+        <div class="text-right">
+          {% if a.marks_awarded is not none %}
+            <div class="font-mono">{{ "%.1f"|format(a.marks_awarded) }} / {{ a.marks_total }}</div>
+            {% if pct is not none %}<div class="text-xs text-neutral-500">{{ "%.0f"|format(pct) }}%</div>{% endif %}
+          {% else %}
+            <div class="text-rose-700 text-sm">Marking failed</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="mt-2 font-serif text-sm text-neutral-900">{{ q.question_text }}</div>
+      <details class="mt-2">
+        <summary class="cursor-pointer text-xs text-neutral-500 hover:text-indigo-700">Your answer</summary>
+        <pre class="mt-2 whitespace-pre-wrap rounded bg-neutral-50 p-3 text-xs text-neutral-700">{{ a.student_answer }}</pre>
+      </details>
+      {% if marking.general_feedback %}
+      <div class="mt-2 rounded border border-neutral-200 bg-neutral-50 p-2 text-xs text-neutral-800">{{ marking.general_feedback }}</div>
+      {% endif %}
+      {% if marking.points_missed %}
+      <div class="mt-2 text-xs">
+        <div class="font-medium text-rose-700">Points missed:</div>
+        <ul class="ml-4 list-disc space-y-0.5 text-neutral-700">
+          {% for p in marking.points_missed %}
+          <li>{{ p.point }}{% if p.why %} — <span class="text-neutral-500">{{ p.why }}</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="text-center">
+    <a href="/exam-sim" class="rounded border border-neutral-300 bg-white px-4 py-2 text-sm hover:bg-neutral-50">Run another exam</a>
+  </div>
+</section>
+{% endblock %}
