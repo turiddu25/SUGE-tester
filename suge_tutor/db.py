@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
@@ -114,6 +115,55 @@ def init_schema() -> None:
         cols = {row["name"] for row in cur.fetchall()}
         if "model_answer_source" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN model_answer_source TEXT")
+    _resolve_cross_referenced_answers()
+
+
+_XREF_RE = re.compile(r"^\(See\s+(\w+)", re.IGNORECASE)
+
+
+def _resolve_cross_referenced_answers() -> int:
+    """Replace placeholder model_answers like '(See further_q7 — same answer applies.)'
+    with the target question's actual model_answer. Idempotent — once resolved, the
+    pattern no longer matches so subsequent calls are no-ops. Runs on every startup so
+    machines that already have a seeded DB self-heal after a `git pull`."""
+    fixed = 0
+    with db_cursor() as cur:
+        rows = cur.execute(
+            "SELECT id, model_answer, source FROM questions WHERE model_answer LIKE '(See %'"
+        ).fetchall()
+        if not rows:
+            return 0
+        for row in rows:
+            m = _XREF_RE.match(row["model_answer"] or "")
+            if not m:
+                continue
+            target_id = m.group(1)
+            target = cur.execute(
+                "SELECT model_answer, marking_scheme_notes, model_answer_source, source, source_label FROM questions WHERE id = ?",
+                (target_id,),
+            ).fetchone()
+            if not target or not target["model_answer"]:
+                continue
+            target_src = target["model_answer_source"] or DEFAULT_MODEL_ANSWER_SOURCE.get(
+                target["source"], "unknown"
+            )
+            label = target["source_label"] or target["source"] or "the source"
+            new_ma = (
+                (target["model_answer"] or "")
+                + f"\n\n_(This study-notes question is identical to {target_id} from the {label}. Same model answer applies.)_"
+            )
+            new_notes = (
+                (target["marking_scheme_notes"] or "")
+                + f"\n\n(Cross-reference: this is the same question as {target_id}.)"
+            )
+            cur.execute(
+                "UPDATE questions SET model_answer = ?, marking_scheme_notes = ?, model_answer_source = ? WHERE id = ?",
+                (new_ma, new_notes, target_src, row["id"]),
+            )
+            fixed += 1
+    if fixed:
+        print(f"[startup] resolved {fixed} cross-referenced model answers")
+    return fixed
 
 
 # Default provenance for each `source` value. Established by audit:
