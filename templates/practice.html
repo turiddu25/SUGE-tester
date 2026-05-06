@@ -30,7 +30,25 @@
       <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-600">{{ question.difficulty }}</span>
     </div>
 
-    <div class="prose mt-4 max-w-none font-serif text-lg leading-relaxed text-neutral-900" x-html="renderedQuestion"></div>
+    {% if chain_questions %}
+    <div class="mt-4 rounded-md border border-indigo-200 bg-indigo-50 p-3 text-sm dark:border-indigo-900/40 dark:bg-indigo-950/30">
+      <div class="text-xs font-medium uppercase tracking-wide text-indigo-700 dark:text-indigo-300">Context from earlier in the paper</div>
+      {% for cq in chain_questions %}
+      <div class="mt-2">
+        <div class="text-xs font-mono text-indigo-700 dark:text-indigo-300">{{ cq.id }} · {{ cq.marks }} marks</div>
+        <p class="mt-1 italic text-neutral-700 dark:text-neutral-300">{{ cq.question_text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if question.figure_path %}
+    <figure class="mt-4 rounded border border-neutral-200 p-3 dark:border-neutral-800">
+      <img src="/static/{{ question.figure_path }}" alt="Question figure" class="max-w-full rounded" />
+    </figure>
+    {% endif %}
+
+    <div class="prose mt-4 max-w-none font-serif text-lg leading-relaxed text-neutral-900 dark:text-neutral-100" x-html="renderedQuestion"></div>
 
     <div class="mt-4 flex items-center justify-between text-sm text-neutral-600">
       <div>⏱ Recommended: ~{{ recommended_minutes }} min</div>

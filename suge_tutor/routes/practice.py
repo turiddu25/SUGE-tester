@@ -47,11 +47,20 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         history = db.list_attempts_for_question(
             question_id, user_id=user["id"] if user else None
         )
+        # Resolve chain-context: any question_ids in `chains_with` get fetched so the
+        # template can render their text above this one. Multi-part exam questions
+        # like 2025_q11 (depends on q10) and 2025_q16 (depends on q15) need this.
+        chain_questions = []
+        for cid in question.get("chains_with") or []:
+            cq = db.get_question(cid)
+            if cq:
+                chain_questions.append(cq)
         return templates.TemplateResponse(
             request,
             "practice.html",
             {
                 "question": question,
+                "chain_questions": chain_questions,
                 "recommended_minutes": recommended_minutes,
                 "history": history,
                 "current_user": user,

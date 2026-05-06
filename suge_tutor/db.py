@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS questions (
   products_mentioned TEXT,
   related_concepts TEXT,
   is_calculation INTEGER,
-  exam_technique_notes TEXT
+  exam_technique_notes TEXT,
+  figure_path TEXT,
+  chains_with TEXT
 );
 
 CREATE TABLE IF NOT EXISTS attempts (
@@ -110,11 +112,15 @@ def init_schema() -> None:
         if cols and "user_id" not in cols:
             cur.execute("DROP TABLE review_queue")
             cur.executescript(SCHEMA)
-        # Add model_answer_source if missing.
+        # Add model_answer_source / figure_path / chains_with if missing.
         cur.execute("PRAGMA table_info(questions)")
         cols = {row["name"] for row in cur.fetchall()}
         if "model_answer_source" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN model_answer_source TEXT")
+        if "figure_path" not in cols:
+            cur.execute("ALTER TABLE questions ADD COLUMN figure_path TEXT")
+        if "chains_with" not in cols:
+            cur.execute("ALTER TABLE questions ADD COLUMN chains_with TEXT")
     _resolve_cross_referenced_answers()
 
 
@@ -177,6 +183,12 @@ DEFAULT_MODEL_ANSWER_SOURCE = {
     "further_sample_questions": "lecturer_paraphrased",
     "sample_questions": "lecturer_paraphrased",
     "study_notes_practice": "needs_manual_check",
+    # Genuine past-paper questions sourced from the explainer-video VTTs.
+    "paper_2023": "lecturer_paraphrased",
+    "paper_2024": "lecturer_paraphrased",
+    "paper_2025": "lecturer_paraphrased",
+    # Examples Mark drew from sample/further-sample banks during the 2026 revision lecture.
+    "revision_lecture_examples": "lecturer_paraphrased",
 }
 
 
@@ -191,14 +203,16 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
             mas = q.get("model_answer_source") or DEFAULT_MODEL_ANSWER_SOURCE.get(
                 q.get("source"), "unknown"
             )
+            chains = q.get("chains_with") or []
             cur.execute(
                 """
                 INSERT OR REPLACE INTO questions (
                   id, source, source_label, priority, topic, subtopic, difficulty,
                   marks, question_text, question_type, model_answer, model_answer_source,
                   marking_scheme_notes,
-                  products_mentioned, related_concepts, is_calculation, exam_technique_notes
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  products_mentioned, related_concepts, is_calculation, exam_technique_notes,
+                  figure_path, chains_with
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     q.get("id"),
@@ -218,6 +232,8 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
                     json.dumps(q.get("related_concepts") or []),
                     1 if q.get("is_calculation") else 0,
                     q.get("exam_technique_notes"),
+                    q.get("figure_path"),
+                    json.dumps(chains) if chains else None,
                 ),
             )
     return len(questions)
@@ -229,6 +245,7 @@ def row_to_question(row: sqlite3.Row | None) -> dict | None:
     d = dict(row)
     d["products_mentioned"] = json.loads(d.get("products_mentioned") or "[]")
     d["related_concepts"] = json.loads(d.get("related_concepts") or "[]")
+    d["chains_with"] = json.loads(d.get("chains_with") or "[]")
     d["is_calculation"] = bool(d.get("is_calculation"))
     return d
 

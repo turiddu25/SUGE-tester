@@ -54,9 +54,9 @@
   },
   "questions": [
     {
-      "id": "past_revision_q1",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q1",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "compounding_growth",
       "subtopic": "cgm_organic_direct",
@@ -74,12 +74,13 @@
         "linear_marketing"
       ],
       "is_calculation": false,
-      "exam_technique_notes": "Two-part question — both parts must be answered."
+      "exam_technique_notes": "Two-part question — both parts must be answered.",
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
-      "id": "past_revision_q2",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q2",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "compounding_growth",
       "subtopic": "cgm_indirect_content",
@@ -98,12 +99,13 @@
         "awareness_mechanism"
       ],
       "is_calculation": false,
-      "exam_technique_notes": "Two-part question. Common student error: answering only one part."
+      "exam_technique_notes": "Two-part question. Common student error: answering only one part.",
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
-      "id": "past_revision_q3",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q3",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "compounding_growth",
       "subtopic": "network_effects_atomic_sparse",
@@ -126,9 +128,9 @@
       "exam_technique_notes": "Question signals 'network effect principles' explicitly — that's your starting point."
     },
     {
-      "id": "past_revision_q4",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q4",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "organisation",
       "subtopic": "conways_law",
@@ -145,12 +147,13 @@
         "team_structure"
       ],
       "is_calculation": false,
-      "exam_technique_notes": "Only 1 mark — keep answer concise. One sentence sufficient."
+      "exam_technique_notes": "Only 1 mark — keep answer concise. One sentence sufficient.",
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
-      "id": "past_revision_q5",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q5",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "acquisition",
       "subtopic": "ltv_cac_calculation",
@@ -168,12 +171,13 @@
         "cgm_seeding"
       ],
       "is_calculation": true,
-      "exam_technique_notes": "ALWAYS show working. Even if you make an arithmetic error, method marks are awarded. State the conclusion explicitly."
+      "exam_technique_notes": "ALWAYS show working. Even if you make an arithmetic error, method marks are awarded. State the conclusion explicitly.",
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
-      "id": "past_revision_q6",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q6",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "activation_retention",
       "subtopic": "cohort_analysis",
@@ -197,9 +201,9 @@
       "exam_technique_notes": "Pay attention to product type stated in the question — 'social media product' is a clue. Even if uncertain about the benchmark, take a punt: 'I think this is poor for social media' (50/50 to gain a mark, no mark deduction for being wrong)."
     },
     {
-      "id": "past_revision_q7",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q7",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "compounding_growth",
       "subtopic": "ai_impact_on_cgms",
@@ -224,9 +228,9 @@
       "exam_technique_notes": "Note the word 'Explain' — give reasons, not just descriptions. ChatGPT is a confirmed exam product."
     },
     {
-      "id": "past_revision_q8",
-      "source": "past_paper_examples",
-      "source_label": "Past Paper Example (worked in revision lecture)",
+      "id": "revision_q8",
+      "source": "revision_lecture_examples",
+      "source_label": "revision_lecture_examples",
       "priority": "highest",
       "topic": "compounding_growth",
       "subtopic": "growth_model_application",
@@ -1540,6 +1544,780 @@
         "organic_word_of_mouth"
       ],
       "is_calculation": false
+    },
+    {
+      "id": "paper2023_q1",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "acquisition",
+      "subtopic": "ltv_cac_calculation",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "A start-up records the following performance in January 2023:\n\n(1)   Cost of Google SEM:  $123801\n(2)   Cost of Facebook Ads:  $51121\n(3)   Cost of financial incentives in compounding growth mechanism:   $15341\n(4)   Additional average cost per customer in converting customers to revenue after acquisition:  $37.9\n(5)   Number of customers acquired: 1451\n\nCalculate the minimum Customer LTV required to make January's acquisition costs self-funding. In your answer, ignore any other business overheads not listed above. Round your final answer to zero decimal places. Do NOT include a $ dollar sign in your answer.",
+      "question_type": "ltv_cac_calculation",
+      "model_answer": "**Recognise the question type:** This is a self-funding question (LTV = CAC), NOT a 3:1 LTV/CAC investor question. To be self-funding, LTV needs to at least equal CAC.\n\n**Step 1 — Add monthly channel and CGM costs:** Google SEM ($123,801) + Facebook Ads ($51,121) + financial incentives in CGM ($15,341) = **$190,263**.\n\n**Step 2 — Convert per-customer conversion cost to monthly total:** $37.9 is per customer, so multiply by customers acquired: 1,451 × $37.9 ≈ **$54,993**.\n\n**Step 3 — Total acquisition cost for January:** $190,263 + $54,993 ≈ **$245,256**.\n\n**Step 4 — Per-customer cost (= CAC):** $245,256 / 1,451 ≈ **$169** per customer.\n\n**Step 5 — Minimum LTV for self-funding:** LTV must equal CAC, so minimum LTV ≈ **169**.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Each student got slightly different parameter values, so don't worry if answers differ. Leeway built in — small rounding errors still earn the marks. Recognise this is a self-funding (LTV = CAC) question, not a 3:1 LTV/CAC investor question. Don't forget to convert the per-customer conversion cost into a monthly total before adding it in. Note: 2023 format used calculators; calculate manually using simple arithmetic for 2026 exam.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "self_funding_acquisition",
+        "cac_calculation",
+        "ltv_cac_threshold"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q6",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_multiplier",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "A product has a Direct, Financially-Incentivised CGM with a growth multiplier of 2.98.\n\nCalculate the cycle-to-cycle sign-up ratio for this mechanism. Give your answer to two decimal places.",
+      "question_type": "cgm_calculation",
+      "model_answer": "**Recall the formula:** GM = 1 / (1 − V), where V is the cycle-to-cycle sign-up ratio (viral coefficient). This question gives GM and asks for V — rearrange the formula.\n\n**Step 1 — Rearrange:** V = 1 − 1/GM.\n\n**Step 2 — Plug in GM = 2.98:** V = 1 − 1/2.98 = 1 − 0.3356 ≈ **0.66**.\n\nFinal answer: **0.66** (to two decimal places).",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Each student's paper had different parameter values. Just rearrange the formula correctly — straightforward arithmetic. Mark says: 'pretty simple mathematics for finalist students as long as we don't panic about the question.'",
+      "products_mentioned": [],
+      "related_concepts": [
+        "growth_multiplier",
+        "viral_coefficient",
+        "financially_incentivised_cgm"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q11",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "acquisition",
+      "subtopic": "channel_types",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing — original chart not imported.* The chart shows two lines on a logarithmic time axis (0 to 5 years): a CPA line (red) and an LTV/CAC line.\n\nWith reference to concepts from the course, interpret the CPA profile (red line) over time, identifying and explaining the three main phases.",
+      "question_type": "chart_analysis",
+      "model_answer": "**Three phases — one mark each — explain WHY each phase has its shape, not just describe it:**\n\n**Phase 1 (low and falling):** CPA starts relatively low and falls lower. The channel is new with limited competition, and the organisation is learning and optimising on it, driving cost-per-acquisition down.\n\n**Phase 2 (stable plateau):** CPA reaches a relatively stable, low level for a period. The organisation has done all the optimisation it reasonably can; competition hasn't yet ramped up, so CPA plateaus.\n\n**Phase 3 (rising sharply):** CPA begins to rise — gradually at first as competition arrives in the channel, then aggressively/exponentially as the channel saturates. More companies pile in, channel suppliers can charge more, and it becomes a runaway effect.\n\n(Reversing stages 2 and 3 in your description — plateau followed by steep rise — also earns full marks.)",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Common errors: (1) talking about CPA versus LTV/CAC — the question is about CPA only; (2) saying 'CPA starts higher than LTV/CAC then falls' — these are on different axes with different units (one is a ratio, one is a cost), so they CANNOT be compared quantitatively, only qualitatively in terms of how they're moving; (3) just describing the shape without explaining causes scores nothing. You MUST cover all three phases — focusing too much on one or two phases loses marks.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "cpa_lifecycle",
+        "channel_saturation",
+        "channel_optimisation"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q12",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "acquisition",
+      "subtopic": "ltv_cac_calculation",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing — original chart not imported. Same chart as Q11.*\n\nUsing the same graph as Q11, interpret the LTV/CAC line over time, identifying and explaining the three main phases with reference to course concepts.",
+      "question_type": "chart_analysis",
+      "model_answer": "**Setup:** LTV/CAC is a ratio — ask what's changing and why it would move. Numerator = LTV; denominator = CAC (of which CPA is one component).\n\n**Stage 1 (rising rapidly):** LTV/CAC rises rapidly, mirroring the INVERSE of CPA — because CPA is falling rapidly, the denominator gets smaller, so the ratio gets bigger.\n\n**Stage 2 (rising more slowly):** CPA is now relatively stable, but LTV/CAC continues to improve. This must be due to either (a) LTV increasing (numerator getting bigger) or (b) other components of CAC beyond channel cost getting smaller (e.g. better conversion of channel arrivals into customers), or both — credit either point.\n\n**Stage 3 (falling rapidly):** LTV/CAC falls rapidly. Even though LTV may still be improving and other CAC components may still be improving, the rise in CPA at this stage is so large that it dominates, making CAC bigger and bigger and ultimately bringing LTV/CAC down.\n\n**Summary:** CPA dominates at the start and end; in the middle, LTV improvements or other CAC improvements explain the continued rise.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Slightly harder than Q11 but you've been warmed up by it. The key insight is that you must EXPLAIN the middle phase by reference to LTV growth or non-channel CAC reductions, since CPA alone doesn't account for it. Same axis-comparison warning as Q11 applies.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "ltv_cac_lifecycle",
+        "ratio_dynamics",
+        "cac_components"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q13",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "anti_network_effects",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing.*\n\nWith reference to concepts studied in the course, explain possible ways in which Musk's decision (on returning as CEO of Twitter) to unban previously-banned users such as Donald Trump may affect Twitter's number of active users over time.",
+      "question_type": "scenario_application",
+      "model_answer": "**Three marks = at least three good points (more won't earn more — be concise). MUST cover BOTH positive and negative effects for full marks.**\n\n**Negative / anti-network-effect points:**\n\n**(1) User exodus:** Users may depart the platform because there's too much negative or inappropriate content, or because they're offended by the reputations of those who've returned — anti-network effect on users.\n\n**(2) Advertiser exodus:** The same point applies to advertisers leaving (Twitter's ad revenues fell dramatically since Musk's return — partly due to unbannings, partly to general chaos and layoff handling).\n\n**(3) Brand damage:** Anti-network effect on the brand.\n\n**Positive points (must consider these too):**\n\n**(4) Shareability of controversial content:** More controversial content is more shareable and more attractive to new users — we see this on Facebook where algorithms deliberately promote controversial content.\n\n**(5) High-follower-count return:** The unbanned users had very high follower counts and may have lost interest while away — bringing them back brings their audiences back / increases shareability.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "You MUST consider both the positive and negative effects to get full marks. Discussing only anti-network effects caps you below full marks. Reference course terminology (anti-network effects, shareability, network value).",
+      "products_mentioned": [
+        "Twitter"
+      ],
+      "related_concepts": [
+        "anti_network_effects",
+        "shareability",
+        "advertiser_revenue",
+        "brand_effects"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q14",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "ai_impact_on_cgms",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Mark count estimated (Mark didn't state it explicitly).*\n\nExplain how ChatGPT and similar products affect the dynamics and economics of content-driven indirect compounding growth mechanisms. Explain your answer.",
+      "question_type": "explanation_application",
+      "model_answer": "**Setup:** Two types of content-driven indirect CGM — user-generated (UGC) and company-generated (CG). The traditional bottleneck: CG content scales with employed writers, so it has a low ceiling; UGC scales with users.\n\n**Point 1 — Lowering CG content cost / raising scale:** ChatGPT and similar tools let a company produce far more content (potentially an order of magnitude more) with the same number of people. Effectively moves CG-content CGMs to behave like UGC-content CGMs in scaling — the company gets the scale and economics of UGC right from the start, without bootstrapping a small in-house writing team past the early stage.\n\n**Point 2 — Channel saturation risk:** If everybody adopts this, channels get flooded with content — a new type of saturation. Channels where written content is consumed may become less effective. Net effectiveness over time may be neutral once everyone is using LLMs.\n\n**Point 3 — Quality and trust risk:** LLM-generated content may be lower quality. Even as quality improves, if users perceive content is machine-generated they may be put off — there's a loss of human reader-writer relationship.\n\n**Point 4 — Strategic implication:** Content-CGM acquisition performance declines as channels saturate. Value of content shifts toward in-platform retention/awareness (Medium, LinkedIn) rather than acquisition. Companies must balance LLM-driven scale against quality control.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Identify at least 2 reasons and explain them properly, OR more reasons explained less deeply — both can earn full marks. Look at pros and cons. Some students answered about ChatGPT's marketing performance — the question is nothing to do with that and gets no marks.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "ai_impact",
+        "content_cgm",
+        "channel_saturation",
+        "in_platform_retention"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q15",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Mark count estimated (Mark didn't state it explicitly).*\n\nList each of the network effects and compounding growth mechanisms present in the growth model for TikTok. For each item, state its type and provide a brief description of its operation.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Each correctly named mechanism scores a mark, provided it's properly named with course terminology.**\n\n**Network effects:**\n\n**(1) One-sided network of users attracting users.**\n\n**(2) Multi-sided network of users, content providers and advertisers.** Can frame as two two-sided networks (users + advertisers; users/readers + content creators) — but framing as a single three-sided network shows more depth and earns more.\n\n**(3) Brand-scale network effect.** Recognition makes acquisition easier.\n\n**(4) Data-scale network effect.** TikTok is famous for these — its recommendation engine improves with more usage data.\n\n**(5) Purchasing-power scale effect.** TikTok can buy server/storage capacity at increasingly attractive prices at scale.\n\n**CGMs:**\n\n**(6) Indirect money-based CGM (advertisers).** Advertiser revenue funds more product investment.\n\n**(7) Indirect content-based CGM.** UGC shared off-platform brings new users back to TikTok.\n\n**(8) Direct invitational CGM (users inviting users).** Sub-divide by motive into:\n- **(9) Social-capital-based CGMs.**\n- **(10) Personal-utility CGMs** — you want your friends on the platform to share videos with.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "If you described mechanisms but didn't use the appropriate terminology you'd lose marks. Reaching for ChatGPT here gave you the wrong terminology AND attracted further markdown for using ChatGPT, so you scored less. Most people scored well on this question PROVIDED they had time to finish it.",
+      "products_mentioned": [
+        "TikTok"
+      ],
+      "related_concepts": [
+        "n_sided_network",
+        "data_network_effect",
+        "scale_network_effects",
+        "social_capital_cgm",
+        "personal_utility_cgm"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q16",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "activation_retention",
+      "subtopic": "metric_suitability",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Original chart not imported.*\n\nA product tracks performance using monthly active users (MAU) and monthly revenue. The MAU graph is stable for many months then suddenly falls, while the revenue graph declines roughly linearly over the same period.\n\n(a) Give an explanation for the performance experienced during this period, accounting for the difference between the revenue profile and the active-user profile.\n\n(b) Suggest a change to the metrics being used by the company that would improve its ability to track product market performance.",
+      "question_type": "metric_diagnosis",
+      "model_answer": "**Part (a) — Explanation (~2 marks):** This is a classic case of an active-user/retention metric using the WRONG measurement period. Users are reducing their engagement intensity over time — that's what's causing the steady decline in revenue. But this drop in intensity doesn't show up in the MAU count because of how the metric is defined: if you use a product 10 times a month and I use it once a month, MAU counts us both as active. The metric won't distinguish us, even though you're generating much more revenue (more purchases, more ad views). So as users drop their engagement intensity, MAU stays flat — until engagement falls below once-a-month and users stop showing up at all, at which point MAU falls suddenly off a cliff. The revenue graph reflected the true underlying decline all along.\n\n**Part (b) — Metric change (~1 mark):** Change the frequency of the active-users metric to weekly or daily — that would have tracked the revenue graph much more closely and surfaced the problem far earlier.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Roughly 2 marks for the explanation, 1 for the metric-change suggestion. Partial credit awarded for answers like 'users moved from a paid tier to an unpaid tier and then stopped using the product' — not as clean an explanation, but in the right ballpark.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "mau_dau_wau",
+        "engagement_intensity",
+        "retention_metric_suitability"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q17",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "n_sided_network",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Mark count estimated.*\n\nWith reference to concepts covered in the course, explain the effect that Twitter's feature — requiring users to open an article before sharing it with other users — may have on its user network size. Discuss at least two aspects, with relevant course concepts accurately stated, for full marks.",
+      "question_type": "scenario_application",
+      "model_answer": "**Approach:** Pros-and-cons answer. Don't have to be 'right' about what actually happened — put correct course concepts into play.\n\n**Positive (pro) side:**\n\n**(1) Retention benefit — content quality:** If users must engage with content before sharing, the content circulating on average is higher quality (because users have actually checked it out and decided to share). Higher-quality circulating content has a positive retention effect — users stay engaged with the platform.\n\n**(2) Acquisition benefit — quality halo:** When users share that higher-quality content externally, new users are attracted to a network associated with quality content. Reference: brand/trust, network effects on retention, retention-loop mechanisms, content-based CGMs.\n\n**Negative (con) side:**\n\n**(3) Friction effect:** Users perceive more friction before sharing, so they're less likely to bother sharing — slows network growth.\n\n**(4) Retention loops weaker:** Less sharing → retention loops become less effective.\n\n**(5) Engagement intensity drop:** Added friction may make users decide the platform is no longer as valuable, so they engage less; reduced engagement intensity may eventually lead to a reduction in active users.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "1 mark for description, 1 for explanation, 1 for properly referencing the terminology behind these concepts. Discuss two aspects (e.g. one positive, one negative) for full marks. Use course terminology accurately.",
+      "products_mentioned": [
+        "Twitter"
+      ],
+      "related_concepts": [
+        "friction",
+        "retention_loops",
+        "content_quality",
+        "engagement_intensity"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q18",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "business_model_channel_fit",
+      "difficulty": "hard",
+      "marks": 5,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Mark count estimated.*\n\nA CRM software vendor focuses on large-scale enterprise customers and uses a sales team combined with extensive advertising at conferences. After several years, in response to slowing global sales, the CEO decides to launch a new freemium version of the product aimed at smaller businesses. With reference to concepts studied in the course, comment on this decision and explain what factors the company should consider when developing a growth plan.",
+      "question_type": "scenario_application",
+      "model_answer": "**Frame using lecture 1 strategy and the Four-Fits model:**\n\n**Recognise the strategic move (~1 mark):** The basic startup strategy is find product-market fit, then grow that market as far as you can, then — as growth tops out — move into a new adjacency (new product category, new geography, new customer category) and find product-market fit there. The company is approaching saturation in its current market and is sensibly moving into a new adjacency.\n\n**Then structure the rest using the Four-Fits model:**\n\n**(1) Product-Market Fit (~1 mark):** Will the existing product be relevant to smaller businesses? May need feature changes / simplification.\n\n**(2) Business Model–Market Fit (~1 mark):** Freemium changes how much revenue is earned per customer. Are there enough smaller businesses willing to pay enough to meet the company's revenue goals?\n\n**(3) Business Model–Channel Fit (~1 mark):** Freemium implies selling online without sales people. Can the company afford to keep using sales people to convert smaller, lower-revenue customers? The channel mix needs to change.\n\n**(4) Product-Channel Fit (~1 mark):** Previous channels (sales team, conference advertising) may not be appropriate for the smaller-business customer set — the channel mix needs revisiting (likely more self-service, content marketing, etc.).",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Some students wrote at length about freemium models (pricing tiers, conversion between tiers etc.) — that's literally correct but the course doesn't focus on it; it'll get some credit but far less than answers using the Four-Fits model and market-adjacency concepts. The phrase 'with reference to concepts studied in the course' is a clue. ChatGPT-generated answers tend to focus on freemium mechanics and score lower for the same reason.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "four_fits",
+        "market_adjacency",
+        "business_model_channel_fit",
+        "product_channel_fit",
+        "freemium_strategy"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2023_q19",
+      "source": "paper_2023",
+      "source_label": "2023 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 8,
+      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Total mark count estimated; Mark explicitly states sub-section marks: (b) 4 marks; (c) up to 2 marks; (d) is the largest section.*\n\nUsing specific concepts and techniques studied during the course, describe a suitable growth model for a metaverse-style product. Structure your answer under the following headings:\n\n(a) acquisition strategy & channel approach;\n(b) activation & retention (4 marks);\n(c) monetization model (up to 2 marks);\n(d) compounding growth mechanisms, network effects, bootstrapping & anti-network effects (largest mark allocation).",
+      "question_type": "growth_model_design",
+      "model_answer": "**Largest question on the paper — apply everything we've covered to the metaverse domain.**\n\n**(a) Acquisition strategy & channel approach:** Use the Four-Fits model to plan a balanced channel mix (linear channels + CGMs) for reaching metaverse-style customers. Discuss dynamics — e.g. running channels at a loss initially to bootstrap the network, then transitioning to CGM-based channels later.\n\n**(b) Activation & retention (4 marks):** Activation — invoke the activation model and the activation inequality; arrange the on-boarding process accordingly (let users quickly create a generic avatar/habitat and try out most features before being asked for more information). Retention — features that increase engagement intensity and bring users back; engagement frequency, real frequency. Crucial: contextualise to the actual product — don't just regurgitate slides.\n\n**(c) Monetization (up to 2 marks):** Virtual currency in the game; subscription model; in-game purchases; advertisers paying for real estate inside the virtual world. Each valid item earns a mark up to 2.\n\n**(d) CGMs / network effects / bootstrapping / anti-network effects:**\n- Network effects: building a one-sided users-attract-users network first, then growing to add advertisers and content creators (multi-sided); reaching scale where scale-based effects (brand, data, purchasing-power) kick in.\n- CGMs: direct invitational CGM (inviting users to interact with you inside the virtual world — personal-utility plus social-capital), and a financially-incentivised CGM rewarding virtual game currency (ties into monetization).\n- Bootstrapping: focus on the hard side of the network. You must identify who the hard side is (could be a subset of users, could be content creators) — there isn't a single 'right' answer; demonstrate intelligent thinking. Atomic-network approach also valid — growing constituencies in one interest group, then expanding.\n- Anti-network effects: squarely social-media territory — trolling, fake news, online bullying — describe in course terms.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Per-section marks given in question. Answers must be contextualised to the actual metaverse domain — don't just recite generic concept notes. If you describe mechanisms but don't name the concept, you get half marks per answer. ChatGPT scores lower because it doesn't use course terminology. Many students were short on time at this point — short note-form answers still earned some marks. Mark advised students before the exam to do background research on metaverse-style products; later students should do the same before attempting.",
+      "products_mentioned": [
+        "metaverse_generic"
+      ],
+      "related_concepts": [
+        "four_fits",
+        "activation_inequality",
+        "engagement_intensity",
+        "n_sided_network",
+        "atomic_network",
+        "hard_side_seeding",
+        "anti_network_effects",
+        "monetization_models"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q2",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "acquisition",
+      "subtopic": "ltv_cac_calculation",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "A start-up records the following channel costs in a typical month:\n\n(1)   Cost of Google SEM:  €40000\n\n(2)   Cost of Facebook Ads:  €30000\n\nThe start-up also incurs additional costs each month to fully convert potential leads arriving on the above channels. It acquires, on average, 100 paying customers per month.\n\nThe start-up achieves an average customer Lifetime Value of €3000.\n\nIf the LTV:CAC ratio must satisfy the expectations of potential investors, calculate how much the start-up can afford to spend in total each month on converting channel leads into paying customers.\n\nIn your answer, ignore any other business overheads not listed above. Round your final answer to zero decimal places. Do NOT include a € sign in your answer.",
+      "question_type": "ltv_cac_calculation",
+      "model_answer": "**Step 1 — Identify the required LTV:CAC ratio:** The question says the ratio must satisfy the expectations of potential investors, so we know it has to be at least **3:1**.\n\n**Step 2 — Work backwards from LTV to allowable CAC:** With LTV of €3000 and a 3:1 ratio, the allowable CAC per customer is €3000 / 3 = **€1000 per customer**.\n\n**Step 3 — Calculate total allowable monthly spend:** Because there are 100 customers a month, total allowable monthly spend = 100 × €1000 = **€100,000**.\n\n**Step 4 — Subtract the channel costs already being spent:** Already spending €40,000 + €30,000 = €70,000 on channels. Headroom for conversion costs = €100,000 − €70,000 = **€30,000**.\n\nFinal answer: **30000**.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "2 marks total. Partial credit: if you calculate the per-customer CAC but forget to multiply by 100 customers, you would still get 1 of 2. Workflow Mark emphasises: (1) use LTV to derive total allowable CAC, (2) subtract the costs already given to find the headroom for conversion costs, (3) remember to multiply up to a monthly total.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "ltv_cac_threshold",
+        "channel_costs",
+        "conversion_costs",
+        "monthly_budget"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q7",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "activation_retention",
+      "subtopic": "engagement_intensity",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "BeReal is a social media app whose main feature is that users utilise the app to simultaneously take one photo of themselves and their environment at the same time of day every day, which are then uploaded to the BeReal social network. To encourage them to do so, users can only see the images posted by other users on that day if they first perform the above action.\n\nUsing specific concepts and techniques studied on this course, comment on the effectiveness of this approach from a retention perspective.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Habit formation positive (1 mark):** Doing something daily encourages habit formation, which is good for engagement and retention.\n\n**Point 2 — Low intensity for a social-media product (1 mark):** Single use per day is not particularly high intensity for a social-media app — although habit formation appears strong, the actual engagement intensity is relatively low for the social-media category, so it isn't a perfect model. (Credit also given for noting that users do spend additional time looking at other people's photos, which boosts intensity somewhat.)\n\n**Point 3 — Fixed time-of-day problem (1 mark, alternative to point 2 or 4):** A fixed time of day might not suit every user — they may not always be able to make the suggested time. So although habit formation seems healthy in principle (doing something every day), in practice the user might not be able to do it daily — an engagement-intensity issue.\n\n**Point 4 — Forced low-quality content (1 mark, alternative):** Daily forced postings create more content (good for content CGMs), but the content may be poor in quality because users sometimes do it reluctantly, which can hurt the experience for viewers.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "3 marks. Mark says the question was 'marked quite freely' on ideas revolving around these principles. The key thing he is looking for is awareness that this is fundamentally an engagement-intensity question and that there are pluses and minuses to the model. 1 mark for the habit-formation point, plus 1 mark for any 2 of the 3 follow-on points (low intensity / fixed time / forced low-quality content).",
+      "products_mentioned": [
+        "BeReal"
+      ],
+      "related_concepts": [
+        "habit_formation",
+        "engagement_intensity",
+        "natural_frequency",
+        "content_cgm_quality"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q10",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_multiplier",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "A start-up deploys a Personal Utility-based, Direct CGM with a growth multiplier of 2.0.\n\nIn a test, 2000 users obtained from linear marketing are used to seed the CGM, which runs through multiple cycles until exhaustion.\n\nCalculate how many additional users are obtained from completion of the first cycle of the CGM, i.e. with how many users does the second cycle commence? Assume there exists no noise or error rate in the data.\n\nGive your answer to zero decimal places.",
+      "question_type": "cgm_calculation",
+      "model_answer": "**Step 1 — Recall the growth-multiplier formula:** GM = 1 / (1 − v), where GM is the growth multiplier and v is the per-cycle viral coefficient (cycle-to-cycle sign-up ratio). We are given GM = 2.0 but not v — so the question requires us to rearrange.\n\n**Step 2 — Solve for v:** Rearranging gives v = 1 − 1/GM = 1 − 1/2 = **0.5**.\n\n**Step 3 — Apply v to the seed users to get cycle 2:** v expresses the ratio of cycle₂/cycle₁. So cycle₂ = v × cycle₁ = 0.5 × 2000 = **1000 users**.\n\nThe second cycle commences with **1000** additional users.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "2 marks. Mark frames this as the 'opposite' of the more common version of the calculation where v is given and GM has to be derived — here you must rearrange the formula. Useful mental model: row 1 of the typical CGM spreadsheet table is your seed (2000); the question asks for the starting value of row 2.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "growth_multiplier",
+        "viral_coefficient",
+        "cgm_cycles",
+        "personal_utility_cgm"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q12",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "n_sided_network",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "Uber has already established a very large network of riders and drivers worldwide. Explain how, despite Uber's dominant network, a start-up may still be able to attract participants away from Uber's network. In your answer, be sure to state the general strategic approach that should be employed by the start-up and also give specific examples of actions that could be taken.",
+      "question_type": "scenario_application",
+      "model_answer": "**General strategic point (1 mark) — Uber is a network of networks:** Uber is attackable because it isn't one huge homogeneous network — it's a network of networks (broadly, one per city). The network effects across the whole are weaker than its scale would imply, so the network can be undermined by attacking sub-parts. To get full marks, frame your answer around Uber being a network of networks and attackable on that basis.\n\n**Specific example 1 (1 mark) — City-by-city focus:** A start-up could focus on one city and be more attuned to local needs (driver hiring practices, local regulations, payment methods, etc.). Hard for a global incumbent to do well at every locality.\n\n**Specific example 2 (1 mark) — Niche category:** Target one category of users — e.g. luxury cars (Uber's equivalent is 'Uber Black'). Building a superior niche service for one segment is easier than competing across the whole.\n\n**Alternative example — Hard-side attack:** Attack the hard side of the network — the drivers — by giving them better terms (higher take-home, better tools, lower commission).",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "3 marks total. Mark is explicit: you must frame the answer around Uber being a network of networks to get full marks; just listing tactics without that framing won't reach the top. Specific examples must be tied to Uber, not generic. Examples that earn marks: city-by-city focus, niche category (luxury), or attacking the hard side (drivers) with better terms.",
+      "products_mentioned": [
+        "Uber"
+      ],
+      "related_concepts": [
+        "network_of_networks",
+        "sub_network_attack",
+        "hard_side_seeding",
+        "niche_targeting"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q13",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "List each of the network effects and compounding growth mechanisms present in the growth model for Instagram. For each item identified, clearly state its type and provide a brief description of its operation.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Marking framework:** 6 marks available. Instagram has more than 6 mechanisms, so listing any 6 — correctly named AND briefly described — earns full marks.\n\n**(1) Social Capital CGM (Direct):** Users post content to grow their social standing / following count. The desire for engagement and clout drives more posting and more inviting of friends.\n\n**(2) Organic CGM (Direct):** Word-of-mouth — users tell friends about the platform. Often runs in parallel to the social-capital CGM.\n\n**(3) Network effects — multi-sided (one-sided / two-sided / three-sided depending on framing):** Equivalent marks for: one-sided (users-to-users), two-sided (creators ↔ viewers), or three-sided (users / influencers / advertisers).\n\n**(4) Content-based indirect CGM:** User-generated content shared off-platform (Stories cross-posted, Reels shared elsewhere) drives discovery and re-engagement.\n\n**(5) Ad-space CGM:** The advertising side of the platform — advertiser revenue funds further investment in product, recommendation systems, content moderation, and acquisition.\n\n**(6) Scale-based network effects:** Classic network value increasing with users, plus data scale (more users → better recommendations) and brand scale.\n\nListing any 6 of these with type clearly named and a brief description gets full marks.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "6 marks. Common ways students lost marks: (a) not naming the CGMs/effects properly, (b) naming them but not describing them — making it hard for the marker to tell whether the student is just listing every CGM they've ever heard of versus actually applying them to Instagram. Each item must be applied to Instagram. Mark notes that students were forewarned by email before the exam that Instagram would feature, so they should have prepared its growth model specifically.",
+      "products_mentioned": [
+        "Instagram"
+      ],
+      "related_concepts": [
+        "social_capital_cgm",
+        "organic_cgm",
+        "n_sided_network",
+        "content_cgm",
+        "ad_space_cgm",
+        "scale_network_effects"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q15",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "network_effects_atomic_sparse",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "At the launch of Meta's Threads product (Meta's competitor to Twitter/X), the company actively encouraged Instagram users to try Threads, and removed friction from the sign-up process by sharing Instagram accounts across both products. Although Instagram and Threads have different uses, Meta's decision effectively resulted in the network relationships between users in Instagram to be replicated in Threads.\n\nOn July 6 2023, when Threads was launched, 41.8 million daily active users were reported, which rose to 49.3 million on July 7. But by August 2023, Threads' user activity had decreased to 10.3 million daily active users, down over 79% since the peak, with users spending an average of 3 minutes per day on the platform. This is despite Meta employing intensive A/B testing and iteration to optimise the product's retention performance. Meanwhile, Twitter/X's daily active user count remained more or less constant over that period, with approximately 200 million daily active users, spending, on average, approximately 30 minutes on the platform per day.\n\nWith specific reference to relevant concepts studied on the course, provide a reasonable explanation for the user statistics experienced by Threads (and, where relevant, Twitter) over this period. Explain also what strategy the Threads growth team could employ to sustainably grow the daily active users figure again. Comment on how effective this is strategy is likely to be.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Initial boost via Instagram network reuse:** User numbers were initially boosted by reusing the Instagram network — very low friction sign-up. Same situation as the Google+ vs Facebook case study covered in class.\n\n**Point 2 (essentially required) — Sparse network in the new-product context:** The replicated network isn't dense with respect to Threads. People follow others on Instagram for certain reasons (visual content, lifestyle), but Twitter-style discourse is a different use case. Bringing those people over creates a sparse network in Threads — there isn't much content I want to follow because the people I follow on Instagram post for different reasons. This creates anti-network effects with respect to the relevant content type.\n\n**Point 3 — No pull for non-Meta users:** Users not on Instagram, or already on Twitter, have no reason to move to an empty network — there's no real pull beyond the initial onboarding trick.\n\n**Point 4 — Strategy: actively help users build relevant connections:** Encourage users to follow people aligned to their interests (similar to how Twitter's onboarding asks about interests to suggest follows).\n\n**Point 5 — Strategy: surface relevant content (Twitter/TikTok-style):** Recommend content the user might find interesting on a regular basis — they may then follow those creators.\n\n**Point 6 — Strategy: paid influencers:** Pay influencers appropriate to this application space to post on the platform, seeding the kind of content Threads wants.\n\n**Point 7 — Effectiveness commentary:** This will take a long time — effectively rebuilding the network from scratch. The initial onboarding trick doesn't really stick. May also not be effective because many target users have already had a bad first experience, and Twitter users have no compelling reason to move.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "6 marks. Mark says students get marks for any 6 of these points 'as long as point 2 is present' — i.e. the dense-vs-sparse network framing is essentially required. Recognising the parallel to the Google+ vs Facebook case study is the unlock.",
+      "products_mentioned": [
+        "Threads",
+        "Instagram",
+        "Twitter"
+      ],
+      "related_concepts": [
+        "sparse_network",
+        "atomic_network",
+        "anti_network_effects",
+        "network_density",
+        "google_plus_failure"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2024_q16",
+      "source": "paper_2024",
+      "source_label": "2024 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "data_network_effect",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "With reference to specific concepts covered on the course, explain why a video-sharing platform-based business that uses shorter-length video content may have an advantage as regards network effects over one that uses relatively long video content.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 (1 mark) — Identify the data-scale network effect:** Recognise this is a data-based network effect question. Shorter videos let the platform gather data about user preferences much more quickly (more videos watched per session = more signal per unit time).\n\n**Point 2 (1 mark) — Explain the mechanism:** Because data is gathered faster, the recommendation/personalisation engine improves faster. Better recommendations attract more users and retain existing ones, which generates more data — a reinforcing data-scale network effect. TikTok is the canonical example of this advantage.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "2 marks. Mark explicitly warns: 'A lot of people answered this question based on things that aren't to do with network effects, and therefore didn't get any marks for this question.' The question says 'with reference to specific concepts covered on the course' and 'as regards network effects' — answers about attention spans, mobile habits, etc. that don't tie back to network effects score zero. 1 mark for naming the concept (data-scale network effect), 1 mark for explaining the mechanism (faster preference-data gathering → faster content tuning).",
+      "products_mentioned": [
+        "TikTok"
+      ],
+      "related_concepts": [
+        "data_network_effect",
+        "scale_network_effects",
+        "recommendation_systems"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q1",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "acquisition",
+      "subtopic": "ltv_cac_calculation",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "A start-up records the following channel costs in a typical month:\n\n(1)   Cost of Google SEM:  €140000\n\n(2)   Cost of Facebook Ads:  €60000\n\nThe start-up also incurs additional costs each month to fully convert potential leads arriving on the above channels.\n\nThe start-up acquires, on average, 2000 paying customers per month.\n\nThe start-up achieves an average customer Lifetime Value of €600.\n\nIf the LTV:CAC ratio must satisfy the typical minimum requirements of potential investors, calculate how much the start-up can afford to spend, on average, per new customer each month on converting channel leads into paying customers.\n\nIn your answer, ignore any other business overheads not listed above. Round your final answer to zero decimal places. Do NOT include a € sign in your answer.",
+      "question_type": "ltv_cac_calculation",
+      "model_answer": "**Step 1 — Identify the LTV:CAC threshold:** 'Must satisfy the typical minimum requirements of potential investors' means LTV:CAC must be at least **3:1**.\n\n**Step 2 — Calculate the maximum allowable CAC:** With LTV €600, allowable CAC = €600 / 3 = **€200 per customer**.\n\n**Step 3 — Calculate the channel cost per customer:** Total channel costs = €140,000 + €60,000 = €200,000 per month. With 2,000 paying customers per month, channel cost per customer = €200,000 / 2,000 = **€100**.\n\n**Step 4 — Subtract to find the conversion-cost headroom per customer:** Allowable CAC (€200) − channel cost per customer (€100) = **€100** available to spend on converting channel leads into paying customers.\n\nFinal answer: **100**.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Mark stresses the 3:1 LTV:CAC investor minimum is the trigger phrase. Convert monthly aggregate channel costs into per-customer figures using the 2000 customers/month divisor. Final answer is €100 per customer (no € sign, zero decimal places).",
+      "products_mentioned": [],
+      "related_concepts": [
+        "ltv_cac_threshold",
+        "channel_costs",
+        "conversion_costs",
+        "per_customer_cost"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q2",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "acquisition",
+      "subtopic": "channel_types",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "Using concepts studied during the course, discuss the use of ChatGPT and similar tools based on Large Language Models (LLMs) as user acquisition channels. How will these affect the acquisition strategies used by start-ups, and how will they affect existing major digital acquisition channels? Include in your answer one specific technique start-ups could use to improve acquisition performance on LLM-based channels.",
+      "question_type": "explanation_application",
+      "model_answer": "**Part A — Effect on existing major digital acquisition channels (~3 marks):** We covered the age of super-aggregation in class. Dominant search channels like Google have become super-aggregators — the point of discovery for all information in a given domain — giving them enormous market power. They aggregate both supply (every product wants to be in their results and adapts its interface accordingly) and demand (marginal cost of adding users is near zero). LLMs threaten to disrupt this status quo because they are likely to become the new point of discovery, sitting one level above the existing super-aggregators. In other words, LLMs risk doing to Google what Google did to news sites and other websites — displacing them as the search/discovery interface. You can also note that Google is responding by adding an LLM layer above its search but hasn't yet figured out how to monetise that.\n\n**Part B — Effect on start-up acquisition strategies (~2 marks):** Start-ups need to recognise that for a period of time there will be a fragmentation of search channels — instead of just Google plus one or two others, multiple LLMs will compete to be the new point of discovery. Start-ups must decide which of those to be active on. The competition may temporarily drive advertising costs down, so start-ups can either reduce budgets or advertise more — but this is likely temporary until a new LLM super-aggregator emerges. They also need to recognise that existing SEO work won't transfer one-to-one: traditional Google SEO rewards inbound links, whereas being surfaced by LLMs depends on appearing in the sources/websites that LLMs are trained on.\n\n**Part C — Specific technique to improve LLM-channel acquisition (1 mark):** Ensure your product is mentioned and recommended in 'best of' guides and similar curated content that LLMs typically index / are trained on.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Common mistake: students saw 'LLM' and answered as if asked 'how can LLMs improve CGMs / content generation' — that is the wrong question and earned few marks. CGMs are NOT mentioned in the question. The question is about LLMs as ACQUISITION CHANNELS. Use course-specific terms: super-aggregation, point of discovery, fragmentation of channels, SEO transferability. ~3 marks for the channel-displacement discussion + ~3 marks split across strategy fragmentation and the specific technique.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "super_aggregation",
+        "point_of_discovery",
+        "channel_fragmentation",
+        "seo_transferability",
+        "llm_acquisition_channels"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q5",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "activation_retention",
+      "subtopic": "retention_cohort_chart",
+      "difficulty": "medium",
+      "marks": 5,
+      "question_text": "*⚠ This question originally included a cohort retention chart for a social-media product. The chart is not yet imported into the app — answer based on a typical social-media cohort curve: a steep drop during the activation phase (first ~4 weeks, falling from 100% to ~20%), then a slower decline to ~12% over 24 weeks.*\n\nThe following cohort activation and retention chart shows the average retention behaviour for a typical cohort of a social media product. Explain the general shape of the graph, and comment on the cohort retention performance of this product.",
+      "question_type": "chart_analysis",
+      "model_answer": "**Part 1 — Explain the shape (≈2 marks):** The graph falls quickly at first because more users are typically lost during the activation stage — before they have formed a habit around the product. The graph then falls less quickly because users who have formed a habit are less likely to stop using it, so the decay rate reduces. Over a 6-month period (roughly 24 weeks) most users are eventually lost from the product.\n\n**Part 2 — Comment using the social-media context (≈2 marks):** Crucially, the question tells us this is a social-media product. A typical well-performing social-media product would expect to see the chart level off around 60–70% active users after the activation period. This cohort is not turning that corner, so it is under-performing relative to a healthy social-media benchmark.\n\n**Part 3 — Comment on the long-tail retention performance (≈1 mark):** The ongoing retention performance continues to decline. It is not a catastrophic decline — it is slow and steady — but it will ultimately kill the business. There is, however, a reasonable amount of time to experiment and bring the curve up to level terms.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Common errors: (1) only answering one of the two sub-questions, or mixing them together and not fully addressing each; (2) merely DESCRIBING the graph ('retention falls rapidly, then slows') rather than EXPLAINING why it has that shape — description alone earns minimum credit. The marker would award some credit for description but not full marks. Always note the question is worth 5 marks and structure the answer in 5 distinct points. Don't ignore the 'social media' detail — nothing in an exam question is wasted; the 60-70% benchmark is specific to social media.",
+      "products_mentioned": [
+        "social_media_generic"
+      ],
+      "related_concepts": [
+        "cohort_retention_chart",
+        "activation_phase",
+        "retention_floor",
+        "social_media_benchmark"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q7",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "activation_retention",
+      "subtopic": "engagement_intensity",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "In the early days of Linked-In, the corporate social media platform would automatically mail users whenever anyone in a user's network changed any personal information, for example job title or profile picture. As the overall size of the Linked-In network grew, the company decided to discontinue this behaviour. Using concepts covered in the course, discuss why the company initially included the feature, and then later discontinued its use.",
+      "question_type": "scenario_application",
+      "model_answer": "**Part 1 — Why the feature was initially included (~1.5 marks):** In the early stage, this was an attempt to increase **engagement intensity** by increasing the **natural frequency** of the product. The emails would bring users back to LinkedIn, and while they were there they might explore further features, invite new users, etc.\n\n**Part 2 — Why it was later discontinued (~1.5 marks):** As the network grew, the feature resulted in too many emails, which would have amounted to **spam**. The frequency of emailing users to re-engage them began to exceed the sustainable natural frequency by too great a margin. This in turn could trigger **anti-network effects** — users associating LinkedIn with annoyance. Additionally, by then there were stronger re-engagement mechanisms available (content written by other users, job notifications, etc.), so the original feature was no longer needed.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "The phrase 'using concepts covered in the course' is critical — answers that don't reference course concepts score poorly or zero. Use the explicit terms: natural frequency, engagement intensity, spam (with some definition), inviting new users, anti-network effects, alternative re-engagement mechanisms. Hitting most of these terms gets full or near-full marks.",
+      "products_mentioned": [
+        "LinkedIn"
+      ],
+      "related_concepts": [
+        "engagement_intensity",
+        "natural_frequency",
+        "anti_network_effects",
+        "re_engagement_mechanisms"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q9",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "n_sided_network",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "Using network effects concepts studied during the course, state whether Bluesky will eventually have more active users than Twitter/X, and explain the reasons for your answer.",
+      "question_type": "scenario_application",
+      "model_answer": "**Setup:** A bare opinion earns no marks — you must explain. There is no right or wrong on the eventual outcome (Mark's own guess: no, it won't), so a reasoned answer either way scores full marks if it uses course concepts.\n\n**Sample points (covering both sides):**\n\n**(1) Asymmetry of network types:** Twitter is a multi-sided network, while Bluesky is not yet — note this structural asymmetry.\n\n**(2) Anti-network effects on Twitter:** Twitter currently has active anti-network effects: spam bots, growing distrust of the platform after the takeover, and politicisation. These drive users away and set up reinforcing anti-network effects — an opportunity for Bluesky.\n\n**(3) Bluesky's moderation tooling:** Bluesky has built moderation tools to suppress these anti-network effects, making it a more pleasant environment users can migrate to.\n\n**(4) Sparse network challenge:** Bluesky is initially a sparse network — it is hard to pull users away from Twitter to a less-dense network because network effects are weaker initially.\n\n**(5) Density-acceleration tools:** Bluesky has tried to accelerate network density using tools such as 'follow the people followed by the people you follow' and follow groups.\n\n**(6) Politicisation cuts both ways:** Bluesky is perceived as more left-wing, so right-wing users are unlikely to join, mirroring the inverse effect on Twitter. The polarising stance of Elon Musk creates positive network effects for some users and anti-network effects for others.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Must use network-effects concepts from the course — answers without them score poorly even if interesting. Either conclusion (will / won't overtake) is acceptable provided it is explained with course concepts. Students were notified a week before the exam that Bluesky would feature, so were expected to know the product. Key terms to deploy: multi-sided network, anti-network effects, network density, sparse network, hard-side seeding.",
+      "products_mentioned": [
+        "Bluesky",
+        "Twitter"
+      ],
+      "related_concepts": [
+        "n_sided_network",
+        "anti_network_effects",
+        "network_density",
+        "sparse_network",
+        "hard_side_seeding"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q10",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "n_sided_network",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Explain the concept of subnetwork attack and explain how Bluesky might employ this technique to attract users from Twitter/X to Bluesky.",
+      "question_type": "scenario_application",
+      "model_answer": "**Part 1 — Explanation of sub-network attack (≈2 marks):** A sub-network attack exploits the fact that many large networks are in fact networks of smaller networks. In such a situation, the network effects operating across the whole network aren't as powerful as the overall size would suggest — they are weaker within and across sub-networks. It is therefore possible for a start-up to target one or more of these sub-networks and build a superior product experience for users of that specific sub-network, which attracts them to join the new product's network.\n\n**Part 2 — Application to Bluesky vs Twitter/X (≈2 marks):** Twitter is essentially a network of smaller networks, and Bluesky has already had some success attacking the sub-network of users of a particular political persuasion (left-leaning users). Bluesky could continue that strategy for other sub-networks based on particular interest areas. It could also attract key influencers to Bluesky — a hard-side seeding approach — which would in turn attract other users.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Question splits as 2 + 2 marks (definition + application). Use precise course terminology: 'network of networks', weaker network effects within sub-networks, superior product experience for the targeted sub-network, hard-side seeding via influencers.",
+      "products_mentioned": [
+        "Bluesky",
+        "Twitter"
+      ],
+      "related_concepts": [
+        "sub_network_attack",
+        "network_of_networks",
+        "hard_side_seeding"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q11",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "n_sided_network",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "For the strategy that you proposed in the previous question, state how effective a strategy of subnetwork attack is likely to be in this case, and explain your answer.",
+      "question_type": "scenario_application",
+      "model_answer": "**Sample reasoned answer:** The strategy is likely only to be partially effective. Twitter is not a clean network of networks — it does have sub-networks to some extent, but users tend to exist in multiple sub-networks at the same time (news, politics, other interest areas), and the network does not have obvious segmentation in the way that, for example, a geographically segmented network like Uber does. Because of that overlap and lack of clean segmentation, sub-network attack is likely only partially effective.\n\n**Alternative valid answer:** If you argue instead that there is a fairly clean political segmentation that Bluesky can exploit and double down on, that is also a valid answer.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "DEPENDS ON Q10's answer — the marker reads this as a continuation of the strategy proposed in Q10. Don't just repeat what was already written. Need a fairly INSIGHTFUL analysis of why it would or wouldn't work — superficial 'I think this would be very effective' answers earn no marks. Demonstrate mastery of the course concepts (sub-network segmentation, overlap of users across sub-networks, geographical vs interest-based segmentation).",
+      "products_mentioned": [
+        "Bluesky",
+        "Twitter"
+      ],
+      "related_concepts": [
+        "sub_network_attack",
+        "sub_network_overlap",
+        "segmentation_quality"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "chains_with": [
+        "paper2025_q10"
+      ]
+    },
+    {
+      "id": "paper2025_q12",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_multiplier",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "A product has a Direct, Social Capital CGM with a cycle-to-cycle sign-up ratio V of 0.5. The growth team runs an experiment where the CGM is changed to a Direct, Financially-Incentivised CGM. In the experiment the referrer and the referred potential new user each receive €5 if the referred potential new user signs up for the start-up's product. When the CGM is initialised with a batch of users, the experiment results in 20% more sign-ups in each cycle of the CGM before it runs to exhaustion, compared to before the change.\n\nAssuming that the average LTV of users is €100, calculate whether this experiment should be fully implemented in the product.\n\nNOTE: Be sure to show your calculation steps.",
+      "question_type": "cgm_calculation",
+      "model_answer": "**Framing:** Both CGMs bring in new users (and thus revenue). The original has no marginal cost (no incentive). The new one brings in more users but incurs cost. Need to compare net revenue.\n\n**Step 1 — Original CGM growth multiplier:** With V = 0.5, GM = 1 / (1 − V) = 1 / 0.5 = **2**. So per starting user, **1 additional new user** is added.\n\n**Step 2 — New CGM's V:** 20% more sign-ups per cycle means V increases by 20%: V_new = 0.5 × 1.20 = **0.6**. (Common error: students added 0.2 to give 0.7 — that's an arithmetic mistake; partial credit still applied if subsequent logic was correct.)\n\n**Step 3 — New CGM growth multiplier:** GM_new = 1 / (1 − 0.6) = **2.5**. So per starting user, **1.5 new users** are added (vs 1 before).\n\n**Step 4 — Cost per new user:** Each new sign-up costs €5 (referrer) + €5 (referred) = **€10 per new user**. For 1.5 new users per starting user, cost = 1.5 × €10 = **€15**.\n\n**Step 5 — Revenue from new users:** New users generate 1.5 × LTV = 1.5 × €100 = **€150**.\n\n**Step 6 — Net earnings per starting user (new CGM):** €150 − €15 = **€135**.\n\n**Step 7 — Compare to original CGM:** Original brings 1 new user × €100 LTV − €0 cost = **€100 net** per starting user.\n\n**Step 8 — Decision:** €135 > €100, so the new CGM generates more net revenue. **The experiment should be fully implemented.**",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Must show working — partial credit follows the logic chain even if a step is wrong. Common arithmetic error: treating '20% more' as +0.2 to V rather than V × 1.2 (so 0.7 instead of 0.6) — still earns most marks if rest is correct. Equivalent approaches accepted: starting with 100 or 1000 users, expressing entirely in revenue terms from the start. Critically, must STATE A CONCLUSION at the end (implement / don't implement) — going through all the calculation but not committing to a position can lose the final mark. The question has appeared in near-identical form in past papers — past-paper practice strongly rewarded.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "growth_multiplier",
+        "viral_coefficient",
+        "social_capital_cgm",
+        "financially_incentivised_cgm",
+        "cgm_economics"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q13",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 8,
+      "question_text": "List each of the network effects and compounding growth mechanisms present in the growth model for AirBnB. For each item identified, clearly state its type and provide a brief description of its operation.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Approach:** Same exercise as the main coursework assignment — name the mechanism, state its type clearly, and give a brief description. There are more mechanisms available than there are marks (one mark per correctly identified, named, and described mechanism, up to 8 marks).\n\n**(1) Two-sided network effect — hosts ↔ guests:** Each side becomes more valuable to the other as it grows. More hosts → more places to stay → more guests; more guests → more demand → more hosts list properties.\n\n**(2) Data-scale network effect:** More bookings → better data → better matching, better pricing, better recommendations. The platform's quality improves with use.\n\n**(3) Purchasing-power scale effect:** Larger AirBnB → better unit economics on hosting, payments processing, customer support tooling, etc.\n\n**(4) Brand-scale network effect:** As the network grows, brand recognition makes it easier to acquire new hosts and guests.\n\n**(5) Incentivised CGM — host side:** Referral schemes that reward existing hosts for bringing in new hosts.\n\n**(6) Incentivised CGM — guest side:** Historically AirBnB ran referral credits on the user/guest side as well.\n\n**(7) Organic / social-capital CGM:** Guests share their AirBnB stays on social media, attracting other potential guests.\n\n**(8) Content-based indirect CGM:** Listings themselves are content; SEO drives discovery via search engines.\n\n(Mark indicates the slide showed additional mechanisms beyond what he listed verbally; any further valid mechanisms students named in their answer also scored marks, up to the 8-mark cap.)",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Students were notified a week before the exam that an Airbnb question would appear. The format mirrors the main course assignment closely. To get the mark for each item you must (a) name the mechanism, (b) state its type clearly, (c) give a brief description of operation. One mark per fully-described mechanism, capped at 8. Mark didn't enumerate every mechanism on his slide — students who identified additional valid mechanisms (e.g. other scale effects, anti-network effects, etc.) also earned marks.",
+      "products_mentioned": [
+        "AirBnB"
+      ],
+      "related_concepts": [
+        "n_sided_network",
+        "data_network_effect",
+        "scale_network_effects",
+        "incentivised_cgm",
+        "organic_cgm",
+        "content_cgm"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q14",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "organisation",
+      "subtopic": "agency",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "At one point in its history, Google's founders decided that each director in the business should have up to 100 people directly reporting to them (i.e. with no managers in between) in order to reduce layers of management within the business. This wasn't successful and the decision was later changed to reduce the number of people reporting to each manager. Analyse this situation in the context of the concept of Agency.",
+      "question_type": "scenario_application",
+      "model_answer": "**Approach:** Answer in terms of the components of Agency. Reasonable points of view either way score marks; the trick is to address each component explicitly.\n\n**Component 1 — Alignment:** It's difficult for team members to be aligned to the strategy because there's just one manager checking 100 people's work. (You could note it might be partially achievable using tooling — saying both earns marks here.)\n\n**Component 2 — Competence:** Places considerable strain on managers' competence. Suddenly they have 100 reports — an abrupt change; they may previously have managed 10, and they're unlikely to manage 100 effectively. It also requires individual team members to behave more autonomously because they don't have access to their manager. For some employees that works well; others struggle. It only works if people have been invested in to operate autonomously.\n\n**Component 3 — Ownership:** You can argue either direction. Mark's own take: ownership tends to INCREASE because the manager is too busy to own things themselves, so reports must own them. Alternative valid argument: ownership DECREASES because employees have to wait longer for permissions and decisions from the overloaded manager. Both accepted.\n\n**Component 4 — Access to Resources:** Difficult to access management expertise/time because managers are overloaded. But it may be EASIER to access resources in other ways — people who would once have been in entirely different teams are now in the same team, so it may be possible to work more easily with them without management barriers. Alternative view: harder to access other skills because no manager is available to direct you to them. Both accepted.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "If you don't know the components of agency you'll struggle — many students wrote a lot but without referencing the components and scored poorly. Use the components as the structure. Reasonable arguments either way score marks (Mark accepted contradictory positions on ownership and on resource-access). Outlandish, non-credible answers don't score; reasonable points within course concepts do.",
+      "products_mentioned": [
+        "Google"
+      ],
+      "related_concepts": [
+        "agency",
+        "alignment",
+        "competence",
+        "ownership",
+        "resource_access"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q15",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "investment",
+      "subtopic": "investment_stages",
+      "difficulty": "hard",
+      "marks": 5,
+      "question_text": "A founder decides to seek an investment in her start-up. The founder owns 100 million shares out of a total of 150 million total shares prior to the investment. A venture capital firm values the business at $10million prior to any new investment, and offers to a make investment of $5million. A competing investor instead values the business at $12million and offers to make an investment of $8million.\n\nThe founder decides to select the investment option with the most favourable outcome for her in terms of the percentage dilution of her shares. Calculate the percentage dilution of her shares after this investment. Express your answer as a fraction.\n\nYou must show your calculations and reasoning for full credit.",
+      "question_type": "investment_calculation",
+      "model_answer": "**Step 1 — Founder's pre-investment proportion:** Founder owns 100M / 150M = **2/3** of the company.\n\n**Step 2 — Investment Option A ($10M valuation, $5M investment):** Investor A's $5M against a $10M pre-money valuation buys 50% of the existing share base. New investor shares = 50% × 150M = 75M new shares, so total shares = 150M + 75M = **225M**. Founder still owns 100M, now of 225M = **4/9**.\n\n**Step 3 — Investment Option B ($12M valuation, $8M investment):** $8M against $12M pre-money = 66.6...% of the existing share base. New shares = 66.6% × 150M = 100M new shares, so total shares = 150M + 100M = **250M**. Founder still owns 100M, now of 250M = **2/5**.\n\n**Step 4 — Compare which is better from a dilution perspective:** 4/9 ≈ 0.444 is bigger than 2/5 = 0.4, so the founder retains more of the company under Option A. Founder chooses **Option A** on dilution grounds.\n\n**Step 5 — Calculate the percentage dilution under the chosen option:** Dilution = (original − new) / original = (2/3 − 4/9) / (2/3) = (6/9 − 4/9) / (6/9) = (2/9) / (6/9) = **1/3**.\n\nFinal answer: founder is diluted by **1/3** (one-third).",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "Same calculation appeared in each of the last two years' papers (with one investment instead of two — the only difference here is comparing two). Numbers are deliberately simple — some students panicked. Marks are awarded along the chain: pre-investment proportion, post-investment proportion under each option, comparison, dilution formula, final fraction. Partial credit is given even with arithmetic slips, as long as logic is followable. Final answer required AS A FRACTION = 1/3. Dilution formula: (original − new) / original.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "dilution",
+        "pre_money_valuation",
+        "post_money_valuation",
+        "share_calculation"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": ""
+    },
+    {
+      "id": "paper2025_q16",
+      "source": "paper_2025",
+      "source_label": "2025 SUGE Exam Paper",
+      "priority": "highest",
+      "topic": "investment",
+      "subtopic": "investment_stages",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Explain why the founder should have chosen the other investment, despite her chosen investment having the better percentage dilution outcome.",
+      "question_type": "explanation_application",
+      "model_answer": "**Two points to make (1 mark each):**\n\n**Point 1 — Larger absolute stake despite higher percentage dilution:** Although her share is diluted more in percentage terms under Option B, it is a smaller percentage of a LARGER overall company valuation. Specifically: 2/5 of (12M + 8M) = 2/5 of $20M = $8M (paper value) is bigger than 4/9 of (10M + 5M) = 4/9 of $15M ≈ $6.67M. So on paper she is more well off under Option B. (Caveat: she can't spend any of that until the company exits, but assuming a successful sale or IPO she's in a better position.)\n\n**Point 2 — More cash into the business:** The other investment brings more money into the business, so the company can do more things, or do them faster, and won't have to seek another investment as soon — avoiding more dilution later.",
+      "model_answer_source": "lecturer",
+      "marking_scheme_notes": "DEPENDS ON Q15 — this is a follow-up. To get full marks BOTH points must be present (one mark each: the post-money-stake comparison, and the more-money-into-the-business argument). The fact the question is worth 2 marks should signal there are two distinct points to make.",
+      "products_mentioned": [],
+      "related_concepts": [
+        "dilution",
+        "post_money_valuation",
+        "absolute_vs_percentage_stake",
+        "runway_extension"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "chains_with": [
+        "paper2025_q15"
+      ]
     }
   ]
 }

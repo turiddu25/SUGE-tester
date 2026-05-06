@@ -94,13 +94,39 @@ def select_exam_questions(seed: int | None = None) -> list[dict]:
         if not _trim_pass(strict=False):
             break
 
-    # Backfill if under 16 (rare).
+    # Chain integrity: a question that lists chains_with depends on its partner being
+    # presented first (e.g. paper2025_q11 references "the strategy you proposed in the
+    # previous question" — meaningless without paper2025_q10). Drop any chain-dependent
+    # question whose partner isn't picked; the backfill loop below will refill the slot.
+    by_id = {q["id"]: q for q in all_qs}
+    dropped_for_chain: set[str] = set()
+    for q in list(selected):
+        deps = q.get("chains_with") or []
+        if not deps:
+            continue
+        if any(d not in selected_ids for d in deps):
+            selected.remove(q)
+            selected_ids.discard(q["id"])
+            for picks in by_topic_selected.values():
+                if q in picks:
+                    picks.remove(q)
+            dropped_for_chain.add(q["id"])
+
+    # Backfill if under 16 (rare). Skip questions we just dropped for chain integrity
+    # so we don't immediately re-pick them and re-drop them.
     if len(selected) < TARGET_NUM_QUESTIONS:
-        remaining = [q for q in all_qs if q["id"] not in selected_ids]
+        remaining = [
+            q for q in all_qs
+            if q["id"] not in selected_ids and q["id"] not in dropped_for_chain
+        ]
         remaining.sort(key=lambda q: _sort_key_with_jitter(q, jitter))
         for q in remaining:
             if len(selected) >= TARGET_NUM_QUESTIONS:
                 break
+            # Don't pick a chain-dependent question whose partner isn't already in.
+            deps = q.get("chains_with") or []
+            if deps and any(d not in selected_ids for d in deps):
+                continue
             selected.append(q)
             selected_ids.add(q["id"])
 
