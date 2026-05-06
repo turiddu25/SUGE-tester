@@ -13,11 +13,31 @@
       "calculation_complexity": "Simple arithmetic only"
     },
     "topic_weights": {
-      "activation_retention": { "marks": 22, "percentage": 37, "priority": "HIGHEST" },
-      "compounding_growth": { "marks": 17, "percentage": 28, "priority": "HIGH" },
-      "acquisition": { "marks": 15, "percentage": 25, "priority": "MEDIUM" },
-      "organisation": { "marks": 4, "percentage": 7, "priority": "LOW" },
-      "investment": { "marks": 2, "percentage": 3, "priority": "LOW" }
+      "activation_retention": {
+        "marks": 22,
+        "percentage": 37,
+        "priority": "HIGHEST"
+      },
+      "compounding_growth": {
+        "marks": 17,
+        "percentage": 28,
+        "priority": "HIGH"
+      },
+      "acquisition": {
+        "marks": 15,
+        "percentage": 25,
+        "priority": "MEDIUM"
+      },
+      "organisation": {
+        "marks": 4,
+        "percentage": 7,
+        "priority": "LOW"
+      },
+      "investment": {
+        "marks": 2,
+        "percentage": 3,
+        "priority": "LOW"
+      }
     },
     "confirmed_exam_products": [
       "ChatGPT",
@@ -47,7 +67,12 @@
       "model_answer": "It is difficult to track because organic CGMs are word-of-mouth referrals — there is no invitation link or button to click on, so you cannot trace the referral back to its source (1 mark). One detection method: monitor for non-linear (exponential) rises in homepage traffic or app downloads that cannot be attributed to advertising or other linear marketing efforts; this likely indicates word-of-mouth referrals are operating (1 mark).",
       "marking_scheme_notes": "1 mark for explaining the lack of trackable invitation mechanism. 1 mark for a valid detection method (exponential homepage traffic without corresponding ad spend is the canonical example).",
       "products_mentioned": [],
-      "related_concepts": ["organic_cgm", "direct_cgm", "word_of_mouth", "linear_marketing"],
+      "related_concepts": [
+        "organic_cgm",
+        "direct_cgm",
+        "word_of_mouth",
+        "linear_marketing"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Two-part question — both parts must be answered."
     },
@@ -65,7 +90,13 @@
       "model_answer": "Operating a content CGM at higher than transaction frequency acts as an awareness/retention mechanism — you cannot make users buy more often, but you can keep reminding them the product exists between buying events (1 mark). Company-generated (CG) content is used initially because the company can decide to produce it, often when the user base is too small to generate enough user content, or when content quality must be controlled (1 mark). Transition to user-generated (UG) content later because UG content is more scalable — you only have so many staff or LLM resources, but a large user base can produce content at scale (1 mark).",
       "marking_scheme_notes": "1 mark for awareness/reminder rationale; 1 mark for why CG (control / early-stage / cannot get users to write yet); 1 mark for scalability rationale of UG.",
       "products_mentioned": [],
-      "related_concepts": ["indirect_cgm", "content_cgm", "company_generated_content", "user_generated_content", "awareness_mechanism"],
+      "related_concepts": [
+        "indirect_cgm",
+        "content_cgm",
+        "company_generated_content",
+        "user_generated_content",
+        "awareness_mechanism"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Two-part question. Common student error: answering only one part."
     },
@@ -84,7 +115,13 @@
       "model_answer_source": "lecturer",
       "marking_scheme_notes": "1 mark for explaining the sparse-network problem (low friction onboarding ≠ network density on the new product). 1 mark for a credible better approach (interest-based onboarding, recommended content/follows, paid influencers, or atomic-network-first growth). Source: 2024-05-08 revision lecture, Q15.",
       "products_mentioned": [],
-      "related_concepts": ["atomic_networks", "sparse_networks", "network_density", "google_plus_failure", "threads_failure"],
+      "related_concepts": [
+        "atomic_networks",
+        "sparse_networks",
+        "network_density",
+        "google_plus_failure",
+        "threads_failure"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Question signals 'network effect principles' explicitly — that's your starting point."
     },
@@ -102,7 +139,11 @@
       "model_answer": "Conway's Law — organisations ship their organisational structure into the products they build. When the team was unified, the product was consistent but lacked depth. When split into three siloed teams, the team boundaries became product seams, producing inconsistency across areas.",
       "marking_scheme_notes": "1 mark for identifying Conway's Law with brief justification (any words conveying that the product mirrors the org structure).",
       "products_mentioned": [],
-      "related_concepts": ["conways_law", "organisation_design", "team_structure"],
+      "related_concepts": [
+        "conways_law",
+        "organisation_design",
+        "team_structure"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Only 1 mark — keep answer concise. One sentence sufficient."
     },
@@ -120,7 +161,12 @@
       "model_answer": "Step 1 — Compute additional cost per customer: $1,200 / 100 = $12 (1 mark). Step 2 — Compute total CAC: $36 + $12 = $48 (1 mark). Step 3 — Compute LTV:CAC ratio: $24 / $48 = 0.5, i.e. 1:2 (1 mark). Comment: This ratio is well below the 3:1 healthy threshold, and CAC > LTV — the business loses money on every customer acquired. This is unsustainable as a long-term strategy. However, since this is an early-stage startup, it may be deliberate to (a) generate enough users for statistically valid experiments, (b) spike a CGM in its inertial phase, or (c) build atomic/critical-mass networks. Such an approach is acceptable only as a time-limited strategic investment with a clear endpoint (1 mark).",
       "marking_scheme_notes": "Marks for working: extracting per-customer additional cost, computing CAC, computing LTV:CAC. Final mark for nuanced commentary acknowledging both unsustainability AND strategic exception. Showing all working secures partial credit even if final number is wrong.",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac", "cac_calculation", "early_stage_economics", "cgm_seeding"],
+      "related_concepts": [
+        "ltv_cac",
+        "cac_calculation",
+        "early_stage_economics",
+        "cgm_seeding"
+      ],
       "is_calculation": true,
       "exam_technique_notes": "ALWAYS show working. Even if you make an arithmetic error, method marks are awarded. State the conclusion explicitly."
     },
@@ -138,8 +184,15 @@
       "model_answer": "**Explain the shape of the graph (1 mark):** The initial steep drop happens because users are lost during the activation stage, before they have formed a habit around the product. The curve then flattens because users who have formed a habit are less likely to stop using it, so the decay rate reduces. Over the ~6-month (24-week) period, most users are eventually lost.\n\n**Comment on the social-media context (1 mark):** A typical well-performing social media product would be expected to level off around 60–70% active users after the activation period. This product is levelling off at only ~20%, which is very poor for the category — activation is the primary problem and should be the first focus.\n\n**Comment on the long tail (1 mark):** The ongoing retention decline (~20% to ~12% over the next 20 weeks) is not catastrophic — it's slow and steady. Ultimately fatal, but with reasonable time to experiment and improve before it kills the business. So retention work is needed, but secondary to fixing activation.",
       "model_answer_source": "lecturer",
       "marking_scheme_notes": "Mark Logan: 'pay attention to the marks the question's worth' — this is a 3-mark question, so structure your answer in 3 distinct points. Common error: just describing the graph (no marks for that — the question asks why it looks that way). Common error: missing the social-media benchmark (~60–70%). Source: 2025-05-26 revision lecture, Q5.",
-      "products_mentioned": ["social_media_generic"],
-      "related_concepts": ["cohort_retention_chart", "activation_phase", "retention_floor", "social_media_benchmark"],
+      "products_mentioned": [
+        "social_media_generic"
+      ],
+      "related_concepts": [
+        "cohort_retention_chart",
+        "activation_phase",
+        "retention_floor",
+        "social_media_benchmark"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Pay attention to product type stated in the question — 'social media product' is a clue. Even if uncertain about the benchmark, take a punt: 'I think this is poor for social media' (50/50 to gain a mark, no mark deduction for being wrong)."
     },
@@ -157,8 +210,16 @@
       "model_answer": "**(1) Lowering the cost of content production (1 mark):** ChatGPT and similar LLMs make it far easier to produce a much greater volume of content with the same number of people — possibly by an order of magnitude. This effectively moves company-generated (CG) content CGMs to behave more like user-generated (UG) ones in terms of scalability. An organisation can therefore get the scale and economic benefits of a UG-content CGM from the start, without having to push through the inertial early phase using a small in-house writing team. Economically, fewer content writers are needed.\n\n**(2) Saturation risk on content channels (1 mark):** If everybody adopts this, the channels where written content is consumed will be flooded. The result is a new kind of saturation — too much material to read, too easy to post — which intensifies competition and may make these channels less effective. The net effect on content-CGM performance may, over time, be neutral once everyone is using LLMs.\n\n**(3) Quality and trust risk (1 mark):** LLM-generated content may be lower quality. Even as quality improves, if users perceive that they are reading machine-generated content they may be put off — there is a loss of the human reader-writer relationship that drives engagement with content CGMs.\n\n**(4) Strategic implication (1 mark):** Content-CGM acquisition performance declines as channels saturate. The value of content shifts toward in-platform retention/awareness (e.g. Medium, LinkedIn keep users engaged when content is being produced) rather than as an acquisition channel. Companies must balance LLM-driven scale against quality control to avoid alienating their audience.",
       "model_answer_source": "lecturer",
       "marking_scheme_notes": "Lecturer: 'identify at least 2 reasons and explain them properly to get full marks; or have more reasons and explain them less deeply'. Look at both pros and cons (dynamics AND economics). Source: 2023-06-06 PM revision lecture, Q14.",
-      "products_mentioned": ["ChatGPT"],
-      "related_concepts": ["ai_impact", "content_cgm", "search_to_answer", "ai_slop", "in_platform_retention"],
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "ai_impact",
+        "content_cgm",
+        "search_to_answer",
+        "ai_slop",
+        "in_platform_retention"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Note the word 'Explain' — give reasons, not just descriptions. ChatGPT is a confirmed exam product."
     },
@@ -176,12 +237,19 @@
       "model_answer": "**Network effects:**\n\n**(1) Multi-sided network — viewers ↔ content creators (1 mark):** Viewers are attracted by the volume and quality of short-form videos; creators are attracted by the size of the viewer audience. Each side strengthens the attraction of the other. *(This can alternatively be described as a 3-sided network including advertisers — viewers + creators + advertisers — which scores equivalently.)*\n\n**(2) Multi-sided network — viewers ↔ advertisers (1 mark):** Advertisers are attracted by audience size and the precision of TikTok's targeting; viewers tolerate ads as the price of free content. Strengthens with scale.\n\n**(3) Data-based scale network effect (1 mark):** More usage data → better recommendation algorithm (the For You feed) → more relevant content surfaced → higher engagement → more data. TikTok is particularly known for this effect — short-form videos let it learn user preferences faster than longer-content competitors.\n\n**(4) Brand and purchasing-power scale effects (1 mark):** As TikTok grows, brand recognition makes acquisition easier, and at very large scale TikTok purchases server, storage and bandwidth capacity at increasingly attractive unit prices.\n\n**Compounding growth mechanisms:**\n\n**(5) Indirect content-based CGM — user-generated (1 mark):** Users create short videos which are shared off-platform (Instagram, Twitter/X, WhatsApp, etc.) and bring new users into TikTok.\n\n**(6) Direct invitational CGM (1 mark):** Users directly invite friends to TikTok — driven by social-capital and personal-utility motives (you want your friends on the platform so you can share videos with them).\n\n**(7) Indirect money-based CGM — advertiser side (extra, for safety):** Advertiser revenue funds further investment in product, content moderation, recommendation systems and acquisition advertising — bringing in more users and more advertisers.",
       "model_answer_source": "lecturer_paraphrased",
       "marking_scheme_notes": "1 mark per correctly named AND briefly described mechanism, max 6. Lecturer: 'if you described mechanisms but you didn't use the appropriate terminology, you would be more likely to lose marks'. Lecturer warning: 'if you reached out for ChatGPT, you would probably find you had the wrong terminology' — use the course terminology. Source: 2023-06-06 PM revision lecture, Q15 (mechanism inventory verbatim from Mark Logan; one-sentence operational descriptions paraphrased to satisfy the 'brief description of its operation' requirement, since the lecturer named but did not describe each one in the walkthrough).",
-      "products_mentioned": ["TikTok"],
-      "related_concepts": ["network_effects", "cgms", "n_sided_network", "data_network_effect", "growth_model_construction"],
+      "products_mentioned": [
+        "TikTok"
+      ],
+      "related_concepts": [
+        "network_effects",
+        "cgms",
+        "n_sided_network",
+        "data_network_effect",
+        "growth_model_construction"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "6 marks → aim for 6 distinct mechanisms (or 7-8 to be safe). Name properly (e.g. '2-sided network' not just 'network effect') and describe the operation in context of the product."
     },
-
     {
       "id": "sample_q1",
       "source": "sample_questions",
@@ -196,7 +264,11 @@
       "model_answer": "(1) Intent-based channels: users are searching with intent to buy or otherwise complete an action (e.g. SEO, SEM). (2) Awareness-based channels: users do not have intent at the point where ads are presented (e.g. Facebook ads, TV). (3) Referral-based mechanisms: bring new users who have accepted invitations from other users or been indirectly referred to the product (CGMs).",
       "marking_scheme_notes": "1 mark per channel type correctly named and described.",
       "products_mentioned": [],
-      "related_concepts": ["intent_based", "awareness_based", "referral_based"],
+      "related_concepts": [
+        "intent_based",
+        "awareness_based",
+        "referral_based"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "3 marks = 3 points; 1 per channel."
     },
@@ -214,7 +286,10 @@
       "model_answer": "Awareness-based channels have the lowest conversion performance (1 mark). Intent and Referral-based mechanisms usually have relatively high conversion performance (1 mark). Referral-based conversion depends on factors such as referrer credibility and the configuration of the referral mechanism (e.g. perceived value of any financial incentive) (1 mark).",
       "marking_scheme_notes": "1 mark per substantive contrast point.",
       "products_mentioned": [],
-      "related_concepts": ["conversion_rates", "channel_performance"],
+      "related_concepts": [
+        "conversion_rates",
+        "channel_performance"
+      ],
       "is_calculation": false
     },
     {
@@ -231,7 +306,10 @@
       "model_answer": "Calculate LTV:CAC for each channel.\nGoogle SEM: CAC = ($154,000 + $8,000) / 1,155 = $140.25; LTV = $42 × 15 = $630; LTV:CAC = 630/140.25 = 4.5 (2 marks)\nFacebook Ads: CAC = ($32,000 + $14,000) / 45 = $1,022.22; LTV = $42 × 11 = $462; LTV:CAC = 462/1,022.22 = 0.45 (1 mark)\nAffiliate: CAC = ($85,000 + $12,000) / 480 = $202.08; LTV = $42 × 13 = $546; LTV:CAC = 546/202.08 = 2.7 (1 mark)\nGoogle SEM has the best performance due to highest LTV:CAC ratio (4.5) (1 mark). (No marks for stating answer without calculation.)",
       "marking_scheme_notes": "Marks for working out each channel's LTV:CAC + final ranking. Show working — no marks for naked answer.",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac", "channel_comparison"],
+      "related_concepts": [
+        "ltv_cac",
+        "channel_comparison"
+      ],
       "is_calculation": true
     },
     {
@@ -248,7 +326,11 @@
       "model_answer": "(1) What costs are included between the point of acquisition and the point of revenue generation? (1 mark). (2) Is the CAC segmented by channel and, if so, are we referring to a specific channel or blended-channel CAC? (1 mark). (3) Is the CAC segmented by customer type and, if so, are we referring to a specific customer type or blended-customer CAC? (1 mark). (4) What lifetime value is being used in the calculation, and what assumptions are being made regarding the average revenue per customer and retention period? What data supports those assumptions? (1 mark).",
       "marking_scheme_notes": "1 mark per substantive diligence question (any 4 of the canonical issues: cost coverage, channel segmentation, customer segmentation, LTV assumptions/retention period).",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac_pitfalls", "self_deception", "blended_metrics"],
+      "related_concepts": [
+        "ltv_cac_pitfalls",
+        "self_deception",
+        "blended_metrics"
+      ],
       "is_calculation": false
     },
     {
@@ -265,7 +347,11 @@
       "model_answer": "If CAC > LTV, the acquisition activity loses money on each customer, which is unsustainable (1 mark). LTV being equal to or slightly greater than CAC is insufficient because the business has many other overheads and fixed costs not included in CAC; a ratio of 3:1 or above generally enables profitability after accounting for these costs (1 mark).",
       "marking_scheme_notes": "1 mark for the unsustainability of CAC > LTV; 1 mark for the headroom-for-fixed-costs argument.",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac", "fixed_costs", "profitability"],
+      "related_concepts": [
+        "ltv_cac",
+        "fixed_costs",
+        "profitability"
+      ],
       "is_calculation": false
     },
     {
@@ -282,7 +368,12 @@
       "model_answer": "The Activation Inequality asserts that the value perceived by the user must be greater than the effort perceived to realise that value, otherwise the user will be lost before Stage 1 of Activation is completed (1 mark). Growth and design teams use it when considering, for example, the ordering of steps in the activation process and the amount of information requested from users before delivering value to them (1 mark).",
       "marking_scheme_notes": "1 mark for stating the inequality; 1 mark for at least one concrete application (step ordering / info-gathering reduction).",
       "products_mentioned": [],
-      "related_concepts": ["activation_inequality", "perceived_value", "perceived_effort", "onboarding"],
+      "related_concepts": [
+        "activation_inequality",
+        "perceived_value",
+        "perceived_effort",
+        "onboarding"
+      ],
       "is_calculation": false
     },
     {
@@ -299,7 +390,11 @@
       "model_answer": "Pros: likely drives a higher level of referral; users start the referral process before establishing a habit, so even those who do not activate still contribute to referrals. Cons: increases the friction of activation (violates Activation Inequality by adding effort before value), so likely reduces activation rate; delays providing value to the user, also damaging activation. (1 mark for any of these, up to a maximum of 2 marks.)",
       "marking_scheme_notes": "Up to 2 marks for substantive pros AND cons. A balanced answer covering both sides scores higher.",
       "products_mentioned": [],
-      "related_concepts": ["activation_workflow", "activation_inequality", "referral_in_activation"],
+      "related_concepts": [
+        "activation_workflow",
+        "activation_inequality",
+        "referral_in_activation"
+      ],
       "is_calculation": false
     },
     {
@@ -316,7 +411,11 @@
       "model_answer": "Activation performance for the product is improving over time across the cohort sequence (1 mark). A likely explanation is that the start-up is experimenting with activation workflow improvements (1 mark). In Cohorts 6 and 7, there is a new decline in ongoing retention performance (1 mark). This could have been caused by an experiment or feature introduction that has damaged retention — e.g. a recently shipped change to the core experience or a degraded onboarding step (1 mark).",
       "marking_scheme_notes": "Marks for: identifying improving activation, plausible explanation, identifying late-cohort retention regression, plausible cause for regression.",
       "products_mentioned": [],
-      "related_concepts": ["cohort_chart", "activation_improvement", "regression_diagnosis"],
+      "related_concepts": [
+        "cohort_chart",
+        "activation_improvement",
+        "regression_diagnosis"
+      ],
       "is_calculation": false
     },
     {
@@ -333,7 +432,12 @@
       "model_answer": "Structure: NaP, where N = number of times an action is performed, a = the name of the action, P = the period in which it is performed. The metric quantifies the intensity and frequency of an action that correlates most strongly with future user retention (2 marks for the structural points). Setting the metric: examine how actions at given frequencies and intensities correlate with future retention; the stronger the correlation, the better the candidate metric (1 mark). In early stages where there is insufficient traffic or time, choose a reasonable candidate and refine over time (1 mark).",
       "marking_scheme_notes": "2 marks for structure (NaP definition); 1 mark for correlation-based selection; 1 mark for early-stage refinement strategy.",
       "products_mentioned": [],
-      "related_concepts": ["nap_metric", "habit_metric", "active_user_definition", "correlation_analysis"],
+      "related_concepts": [
+        "nap_metric",
+        "habit_metric",
+        "active_user_definition",
+        "correlation_analysis"
+      ],
       "is_calculation": false
     },
     {
@@ -350,7 +454,12 @@
       "model_answer": "Transpose the absolute counts into a cohort percentage decay table (normalised to either previous month or base month) — this exposes patterns hidden in absolute numbers (1 mark). The decay table will show whether activation has worsened (e.g. one cohort with notably worse early retention) or whether ongoing retention has changed. If Cohort 7 (or the most recent) shows worse activation, this is most likely due to a recent change in the product's activation flow or marketing activities (1 mark). The team should: review all experiments, feature changes, and marketing activity changes introduced at that time, and determine whether a change needs rolling back; also check seasonal and external market factors (2 marks).",
       "marking_scheme_notes": "1 mark for normalisation strategy; 1 mark for diagnosing activation regression; 2 marks for action plan (experiment review + rollback + external factor check).",
       "products_mentioned": [],
-      "related_concepts": ["cohort_decay_table", "normalisation", "activation_regression", "experiment_rollback"],
+      "related_concepts": [
+        "cohort_decay_table",
+        "normalisation",
+        "activation_regression",
+        "experiment_rollback"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "Per Mark Logan: this question form is no longer used in exams since data downloads are not permitted. Useful for revision only."
     },
@@ -368,7 +477,11 @@
       "model_answer": "This is an inappropriate metric for most months of the year because tax products tend to be used yearly — both the period (28 days) and the number of uses (4) are too frequent in general (1 mark). However, during the tax-return season itself, this metric may be more appropriate as users genuinely review their details multiple times across a few weeks (1 mark).",
       "marking_scheme_notes": "1 mark for identifying the mismatch with annual usage; 1 mark for the seasonal nuance.",
       "products_mentioned": [],
-      "related_concepts": ["nap_metric", "natural_frequency", "seasonality"],
+      "related_concepts": [
+        "nap_metric",
+        "natural_frequency",
+        "seasonality"
+      ],
       "is_calculation": false
     },
     {
@@ -385,7 +498,12 @@
       "model_answer": "There are two main sub-types of Content-based indirect CGM: Company-Generated content (CG) and User-Generated content (UG) (1 mark). CG is easier to move through the inertial phase but harder to scale; UG has the opposite characteristics. Combining them in sequence — start with CG, then add UG — captures the advantages of both (1 mark).",
       "marking_scheme_notes": "1 mark for identifying both sub-types; 1 mark for the start-CG-then-UG rationale.",
       "products_mentioned": [],
-      "related_concepts": ["content_cgm", "company_generated", "user_generated", "cgm_lifecycle"],
+      "related_concepts": [
+        "content_cgm",
+        "company_generated",
+        "user_generated",
+        "cgm_lifecycle"
+      ],
       "is_calculation": false
     },
     {
@@ -402,7 +520,12 @@
       "model_answer": "Three sub-types exist: Personal Utility-based, Financial, and Social Capital-based (1 mark). A start-up where users experience significant benefit from the referral itself (in terms of subsequent product value, e.g. messaging apps) prefers a Personal Utility model (1 mark). The Financial sub-type is better when no such 'selfish benefit' exists. Social Capital effects often supplement the first two but can drive referral when no direct benefit exists and the business model cannot sustain a financial mechanism (1 mark).",
       "marking_scheme_notes": "Up to 3 marks for explaining the three sub-types and the criteria for choosing among them.",
       "products_mentioned": [],
-      "related_concepts": ["direct_cgm", "personal_utility", "financial_referral", "social_capital"],
+      "related_concepts": [
+        "direct_cgm",
+        "personal_utility",
+        "financial_referral",
+        "social_capital"
+      ],
       "is_calculation": false
     },
     {
@@ -419,7 +542,11 @@
       "model_answer": "Business-Model <-> Channel Fit requires that the cost of acquiring customers through a channel is sustainably supportable by the revenue earned from those customers. If a CGM's financial incentive is too large relative to LTV, this requirement is not met and the mechanism will ultimately lose the business money. Financial Asymmetry — where the perceived value of the incentive to the user can exceed the actual cost to the business (e.g. a free month of a subscription product) — helps make financial CGMs viable while preserving Business-Model <-> Channel Fit.",
       "marking_scheme_notes": "Marks for explaining the constraint (BM-channel fit) AND the lever (asymmetry) that allows financial incentives to remain affordable.",
       "products_mentioned": [],
-      "related_concepts": ["four_fits", "business_model_channel_fit", "financial_asymmetry"],
+      "related_concepts": [
+        "four_fits",
+        "business_model_channel_fit",
+        "financial_asymmetry"
+      ],
       "is_calculation": false
     },
     {
@@ -436,7 +563,12 @@
       "model_answer": "In the starvation phase, the number of potential new users reachable by the mechanism begins to saturate (1 mark). Maintaining the same strategy as in the growth phase yields diminishing results, as would increasing focus (1 mark). Better to redirect resources to either establishing a new mechanism, changing the market in which the mechanism operates, or another significant contextual change — i.e. reduce focus on this mechanism (1 mark).",
       "marking_scheme_notes": "1 mark for the saturation explanation; 1 mark for the diminishing-returns logic; 1 mark for the redirect action and rationale.",
       "products_mentioned": [],
-      "related_concepts": ["cgm_lifecycle", "starvation_phase", "saturation", "resource_allocation"],
+      "related_concepts": [
+        "cgm_lifecycle",
+        "starvation_phase",
+        "saturation",
+        "resource_allocation"
+      ],
       "is_calculation": false
     },
     {
@@ -452,8 +584,14 @@
       "question_type": "explanation_with_example",
       "model_answer": "In general network effects, the greater the participation in the network, the greater the value to its participants — which attracts further participants in a self-reinforcing loop (1 mark). In an n-sided network, there are n types of participant; one type acts as an attractor for other types (1 mark). Example: Facebook consists of users, advertisers, and content providers. The presence of users attracts content providers; content from those providers attracts additional users; both attract advertisers (1 mark).",
       "marking_scheme_notes": "1 mark for the basic network-effects concept; 1 mark for the n-sided structure; 1 mark for a valid example with explanation.",
-      "products_mentioned": ["Facebook"],
-      "related_concepts": ["n_sided_network", "network_effects", "metcalfes_law"],
+      "products_mentioned": [
+        "Facebook"
+      ],
+      "related_concepts": [
+        "n_sided_network",
+        "network_effects",
+        "metcalfes_law"
+      ],
       "is_calculation": false
     },
     {
@@ -470,7 +608,12 @@
       "model_answer": "Liquidity in a 2-sided network concerns ensuring sufficient and balanced supply and demand. In an early-stage network, there is usually a lack of both (1 mark for explaining the basic problem). Supply-side techniques: incentivise suppliers to join, compensate them for lack of earnings, actively recruit (1 mark for two examples). Demand-side techniques: drive referral mechanisms with incentives, unsustainable advertising, discounting (1 mark for two examples).",
       "marking_scheme_notes": "1 mark for the liquidity problem; 1 mark for two supply-side techniques; 1 mark for two demand-side techniques.",
       "products_mentioned": [],
-      "related_concepts": ["2_sided_network", "liquidity", "bootstrapping", "subsidies"],
+      "related_concepts": [
+        "2_sided_network",
+        "liquidity",
+        "bootstrapping",
+        "subsidies"
+      ],
       "is_calculation": false
     },
     {
@@ -487,7 +630,12 @@
       "model_answer": "The 2-sided network attracts more users to the demand-side because they are drawn by the available supply on the other side (1 mark). This means the demand-side CGM is acting upon a greater number of users in each iteration, generating more returns per cycle (1 mark). Network attraction also creates more impetus for referred users to join the product, since the perceived value of joining is higher when supply is plentiful (1 mark).",
       "marking_scheme_notes": "Marks for: (1) network attraction increases demand-side population; (2) more users in each CGM iteration → more output; (3) higher join intent for referees due to value of network.",
       "products_mentioned": [],
-      "related_concepts": ["network_effects", "cgms", "demand_side", "iteration_amplification"],
+      "related_concepts": [
+        "network_effects",
+        "cgms",
+        "demand_side",
+        "iteration_amplification"
+      ],
       "is_calculation": false
     },
     {
@@ -504,7 +652,11 @@
       "model_answer": "At the supply-side, participants are often in competition with each other; there is little or no incentive operating that would drive referral behaviour.",
       "marking_scheme_notes": "1 mark for the competition-disincentive explanation.",
       "products_mentioned": [],
-      "related_concepts": ["supply_side", "competition", "cgm_limitations"],
+      "related_concepts": [
+        "supply_side",
+        "competition",
+        "cgm_limitations"
+      ],
       "is_calculation": false
     },
     {
@@ -521,7 +673,12 @@
       "model_answer": "The Customer Journey requires multiple skillsets to work closely together AND requires the organisation to focus on this process continuously. This is harder if the organisation is structured around skill-based silos and does not routinely combine people from different skill-areas into teams (2 marks). Conway's Law: organisations tend to mirror their organisational structures in the products they build (1 mark). In this case, Conway's Law predicts that a purely functional hierarchy will create interfaces between teams that disrupt the requirement to work as a single integrated team on the Customer Journey (1 mark).",
       "marking_scheme_notes": "2 marks for the multi-skill / sustained-focus argument; 1 mark for stating Conway's Law; 1 mark for applying it to this scenario.",
       "products_mentioned": [],
-      "related_concepts": ["conways_law", "customer_journey", "functional_hierarchy", "cross_functional_teams"],
+      "related_concepts": [
+        "conways_law",
+        "customer_journey",
+        "functional_hierarchy",
+        "cross_functional_teams"
+      ],
       "is_calculation": false
     },
     {
@@ -538,7 +695,11 @@
       "model_answer": "Learning Metrics: express a measure of activity; therefore frequency-based. Vanity Metrics: typically simple accumulators with no relationship to frequency.",
       "marking_scheme_notes": "Marks for the activity/frequency vs accumulator distinction.",
       "products_mentioned": [],
-      "related_concepts": ["lean_startup", "vanity_metrics", "learning_metrics"],
+      "related_concepts": [
+        "lean_startup",
+        "vanity_metrics",
+        "learning_metrics"
+      ],
       "is_calculation": false
     },
     {
@@ -555,7 +716,12 @@
       "model_answer": "The business is slowing because decisions are being overly centralised at a scale where this model no longer fits (1 mark). Decision latency has increased, and decision intensity drops proportional to the SQUARE of decision latency, significantly reducing iteration speed (1 mark). This also affects employee morale and sense of agency, further reducing iteration speed; eventually the founders become overloaded, worsening the problem (1 mark).",
       "marking_scheme_notes": "1 mark for centralisation; 1 mark for decision latency / decision intensity; 1 mark for compounding effects (morale, overload).",
       "products_mentioned": [],
-      "related_concepts": ["decision_intensity", "decision_latency", "agency", "centralisation"],
+      "related_concepts": [
+        "decision_intensity",
+        "decision_latency",
+        "agency",
+        "centralisation"
+      ],
       "is_calculation": false
     },
     {
@@ -572,7 +738,10 @@
       "model_answer": "Push agency to the front-line of the business, as an organisational strategic goal. (Half mark for 'they should make less decisions themselves' or similar without naming the agency principle.)",
       "marking_scheme_notes": "1 mark for naming agency-pushing as the strategic answer; half-mark for the weaker formulation.",
       "products_mentioned": [],
-      "related_concepts": ["agency", "front_line_decision_making"],
+      "related_concepts": [
+        "agency",
+        "front_line_decision_making"
+      ],
       "is_calculation": false
     },
     {
@@ -589,10 +758,14 @@
       "model_answer": "These stages relate to different growth points in a start-up. Seed capital is typically less than $2 million, corresponding to the stage where the start-up is seeking product-market fit. Series A is typically awarded to drive growth and is of the order of $10 million. Series B ($30m+) and later stages are typically larger, to further drive growth.",
       "marking_scheme_notes": "Marks for distinguishing each stage by typical size and company stage.",
       "products_mentioned": [],
-      "related_concepts": ["seed", "series_a", "series_b", "investment_stages"],
+      "related_concepts": [
+        "seed",
+        "series_a",
+        "series_b",
+        "investment_stages"
+      ],
       "is_calculation": false
     },
-
     {
       "id": "further_q1",
       "source": "further_sample_questions",
@@ -606,8 +779,16 @@
       "question_type": "growth_model_inventory",
       "model_answer": "Up to 5 marks for any 5 of: (1) Aggregator Effect: Disney+ is the only streaming service where all Disney assets can be viewed, attracting Disney fans; the more content Disney creates, the stronger this effect. (2) Money-based CGM: subscription revenue → buy ads → sign-ups → subscription revenue, often spiked with extra paid-marketing spend to seed other CGMs. (3) Organic direct CGM: subscription revenue → fund new content → users watch and tell friends by word-of-mouth → some sign up. (4) Content-based indirect CGM: account sharing with up to 7 users (4 simultaneous devices) eventually creates pressure for some users to sign up for their own account. (5) Activation/Activation Inequality: free trial period demonstrates value before requiring payment. (6) Engagement Intensity: regular new content (movies, box sets), Group Watch feature, in-app recommendation engine, auto-start next episode, regular emails, multiple user profiles.",
       "marking_scheme_notes": "1 mark for each of any 5 distinct mechanisms (or similar). Listing 6+ provides safety margin.",
-      "products_mentioned": ["Disney_Plus"],
-      "related_concepts": ["growth_model_inventory", "aggregator", "cgms", "activation", "engagement"],
+      "products_mentioned": [
+        "Disney_Plus"
+      ],
+      "related_concepts": [
+        "growth_model_inventory",
+        "aggregator",
+        "cgms",
+        "activation",
+        "engagement"
+      ],
       "is_calculation": false,
       "exam_technique_notes": "5 marks → aim for 5+ mechanisms. Always name the mechanism type AND describe its operation in the product's context."
     },
@@ -624,8 +805,15 @@
       "question_type": "scenario_strategy",
       "model_answer": "Swipii should concentrate on one or two cities at a time. (1) Referral mechanisms work better with critical mass, which is more achievable when efforts are concentrated in one city (1 mark). (2) As a 2-sided network, it is easier to create an Atomic Network in a small area first; once it is proven, expansion is easier (1 mark). Credit also given for: focusing on one city makes it easier to learn and test user experience quickly to establish PMF in the new market.",
       "marking_scheme_notes": "1 mark for the referral/critical-mass argument; 1 mark for the atomic-network argument. Alternative: PMF/learning-speed argument also creditable.",
-      "products_mentioned": ["Swipii"],
-      "related_concepts": ["atomic_networks", "geo_concentration", "two_sided_network", "critical_mass"],
+      "products_mentioned": [
+        "Swipii"
+      ],
+      "related_concepts": [
+        "atomic_networks",
+        "geo_concentration",
+        "two_sided_network",
+        "critical_mass"
+      ],
       "is_calculation": false
     },
     {
@@ -642,7 +830,11 @@
       "model_answer": "6-month LTV = $300. Channel acquisition cost per customer = $80. Additional sales cost per customer = $120,000 / (12 × 1,500) = $6.67 per customer (1 mark). Total CAC = $80 + $6.67 = $86.67 (1 mark). LTV:CAC = 300 / 86.67 = 3.46 (1 mark). The ratio exceeds 3:1, meaning acquisition is profitable with headroom to cover other fixed costs. The acquisition strategy is sound (1 mark).",
       "marking_scheme_notes": "3 marks for the calculation chain; 1 mark for the soundness conclusion with reference to the 3:1 threshold.",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac", "cac_calculation", "annualised_costs"],
+      "related_concepts": [
+        "ltv_cac",
+        "cac_calculation",
+        "annualised_costs"
+      ],
       "is_calculation": true
     },
     {
@@ -659,7 +851,11 @@
       "model_answer": "Intent-based channels reach users who are already searching with intent to buy or complete an action; awareness-based channels reach users without current intent (1 mark). Awareness-based channels are still used because they build brand awareness and reduce the likelihood that users forget about the business — they also typically improve performance of intent-based channels by making the brand recognisable when users do search (1 mark).",
       "marking_scheme_notes": "1 mark for each part.",
       "products_mentioned": [],
-      "related_concepts": ["intent_based", "awareness_based", "brand_awareness"],
+      "related_concepts": [
+        "intent_based",
+        "awareness_based",
+        "brand_awareness"
+      ],
       "is_calculation": false
     },
     {
@@ -676,7 +872,11 @@
       "model_answer": "It is appropriate to do this for limited periods in order to generate users for the purposes of conducting statistically valid experiments or to 'spike' a CGM in its inertial phase.",
       "marking_scheme_notes": "1 mark for the time-limited strategic-investment rationale (experiments OR CGM spiking are both valid).",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac", "early_stage_economics", "cgm_seeding"],
+      "related_concepts": [
+        "ltv_cac",
+        "early_stage_economics",
+        "cgm_seeding"
+      ],
       "is_calculation": false
     },
     {
@@ -692,8 +892,16 @@
       "question_type": "explanation_with_examples",
       "model_answer": "At the start of a CGM's lifecycle, it is often more difficult to encourage users to refer other users and for users to act on invitations to sign-up — referrers are reluctant to recommend an unknown brand, invitees are reluctant to join a product with few members (1 mark). Example 1 — Uber: temporarily operated unsustainably (subsidising drivers, advertising spend) in new cities to build critical mass of supply and demand (1 mark). Example 2 — Electric scooter start-ups (e.g. Lime): geo-concentrated their entire fleet in one small area of a city, creating visible density and critical mass before expanding (1 mark).",
       "marking_scheme_notes": "1 mark for the inertial-phase explanation; 1 mark per valid concrete example using temporary unprofitability OR geo-concentration tactics.",
-      "products_mentioned": ["Uber", "Lime"],
-      "related_concepts": ["cgm_lifecycle", "inertial_phase", "geo_concentration", "subsidies"],
+      "products_mentioned": [
+        "Uber",
+        "Lime"
+      ],
+      "related_concepts": [
+        "cgm_lifecycle",
+        "inertial_phase",
+        "geo_concentration",
+        "subsidies"
+      ],
       "is_calculation": false
     },
     {
@@ -710,7 +918,11 @@
       "model_answer": "Generally the cohorts are improving over time, perhaps due to ongoing product improvement (1 mark). However, Cohort 4 is out of sequence — performing poorly during activation and partially recovering thereafter (1 mark). Possible explanation: a bug or other issue temporarily introduced into the activation flow during that period, or an external event (e.g. holiday, market event, outage) that distracted users or reduced product use; this is supported by the fact that later cohorts return to the improvement trend AND some Cohort 4 users move out of dormancy later (2 marks).",
       "marking_scheme_notes": "1 mark for general improvement; 1 mark for identifying the Cohort 4 anomaly; 2 marks for a plausible mechanism that explains BOTH the activation dip AND the eventual recovery / later cohort restoration.",
       "products_mentioned": [],
-      "related_concepts": ["cohort_analysis", "anomaly_diagnosis", "dormancy_recovery"],
+      "related_concepts": [
+        "cohort_analysis",
+        "anomaly_diagnosis",
+        "dormancy_recovery"
+      ],
       "is_calculation": false
     },
     {
@@ -727,7 +939,12 @@
       "model_answer": "This is a moving variable question. (1) As network effects strengthen, linear acquisition performance starts to improve due to those network effects — it becomes easier to attract new users (1 mark). (2) Eventually, as the market begins to saturate, acquisition performance stabilises and then drops over time (1 mark). I.e. an 'improve then diminish' pattern.",
       "marking_scheme_notes": "1 mark per phase of the moving variable (improvement then decline).",
       "products_mentioned": [],
-      "related_concepts": ["quantitative_growth_model", "moving_variables", "network_effects_amplification", "saturation"],
+      "related_concepts": [
+        "quantitative_growth_model",
+        "moving_variables",
+        "network_effects_amplification",
+        "saturation"
+      ],
       "is_calculation": false
     },
     {
@@ -744,7 +961,11 @@
       "model_answer": "Network effects and CGMs are not the same mechanism. (1) Network effects attract participants — but the attractor is not a referral mechanism (1 mark). (2) CGMs are referral-based mechanisms; they can be accelerated by network effects, can accelerate network effects, but can operate independently of network effects (1 mark for all of point 2).",
       "marking_scheme_notes": "1 mark for stating they are not the same; 1 mark for the mutual-amplification-yet-independence point.",
       "products_mentioned": [],
-      "related_concepts": ["network_effects", "cgms", "growth_mechanism_distinction"],
+      "related_concepts": [
+        "network_effects",
+        "cgms",
+        "growth_mechanism_distinction"
+      ],
       "is_calculation": false
     },
     {
@@ -761,10 +982,14 @@
       "model_answer": "The CEO may be correct, but it is more likely that there is a system-level problem caused by organisational growth. The CEO should first assess agency among front-line staff (1 mark for considering agency). Specifically check: (1) Is everyone clear about what their job is and what decisions they own? (2) Are people competent in their current roles, recognising that competence degrades with scale unless invested in? (3) Are people well-aligned to the strategy and goals of the business? (4) Do they have access to the skills and resources they need? (1 mark for exploring components of agency). She should next check the performance of key processes in the business, and whether they have degraded. Only if all of the above checks out well should she consider individual staff capability — some staff may have 'scaled out' and cannot operate well in a larger business (1 mark for general quality and depth).",
       "marking_scheme_notes": "1 mark for considering agency; 1 mark for exploring components of agency (any of competence/ownership/alignment/resources); 1 mark for general quality and depth, including the systems-before-individuals reasoning.",
       "products_mentioned": [],
-      "related_concepts": ["agency", "organisational_scaling", "systems_thinking", "scaled_out"],
+      "related_concepts": [
+        "agency",
+        "organisational_scaling",
+        "systems_thinking",
+        "scaled_out"
+      ],
       "is_calculation": false
     },
-
     {
       "id": "study_q1",
       "source": "study_notes_practice",
@@ -779,7 +1004,10 @@
       "model_answer": "(1) Green line — drops then levels off; users have formed habits and retention has stabilised; if most cohorts look like this, the business has PMF. (2) Yellow line — continues falling slowly; retention is not catastrophic but needs improvement; common in early-stage start-ups. (3) Red line — falls rapidly toward zero; the business is heading for failure unless retention is significantly improved.",
       "marking_scheme_notes": "1 mark per pattern correctly described and interpreted.",
       "products_mentioned": [],
-      "related_concepts": ["retention_cohort_chart", "pmf_signal"],
+      "related_concepts": [
+        "retention_cohort_chart",
+        "pmf_signal"
+      ],
       "is_calculation": false
     },
     {
@@ -796,7 +1024,11 @@
       "model_answer": "Structure: NaP — N = number of times an action is performed, a = the specific action, P = the time period in days (1 mark for structure). Rule 1: N should be greater than 1, because this gives a better signal-to-noise ratio and reduces false churn signals — if N=1, a single missed action would falsely flag a user as churning (1.5 marks). Rule 2: P should be greater than the typical usage cycle of the product. For example, if the product is used mainly on weekdays, P=1 day would create false churn signals on weekends (1.5 marks).",
       "marking_scheme_notes": "1 mark for structure; up to 1.5 marks per rule with explanation of why it matters.",
       "products_mentioned": [],
-      "related_concepts": ["nap_metric", "signal_to_noise", "usage_cycle"],
+      "related_concepts": [
+        "nap_metric",
+        "signal_to_noise",
+        "usage_cycle"
+      ],
       "is_calculation": false
     },
     {
@@ -813,7 +1045,11 @@
       "model_answer": "Inappropriate for most months because tax products are typically used yearly; both N=4 and P=28 days are far too frequent for natural usage frequency (1 mark). However, during tax-return season, the metric may be more appropriate as users may legitimately review tax details multiple times across a few weeks (1 mark).",
       "marking_scheme_notes": "1 mark for natural-frequency mismatch; 1 mark for seasonal appropriateness.",
       "products_mentioned": [],
-      "related_concepts": ["nap_metric", "natural_frequency", "seasonality"],
+      "related_concepts": [
+        "nap_metric",
+        "natural_frequency",
+        "seasonality"
+      ],
       "is_calculation": false
     },
     {
@@ -830,7 +1066,9 @@
       "model_answer": "Perceived Value > Perceived Effort. If the effort required to start using the product exceeds the value the user perceives, they will be lost before activating (1 mark). Growth teams use it to optimise the ordering of steps in activation and to minimise the amount of information requested before delivering value — value demonstration should come before heavy info gathering (1 mark).",
       "marking_scheme_notes": "1 mark for the inequality; 1 mark for at least one application.",
       "products_mentioned": [],
-      "related_concepts": ["activation_inequality"],
+      "related_concepts": [
+        "activation_inequality"
+      ],
       "is_calculation": false
     },
     {
@@ -847,7 +1085,10 @@
       "model_answer": "Pros: drives higher referral levels because every user goes through the referral step; even users who don't fully activate contribute referrals. Cons: increases friction (violates Activation Inequality by adding effort before value), reducing activation rate; delays providing value to the user, also damaging activation.",
       "marking_scheme_notes": "Up to 2 marks for substantive pros AND cons.",
       "products_mentioned": [],
-      "related_concepts": ["activation_workflow", "activation_inequality"],
+      "related_concepts": [
+        "activation_workflow",
+        "activation_inequality"
+      ],
       "is_calculation": false
     },
     {
@@ -861,11 +1102,15 @@
       "marks": 4,
       "question_text": "Seven sequential cohorts are shown. Cohorts 1-3 improve steadily. Cohort 4 performs badly during activation but then partially recovers. Cohorts 5-7 resume the improvement trend. Comment on the sequence and explain the Cohort 4 anomaly.",
       "question_type": "chart_analysis",
-      "model_answer": "(See further_q7 — same answer applies.)",
-      "marking_scheme_notes": "Same as further_q7.",
+      "model_answer": "Generally the cohorts are improving over time, perhaps due to ongoing product improvement (1 mark). However, Cohort 4 is out of sequence — performing poorly during activation and partially recovering thereafter (1 mark). Possible explanation: a bug or other issue temporarily introduced into the activation flow during that period, or an external event (e.g. holiday, market event, outage) that distracted users or reduced product use; this is supported by the fact that later cohorts return to the improvement trend AND some Cohort 4 users move out of dormancy later (2 marks).\n\n_(This study-notes question is identical to further_q7 from the Further Sample Exam Question 7. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for general improvement; 1 mark for identifying the Cohort 4 anomaly; 2 marks for a plausible mechanism that explains BOTH the activation dip AND the eventual recovery / later cohort restoration.\n\n(Cross-reference: this is the same question as further_q7.)",
       "products_mentioned": [],
-      "related_concepts": ["cohort_analysis", "anomaly_diagnosis"],
-      "is_calculation": false
+      "related_concepts": [
+        "cohort_analysis",
+        "anomaly_diagnosis"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q7",
@@ -881,7 +1126,11 @@
       "model_answer": "Power user: (6+)o28 — 6 or more orders every 28 days; deepest habit, most valuable. Core user: (4-5)o28 — meeting or slightly exceeding the retention threshold; healthy. Churn-risk: (<4)o28 — below threshold (1.5 marks for categorisation). When a user drops from Core to Churn-risk, trigger immediate intervention: targeted offers, push notifications, personalised recommendations, or discounts to re-engage them before they fully churn (1.5 marks for action).",
       "marking_scheme_notes": "1.5 marks for category boundaries; 1.5 marks for substantive intervention plan.",
       "products_mentioned": [],
-      "related_concepts": ["nap_metric", "user_categorisation", "churn_intervention"],
+      "related_concepts": [
+        "nap_metric",
+        "user_categorisation",
+        "churn_intervention"
+      ],
       "is_calculation": false
     },
     {
@@ -897,8 +1146,15 @@
       "question_type": "definition_with_examples",
       "model_answer": "Direct CGMs: users directly invite other users — currency = users themselves. Example: WhatsApp — users invite friends so they can message them (personal-utility direct CGM) (1.5 marks). Indirect CGMs: an intermediate currency (content or money) attracts new users; the user may not even be aware they are attracting new users. Example: Medium — users write articles that are shared via social media and discovered via SEO, attracting new readers (content-based indirect CGM) (1.5 marks).",
       "marking_scheme_notes": "1.5 marks per type with definition and product example.",
-      "products_mentioned": ["WhatsApp", "Medium"],
-      "related_concepts": ["direct_cgm", "indirect_cgm", "currency"],
+      "products_mentioned": [
+        "WhatsApp",
+        "Medium"
+      ],
+      "related_concepts": [
+        "direct_cgm",
+        "indirect_cgm",
+        "currency"
+      ],
       "is_calculation": false
     },
     {
@@ -912,11 +1168,18 @@
       "marks": 3,
       "question_text": "Explain what is meant by the Inertial Phase of a CGM. Provide one example from each of two separate businesses of approaches to overcome this inertia.",
       "question_type": "explanation_with_examples",
-      "model_answer": "(See further_q6 — same answer.)",
-      "marking_scheme_notes": "Same as further_q6.",
-      "products_mentioned": ["Uber", "Lime"],
-      "related_concepts": ["cgm_lifecycle", "inertial_phase"],
-      "is_calculation": false
+      "model_answer": "At the start of a CGM's lifecycle, it is often more difficult to encourage users to refer other users and for users to act on invitations to sign-up — referrers are reluctant to recommend an unknown brand, invitees are reluctant to join a product with few members (1 mark). Example 1 — Uber: temporarily operated unsustainably (subsidising drivers, advertising spend) in new cities to build critical mass of supply and demand (1 mark). Example 2 — Electric scooter start-ups (e.g. Lime): geo-concentrated their entire fleet in one small area of a city, creating visible density and critical mass before expanding (1 mark).\n\n_(This study-notes question is identical to further_q6 from the Further Sample Exam Question 6. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for the inertial-phase explanation; 1 mark per valid concrete example using temporary unprofitability OR geo-concentration tactics.\n\n(Cross-reference: this is the same question as further_q6.)",
+      "products_mentioned": [
+        "Uber",
+        "Lime"
+      ],
+      "related_concepts": [
+        "cgm_lifecycle",
+        "inertial_phase"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q10",
@@ -929,11 +1192,15 @@
       "marks": 2,
       "question_text": "Why do growth teams sometimes use company-generated and user-generated content-based CGMs in sequence?",
       "question_type": "explanation",
-      "model_answer": "(See sample_q12.)",
-      "marking_scheme_notes": "Same as sample_q12.",
+      "model_answer": "There are two main sub-types of Content-based indirect CGM: Company-Generated content (CG) and User-Generated content (UG) (1 mark). CG is easier to move through the inertial phase but harder to scale; UG has the opposite characteristics. Combining them in sequence — start with CG, then add UG — captures the advantages of both (1 mark).\n\n_(This study-notes question is identical to sample_q12 from the Sample Exam Question 12. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for identifying both sub-types; 1 mark for the start-CG-then-UG rationale.\n\n(Cross-reference: this is the same question as sample_q12.)",
       "products_mentioned": [],
-      "related_concepts": ["content_cgm", "cg_vs_ug"],
-      "is_calculation": false
+      "related_concepts": [
+        "content_cgm",
+        "cg_vs_ug"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q11",
@@ -946,11 +1213,15 @@
       "marks": 2,
       "question_text": "Explain the relationship between network effects and CGMs.",
       "question_type": "concept_relationship",
-      "model_answer": "(See further_q9.)",
-      "marking_scheme_notes": "Same as further_q9.",
+      "model_answer": "Network effects and CGMs are not the same mechanism. (1) Network effects attract participants — but the attractor is not a referral mechanism (1 mark). (2) CGMs are referral-based mechanisms; they can be accelerated by network effects, can accelerate network effects, but can operate independently of network effects (1 mark for all of point 2).\n\n_(This study-notes question is identical to further_q9 from the Further Sample Exam Question 9. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for stating they are not the same; 1 mark for the mutual-amplification-yet-independence point.\n\n(Cross-reference: this is the same question as further_q9.)",
       "products_mentioned": [],
-      "related_concepts": ["network_effects", "cgms"],
-      "is_calculation": false
+      "related_concepts": [
+        "network_effects",
+        "cgms"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q12",
@@ -966,7 +1237,11 @@
       "model_answer": "GM = 1/(1-V). With V=0.52: GM = 1/(1-0.52) = 1/0.48 = 2.08 (1 mark). With V=0.58: GM = 1/(1-0.58) = 1/0.42 = 2.38 (1 mark). The improvement from 2.08 to 2.38 (~14% uplift in GM) results from only a 6 percentage-point increase in V — demonstrating compounding: small improvements in CGM conversion parameters amplify through the loop into disproportionately large gains (1 mark).",
       "marking_scheme_notes": "1 mark per GM calc; 1 mark for the compounding-significance commentary.",
       "products_mentioned": [],
-      "related_concepts": ["growth_multiplier", "cgm_quantitative_model", "compounding_effect"],
+      "related_concepts": [
+        "growth_multiplier",
+        "cgm_quantitative_model",
+        "compounding_effect"
+      ],
       "is_calculation": true
     },
     {
@@ -980,11 +1255,15 @@
       "marks": 2,
       "question_text": "A growth team constructs a quantitative model for an n-sided network-based trading platform. Explain what future trend you would incorporate for linear acquisition.",
       "question_type": "moving_variable",
-      "model_answer": "(See further_q8.)",
-      "marking_scheme_notes": "Same as further_q8.",
+      "model_answer": "This is a moving variable question. (1) As network effects strengthen, linear acquisition performance starts to improve due to those network effects — it becomes easier to attract new users (1 mark). (2) Eventually, as the market begins to saturate, acquisition performance stabilises and then drops over time (1 mark). I.e. an 'improve then diminish' pattern.\n\n_(This study-notes question is identical to further_q8 from the Further Sample Exam Question 8. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark per phase of the moving variable (improvement then decline).\n\n(Cross-reference: this is the same question as further_q8.)",
       "products_mentioned": [],
-      "related_concepts": ["moving_variables", "n_sided_network"],
-      "is_calculation": false
+      "related_concepts": [
+        "moving_variables",
+        "n_sided_network"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q14",
@@ -997,11 +1276,14 @@
       "marks": 3,
       "question_text": "Describe the three main types of acquisition channels.",
       "question_type": "definition_listing",
-      "model_answer": "(See sample_q1.)",
-      "marking_scheme_notes": "Same as sample_q1.",
+      "model_answer": "(1) Intent-based channels: users are searching with intent to buy or otherwise complete an action (e.g. SEO, SEM). (2) Awareness-based channels: users do not have intent at the point where ads are presented (e.g. Facebook ads, TV). (3) Referral-based mechanisms: bring new users who have accepted invitations from other users or been indirectly referred to the product (CGMs).\n\n_(This study-notes question is identical to sample_q1 from the Sample Exam Question 1. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark per channel type correctly named and described.\n\n(Cross-reference: this is the same question as sample_q1.)",
       "products_mentioned": [],
-      "related_concepts": ["channel_types"],
-      "is_calculation": false
+      "related_concepts": [
+        "channel_types"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q15",
@@ -1014,11 +1296,15 @@
       "marks": 2,
       "question_text": "Explain why intent-based channels usually exhibit a higher conversion rate than awareness-based channels. Why are awareness-based channels still used?",
       "question_type": "explanation_two_part",
-      "model_answer": "(See further_q4.)",
-      "marking_scheme_notes": "Same as further_q4.",
+      "model_answer": "Intent-based channels reach users who are already searching with intent to buy or complete an action; awareness-based channels reach users without current intent (1 mark). Awareness-based channels are still used because they build brand awareness and reduce the likelihood that users forget about the business — they also typically improve performance of intent-based channels by making the brand recognisable when users do search (1 mark).\n\n_(This study-notes question is identical to further_q4 from the Further Sample Exam Question 4. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for each part.\n\n(Cross-reference: this is the same question as further_q4.)",
       "products_mentioned": [],
-      "related_concepts": ["intent_based", "awareness_based"],
-      "is_calculation": false
+      "related_concepts": [
+        "intent_based",
+        "awareness_based"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q16",
@@ -1031,11 +1317,14 @@
       "marks": 4,
       "question_text": "A startup acquires 1500 customers/month at $80 CPA. Sales team costs $120,000/year. 6-month LTV is $300. Comment on the acquisition strategy.",
       "question_type": "calculation_with_commentary",
-      "model_answer": "(See further_q3.)",
-      "marking_scheme_notes": "Same as further_q3.",
+      "model_answer": "6-month LTV = $300. Channel acquisition cost per customer = $80. Additional sales cost per customer = $120,000 / (12 × 1,500) = $6.67 per customer (1 mark). Total CAC = $80 + $6.67 = $86.67 (1 mark). LTV:CAC = 300 / 86.67 = 3.46 (1 mark). The ratio exceeds 3:1, meaning acquisition is profitable with headroom to cover other fixed costs. The acquisition strategy is sound (1 mark).\n\n_(This study-notes question is identical to further_q3 from the Further Sample Exam Question 3. Same model answer applies.)_",
+      "marking_scheme_notes": "3 marks for the calculation chain; 1 mark for the soundness conclusion with reference to the 3:1 threshold.\n\n(Cross-reference: this is the same question as further_q3.)",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac"],
-      "is_calculation": true
+      "related_concepts": [
+        "ltv_cac"
+      ],
+      "is_calculation": true,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q17",
@@ -1048,11 +1337,14 @@
       "marks": 4,
       "question_text": "You join a startup as Growth Director. The team boasts about an LTV:CAC of 6:1. What four questions would you ask to determine the accuracy of this claim?",
       "question_type": "critical_questioning",
-      "model_answer": "(See sample_q4.)",
-      "marking_scheme_notes": "Same as sample_q4.",
+      "model_answer": "(1) What costs are included between the point of acquisition and the point of revenue generation? (1 mark). (2) Is the CAC segmented by channel and, if so, are we referring to a specific channel or blended-channel CAC? (1 mark). (3) Is the CAC segmented by customer type and, if so, are we referring to a specific customer type or blended-customer CAC? (1 mark). (4) What lifetime value is being used in the calculation, and what assumptions are being made regarding the average revenue per customer and retention period? What data supports those assumptions? (1 mark).\n\n_(This study-notes question is identical to sample_q4 from the Sample Exam Question 4. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark per substantive diligence question (any 4 of the canonical issues: cost coverage, channel segmentation, customer segmentation, LTV assumptions/retention period).\n\n(Cross-reference: this is the same question as sample_q4.)",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac_pitfalls"],
-      "is_calculation": false
+      "related_concepts": [
+        "ltv_cac_pitfalls"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q18",
@@ -1065,11 +1357,15 @@
       "marks": 1,
       "question_text": "In what circumstances is it appropriate to operate with CAC > LTV?",
       "question_type": "exception_explanation",
-      "model_answer": "(See further_q5.)",
-      "marking_scheme_notes": "Same as further_q5.",
+      "model_answer": "It is appropriate to do this for limited periods in order to generate users for the purposes of conducting statistically valid experiments or to 'spike' a CGM in its inertial phase.\n\n_(This study-notes question is identical to further_q5 from the Further Sample Exam Question 5. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for the time-limited strategic-investment rationale (experiments OR CGM spiking are both valid).\n\n(Cross-reference: this is the same question as further_q5.)",
       "products_mentioned": [],
-      "related_concepts": ["ltv_cac", "early_stage"],
-      "is_calculation": false
+      "related_concepts": [
+        "ltv_cac",
+        "early_stage"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q19",
@@ -1082,11 +1378,15 @@
       "marks": 3,
       "question_text": "Explain how a startup should manage liquidity in the earliest stages of a 2-sided network.",
       "question_type": "strategy_explanation",
-      "model_answer": "(See sample_q17.)",
-      "marking_scheme_notes": "Same as sample_q17.",
+      "model_answer": "Liquidity in a 2-sided network concerns ensuring sufficient and balanced supply and demand. In an early-stage network, there is usually a lack of both (1 mark for explaining the basic problem). Supply-side techniques: incentivise suppliers to join, compensate them for lack of earnings, actively recruit (1 mark for two examples). Demand-side techniques: drive referral mechanisms with incentives, unsustainable advertising, discounting (1 mark for two examples).\n\n_(This study-notes question is identical to sample_q17 from the Sample Exam Question 17. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for the liquidity problem; 1 mark for two supply-side techniques; 1 mark for two demand-side techniques.\n\n(Cross-reference: this is the same question as sample_q17.)",
       "products_mentioned": [],
-      "related_concepts": ["liquidity", "two_sided_network"],
-      "is_calculation": false
+      "related_concepts": [
+        "liquidity",
+        "two_sided_network"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q20",
@@ -1099,11 +1399,16 @@
       "marks": 3,
       "question_text": "Explain the operation of an n-sided network with an example.",
       "question_type": "explanation_with_example",
-      "model_answer": "(See sample_q16.)",
-      "marking_scheme_notes": "Same as sample_q16.",
-      "products_mentioned": ["Facebook"],
-      "related_concepts": ["n_sided_network"],
-      "is_calculation": false
+      "model_answer": "In general network effects, the greater the participation in the network, the greater the value to its participants — which attracts further participants in a self-reinforcing loop (1 mark). In an n-sided network, there are n types of participant; one type acts as an attractor for other types (1 mark). Example: Facebook consists of users, advertisers, and content providers. The presence of users attracts content providers; content from those providers attracts additional users; both attract advertisers (1 mark).\n\n_(This study-notes question is identical to sample_q16 from the Sample Exam Question 16. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for the basic network-effects concept; 1 mark for the n-sided structure; 1 mark for a valid example with explanation.\n\n(Cross-reference: this is the same question as sample_q16.)",
+      "products_mentioned": [
+        "Facebook"
+      ],
+      "related_concepts": [
+        "n_sided_network"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q21",
@@ -1116,11 +1421,17 @@
       "marks": 2,
       "question_text": "Swipii (a cashback app) is a two-sided network of shoppers and shops. When entering a new country, should they target shops across many cities or focus on one or two cities? Explain.",
       "question_type": "scenario_strategy",
-      "model_answer": "(See further_q2.)",
-      "marking_scheme_notes": "Same as further_q2.",
-      "products_mentioned": ["Swipii"],
-      "related_concepts": ["atomic_networks", "geo_concentration"],
-      "is_calculation": false
+      "model_answer": "Swipii should concentrate on one or two cities at a time. (1) Referral mechanisms work better with critical mass, which is more achievable when efforts are concentrated in one city (1 mark). (2) As a 2-sided network, it is easier to create an Atomic Network in a small area first; once it is proven, expansion is easier (1 mark). Credit also given for: focusing on one city makes it easier to learn and test user experience quickly to establish PMF in the new market.\n\n_(This study-notes question is identical to further_q2 from the Further Sample Exam Question 2. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for the referral/critical-mass argument; 1 mark for the atomic-network argument. Alternative: PMF/learning-speed argument also creditable.\n\n(Cross-reference: this is the same question as further_q2.)",
+      "products_mentioned": [
+        "Swipii"
+      ],
+      "related_concepts": [
+        "atomic_networks",
+        "geo_concentration"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q22",
@@ -1133,11 +1444,15 @@
       "marks": 1,
       "question_text": "Why do CGMs rarely work on the supply side of 2-sided networks?",
       "question_type": "explanation",
-      "model_answer": "(See sample_q19.)",
-      "marking_scheme_notes": "Same as sample_q19.",
+      "model_answer": "At the supply-side, participants are often in competition with each other; there is little or no incentive operating that would drive referral behaviour.\n\n_(This study-notes question is identical to sample_q19 from the Sample Exam Question 19. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for the competition-disincentive explanation.\n\n(Cross-reference: this is the same question as sample_q19.)",
       "products_mentioned": [],
-      "related_concepts": ["supply_side", "competition"],
-      "is_calculation": false
+      "related_concepts": [
+        "supply_side",
+        "competition"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q23",
@@ -1150,11 +1465,15 @@
       "marks": 3,
       "question_text": "A founding team of a small startup iterates rapidly by making all decisions. When the team grows to 40 people, iteration speed drops considerably despite working the same way. Explain the most probable cause.",
       "question_type": "diagnosis",
-      "model_answer": "(See sample_q22.)",
-      "marking_scheme_notes": "Same as sample_q22.",
+      "model_answer": "The business is slowing because decisions are being overly centralised at a scale where this model no longer fits (1 mark). Decision latency has increased, and decision intensity drops proportional to the SQUARE of decision latency, significantly reducing iteration speed (1 mark). This also affects employee morale and sense of agency, further reducing iteration speed; eventually the founders become overloaded, worsening the problem (1 mark).\n\n_(This study-notes question is identical to sample_q22 from the Sample Exam Question 22. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for centralisation; 1 mark for decision latency / decision intensity; 1 mark for compounding effects (morale, overload).\n\n(Cross-reference: this is the same question as sample_q22.)",
       "products_mentioned": [],
-      "related_concepts": ["decision_intensity", "centralisation"],
-      "is_calculation": false
+      "related_concepts": [
+        "decision_intensity",
+        "centralisation"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q24",
@@ -1167,11 +1486,15 @@
       "marks": 3,
       "question_text": "A founder-CEO laments that engineers are slower than when she and co-founders did all the work. She concludes the problem is hiring quality. Comment on her conclusion and suggest what she should check first.",
       "question_type": "diagnosis_recommendation",
-      "model_answer": "(See further_q10.)",
-      "marking_scheme_notes": "Same as further_q10.",
+      "model_answer": "The CEO may be correct, but it is more likely that there is a system-level problem caused by organisational growth. The CEO should first assess agency among front-line staff (1 mark for considering agency). Specifically check: (1) Is everyone clear about what their job is and what decisions they own? (2) Are people competent in their current roles, recognising that competence degrades with scale unless invested in? (3) Are people well-aligned to the strategy and goals of the business? (4) Do they have access to the skills and resources they need? (1 mark for exploring components of agency). She should next check the performance of key processes in the business, and whether they have degraded. Only if all of the above checks out well should she consider individual staff capability — some staff may have 'scaled out' and cannot operate well in a larger business (1 mark for general quality and depth).\n\n_(This study-notes question is identical to further_q10 from the Further Sample Exam Question 10. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for considering agency; 1 mark for exploring components of agency (any of competence/ownership/alignment/resources); 1 mark for general quality and depth, including the systems-before-individuals reasoning.\n\n(Cross-reference: this is the same question as further_q10.)",
       "products_mentioned": [],
-      "related_concepts": ["agency", "scaling_problems"],
-      "is_calculation": false
+      "related_concepts": [
+        "agency",
+        "scaling_problems"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q25",
@@ -1184,11 +1507,16 @@
       "marks": 5,
       "question_text": "Using your knowledge of Disney+, describe its growth model. Include at least four distinct mechanisms.",
       "question_type": "growth_model_inventory",
-      "model_answer": "(See further_q1.)",
-      "marking_scheme_notes": "Same as further_q1.",
-      "products_mentioned": ["Disney_Plus"],
-      "related_concepts": ["growth_model_inventory"],
-      "is_calculation": false
+      "model_answer": "Up to 5 marks for any 5 of: (1) Aggregator Effect: Disney+ is the only streaming service where all Disney assets can be viewed, attracting Disney fans; the more content Disney creates, the stronger this effect. (2) Money-based CGM: subscription revenue → buy ads → sign-ups → subscription revenue, often spiked with extra paid-marketing spend to seed other CGMs. (3) Organic direct CGM: subscription revenue → fund new content → users watch and tell friends by word-of-mouth → some sign up. (4) Content-based indirect CGM: account sharing with up to 7 users (4 simultaneous devices) eventually creates pressure for some users to sign up for their own account. (5) Activation/Activation Inequality: free trial period demonstrates value before requiring payment. (6) Engagement Intensity: regular new content (movies, box sets), Group Watch feature, in-app recommendation engine, auto-start next episode, regular emails, multiple user profiles.\n\n_(This study-notes question is identical to further_q1 from the Further Sample Exam Question 1. Same model answer applies.)_",
+      "marking_scheme_notes": "1 mark for each of any 5 distinct mechanisms (or similar). Listing 6+ provides safety margin.\n\n(Cross-reference: this is the same question as further_q1.)",
+      "products_mentioned": [
+        "Disney_Plus"
+      ],
+      "related_concepts": [
+        "growth_model_inventory"
+      ],
+      "is_calculation": false,
+      "model_answer_source": "lecturer_paraphrased"
     },
     {
       "id": "study_q26",
@@ -1203,8 +1531,14 @@
       "question_type": "explanation",
       "model_answer": "Linear marketing provides initial users to 'seed' CGMs — without it, CGMs have no users to operate upon. The analogy: linear marketing is the 'flame' that ignites compounding growth, or the 'principal' upon which compounding 'interest' is earned. Products with very strong organic word-of-mouth (e.g. early WhatsApp) generate enough organic referrals that no additional seeding is needed (1 mark). Most startups have CGMs that require initial user volume to achieve momentum, and organic word-of-mouth alone is insufficient. Hence most startups need linear marketing to reach the critical mass where CGMs begin to compound (1 mark).",
       "marking_scheme_notes": "1 mark for the seeding/flame/principal concept; 1 mark for why most startups still need linear marketing.",
-      "products_mentioned": ["WhatsApp"],
-      "related_concepts": ["linear_marketing", "cgm_seeding", "organic_word_of_mouth"],
+      "products_mentioned": [
+        "WhatsApp"
+      ],
+      "related_concepts": [
+        "linear_marketing",
+        "cgm_seeding",
+        "organic_word_of_mouth"
+      ],
       "is_calculation": false
     }
   ]
