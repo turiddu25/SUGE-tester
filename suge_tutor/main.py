@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -19,6 +20,9 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
 
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+# Cache-bust query string for our /static/* assets — bumps on every server restart
+# so a fresh `uvicorn` is enough to evict stale JS/CSS from the browser.
+templates.env.globals["STATIC_V"] = str(int(time.time()))
 
 
 @asynccontextmanager

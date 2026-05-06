@@ -32,7 +32,7 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="/static/css/overrides.css" />
+  <link rel="stylesheet" href="/static/css/overrides.css?v={{ STATIC_V }}" />
 </head>
 <body class="h-full bg-neutral-50 text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
   <header class="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
@@ -76,8 +76,8 @@
     Local revision app · COMPSCI4087 Startup Growth Engineering · press <kbd class="rounded bg-neutral-200 px-1 py-0.5 font-mono text-[10px] dark:bg-neutral-800">?</kbd> for shortcuts
   </footer>
 
-  <script src="/static/js/app.js"></script>
-  <script src="/static/js/shortcuts.js"></script>
+  <script src="/static/js/app.js?v={{ STATIC_V }}"></script>
+  <script src="/static/js/shortcuts.js?v={{ STATIC_V }}"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>
