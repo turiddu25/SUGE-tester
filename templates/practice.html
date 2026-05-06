@@ -199,13 +199,22 @@
   </div>
 
   {% if history %}
-  <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+  <div id="history-card" class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
     <div class="text-xs uppercase tracking-wide text-neutral-500">Your previous attempts</div>
-    <ul class="mt-2 space-y-1 text-sm">
+    <ul id="history-list" class="mt-2 space-y-1 text-sm">
       {% for a in history[:10] %}
-      <li class="flex items-center justify-between text-neutral-700">
+      <li id="attempt-row-{{ a.id }}" class="flex items-center justify-between gap-3 text-neutral-700 dark:text-neutral-300">
         <span class="font-mono text-xs text-neutral-400">{{ a.attempted_at[:19] }}</span>
-        <span>{% if a.marks_awarded is not none %}{{ "%.1f"|format(a.marks_awarded) }} / {{ a.marks_total }}{% else %}—{% endif %}</span>
+        <div class="flex items-center gap-3">
+          <span class="{% if a.marks_awarded is none %}text-rose-600 dark:text-rose-400{% endif %}">
+            {% if a.marks_awarded is not none %}{{ "%.1f"|format(a.marks_awarded) }} / {{ a.marks_total }}{% else %}— failed{% endif %}
+          </span>
+          {% if a.exam_session_id is none %}
+          <button type="button" @click="deleteAttempt({{ a.id }})"
+            class="rounded px-1.5 py-0.5 text-xs text-rose-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-900/30"
+            title="Delete this attempt">✕</button>
+          {% endif %}
+        </div>
       </li>
       {% endfor %}
     </ul>

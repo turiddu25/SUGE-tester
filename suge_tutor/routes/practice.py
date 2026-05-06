@@ -58,6 +58,14 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             },
         )
 
+    @app.delete("/api/attempts/{attempt_id}")
+    async def api_delete_attempt(attempt_id: int, request: Request):
+        user = users.current_user(request)
+        ok = db.delete_attempt(attempt_id, user_id=user["id"] if user else None)
+        if not ok:
+            raise HTTPException(status_code=404, detail="Attempt not found or not deletable")
+        return JSONResponse({"deleted": attempt_id})
+
     @app.post("/api/mark")
     async def api_mark(payload: MarkRequest, request: Request):
         question = db.get_question(payload.question_id)

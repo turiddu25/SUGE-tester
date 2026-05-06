@@ -18,6 +18,7 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
     ratedAtLabel: "",
     _timer: null,
     _start: 0,
+    _stopped: false,
 
     init() {
       this.renderedQuestion = window.renderMarkdown(questionMarkdown || "");
@@ -27,8 +28,17 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
     },
 
     tick() {
+      if (this._stopped) {
+        if (this._timer) { clearInterval(this._timer); this._timer = null; }
+        return;
+      }
       this.elapsedSeconds = Math.floor((Date.now() - this._start) / 1000);
       this.elapsedFormatted = window.formatSeconds(this.elapsedSeconds);
+    },
+
+    stopTimer() {
+      this._stopped = true;
+      if (this._timer) { clearInterval(this._timer); this._timer = null; }
     },
 
     formatNum(n) {
@@ -48,6 +58,23 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
       this.rawResponse = null;
       this.rated = false;
       this.ratedAtLabel = "";
+    },
+
+    async deleteAttempt(attemptId) {
+      if (!confirm("Delete this attempt? This cannot be undone.")) return;
+      try {
+        const resp = await fetch(`/api/attempts/${attemptId}`, { method: "DELETE" });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const li = document.getElementById(`attempt-row-${attemptId}`);
+        if (li) li.remove();
+        const list = document.getElementById("history-list");
+        if (list && list.children.length === 0) {
+          const card = document.getElementById("history-card");
+          if (card) card.remove();
+        }
+      } catch (e) {
+        alert("Delete failed: " + (e.message || e));
+      }
     },
 
     async rate(rating) {
@@ -76,7 +103,7 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
       this.loading = true;
       this.error = null;
       this.rawResponse = null;
-      if (this._timer) { clearInterval(this._timer); this._timer = null; }
+      this.stopTimer();
       try {
         const resp = await fetch("/api/mark", {
           method: "POST",

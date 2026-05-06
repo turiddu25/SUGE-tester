@@ -287,6 +287,19 @@ def list_attempts_for_question(qid: str, *, user_id: str | None = None) -> list[
     return [dict(r) for r in rows]
 
 
+def delete_attempt(attempt_id: int, *, user_id: str | None = None) -> bool:
+    """Delete a non-exam attempt. Only deletes if it belongs to user_id (when given)
+    and is not part of an exam session. Returns True if a row was deleted."""
+    sql = "DELETE FROM attempts WHERE id = ? AND exam_session_id IS NULL"
+    params: list[Any] = [attempt_id]
+    if user_id is not None:
+        sql += " AND user_id = ?"
+        params.append(user_id)
+    with db_cursor() as cur:
+        cur.execute(sql, params)
+        return cur.rowcount > 0
+
+
 def create_exam_session(
     mode: str, started_at: str, config_json: str, user_id: str | None = None
 ) -> int:
