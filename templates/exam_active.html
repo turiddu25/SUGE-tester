@@ -2,11 +2,11 @@
 {% block title %}Exam in progress — SUGE Tutor{% endblock %}
 {% block content %}
 <section
-  x-data="examMode({
+  x-data='examMode({
     sessionId: {{ session_id }},
     durationSeconds: {{ duration_seconds }},
-    questionIds: {{ questions|map(attribute='id')|list|tojson }}
-  })"
+    questionIds: {{ questions|map(attribute="id")|list|tojson }}
+  })'
   class="space-y-5"
 >
   <div class="sticky top-0 z-10 -mx-6 border-b border-neutral-200 bg-white/90 backdrop-blur px-6 py-3">

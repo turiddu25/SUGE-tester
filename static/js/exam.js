@@ -42,6 +42,7 @@ function examMode({ sessionId, durationSeconds, questionIds }) {
       this.confirmOpen = false;
       this.submitting = true;
       this.markedCount = 0;
+      if (this._timer) { clearInterval(this._timer); this._timer = null; }
       try {
         const items = this.questionIds.map((id) => ({
           question_id: id,

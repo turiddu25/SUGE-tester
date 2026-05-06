@@ -76,6 +76,7 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
       this.loading = true;
       this.error = null;
       this.rawResponse = null;
+      if (this._timer) { clearInterval(this._timer); this._timer = null; }
       try {
         const resp = await fetch("/api/mark", {
           method: "POST",
