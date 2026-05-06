@@ -131,48 +131,71 @@ def _migrate_past_revision_to_revision() -> int:
     cascade the rename to attempts / review_queue rows. Idempotent: if no
     `past_revision_qX` rows exist, this is a no-op. Runs on every startup so
     that a host that pulls the new questions.json self-heals without losing
-    practice history."""
+    practice history.
+
+    FK-safe pattern: a direct UPDATE on questions.id breaks the FK in attempts
+    immediately. Instead we (1) INSERT a copy with the new id, (2) re-point
+    attempts and review_queue to the new id, (3) DELETE the old row. At every
+    intermediate step the FK constraint is satisfied."""
     migrated = 0
     with db_cursor() as cur:
         rows = cur.execute(
-            "SELECT id FROM questions WHERE id LIKE 'past_revision_q%'"
+            "SELECT * FROM questions WHERE id LIKE 'past_revision_q%'"
         ).fetchall()
         if not rows:
             return 0
         for row in rows:
             old = row["id"]
             new = old.replace("past_revision_q", "revision_q")
-            # If both old and new exist (re-run after a partial migration), drop the
-            # old one — the new one is canonical.
             target_exists = cur.execute(
                 "SELECT 1 FROM questions WHERE id = ?", (new,)
             ).fetchone()
-            if target_exists:
+            if not target_exists:
+                # Insert a copy with the new id. sync_questions_from_json runs
+                # right after this and will overwrite the row with the canonical
+                # JSON content, so we just need a row that satisfies FK.
                 cur.execute(
-                    "UPDATE attempts SET question_id = ? WHERE question_id = ?",
-                    (new, old),
+                    """
+                    INSERT INTO questions (
+                      id, source, source_label, priority, topic, subtopic, difficulty,
+                      marks, question_text, question_type, model_answer, model_answer_source,
+                      marking_scheme_notes, products_mentioned, related_concepts,
+                      is_calculation, exam_technique_notes, figure_path, chains_with
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        new,
+                        "revision_lecture_examples",
+                        "revision_lecture_examples",
+                        row["priority"],
+                        row["topic"],
+                        row["subtopic"],
+                        row["difficulty"],
+                        row["marks"],
+                        row["question_text"],
+                        row["question_type"],
+                        row["model_answer"],
+                        row["model_answer_source"] or "lecturer_paraphrased",
+                        row["marking_scheme_notes"],
+                        row["products_mentioned"],
+                        row["related_concepts"],
+                        row["is_calculation"],
+                        row["exam_technique_notes"],
+                        row["figure_path"] if "figure_path" in row.keys() else None,
+                        row["chains_with"] if "chains_with" in row.keys() else None,
+                    ),
                 )
-                cur.execute(
-                    "UPDATE review_queue SET question_id = ? WHERE question_id = ?",
-                    (new, old),
-                )
-                cur.execute("DELETE FROM questions WHERE id = ?", (old,))
-            else:
-                cur.execute(
-                    "UPDATE questions SET id = ?, source = ?, source_label = ?, "
-                    "model_answer_source = COALESCE(NULLIF(model_answer_source, ''), ?) "
-                    "WHERE id = ?",
-                    (new, "revision_lecture_examples", "revision_lecture_examples",
-                     "lecturer_paraphrased", old),
-                )
-                cur.execute(
-                    "UPDATE attempts SET question_id = ? WHERE question_id = ?",
-                    (new, old),
-                )
-                cur.execute(
-                    "UPDATE review_queue SET question_id = ? WHERE question_id = ?",
-                    (new, old),
-                )
+            # Now both old and new rows exist — safe to migrate references.
+            cur.execute(
+                "UPDATE attempts SET question_id = ? WHERE question_id = ?",
+                (new, old),
+            )
+            cur.execute(
+                "UPDATE review_queue SET question_id = ? WHERE question_id = ?",
+                (new, old),
+            )
+            # All references migrated — safe to drop the old row.
+            cur.execute("DELETE FROM questions WHERE id = ?", (old,))
             migrated += 1
     if migrated:
         print(f"[startup] migrated {migrated} past_revision_qX -> revision_qX rows")
