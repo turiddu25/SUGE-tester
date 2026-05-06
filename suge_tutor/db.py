@@ -121,7 +121,128 @@ def init_schema() -> None:
             cur.execute("ALTER TABLE questions ADD COLUMN figure_path TEXT")
         if "chains_with" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN chains_with TEXT")
+    _migrate_past_revision_to_revision()
+    sync_questions_from_json()
     _resolve_cross_referenced_answers()
+
+
+def _migrate_past_revision_to_revision() -> int:
+    """Rename `past_revision_qX` -> `revision_qX` in the questions table and
+    cascade the rename to attempts / review_queue rows. Idempotent: if no
+    `past_revision_qX` rows exist, this is a no-op. Runs on every startup so
+    that a host that pulls the new questions.json self-heals without losing
+    practice history."""
+    migrated = 0
+    with db_cursor() as cur:
+        rows = cur.execute(
+            "SELECT id FROM questions WHERE id LIKE 'past_revision_q%'"
+        ).fetchall()
+        if not rows:
+            return 0
+        for row in rows:
+            old = row["id"]
+            new = old.replace("past_revision_q", "revision_q")
+            # If both old and new exist (re-run after a partial migration), drop the
+            # old one — the new one is canonical.
+            target_exists = cur.execute(
+                "SELECT 1 FROM questions WHERE id = ?", (new,)
+            ).fetchone()
+            if target_exists:
+                cur.execute(
+                    "UPDATE attempts SET question_id = ? WHERE question_id = ?",
+                    (new, old),
+                )
+                cur.execute(
+                    "UPDATE review_queue SET question_id = ? WHERE question_id = ?",
+                    (new, old),
+                )
+                cur.execute("DELETE FROM questions WHERE id = ?", (old,))
+            else:
+                cur.execute(
+                    "UPDATE questions SET id = ?, source = ?, source_label = ?, "
+                    "model_answer_source = COALESCE(NULLIF(model_answer_source, ''), ?) "
+                    "WHERE id = ?",
+                    (new, "revision_lecture_examples", "revision_lecture_examples",
+                     "lecturer_paraphrased", old),
+                )
+                cur.execute(
+                    "UPDATE attempts SET question_id = ? WHERE question_id = ?",
+                    (new, old),
+                )
+                cur.execute(
+                    "UPDATE review_queue SET question_id = ? WHERE question_id = ?",
+                    (new, old),
+                )
+            migrated += 1
+    if migrated:
+        print(f"[startup] migrated {migrated} past_revision_qX -> revision_qX rows")
+    return migrated
+
+
+def sync_questions_from_json(path: Path | None = None) -> tuple[int, int]:
+    """Upsert every question from questions.json into the DB. Returns (added, updated).
+    Idempotent and non-destructive — preserves attempts/reviews. Does NOT delete rows
+    in the DB that are absent from JSON (so locally-added questions survive). Runs on
+    every startup so machines that already have a seeded DB pick up new questions and
+    content updates after a `git pull`."""
+    path = path or config.QUESTIONS_JSON
+    if not path.exists():
+        return 0, 0
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    questions = payload.get("questions", payload if isinstance(payload, list) else [])
+    if not questions:
+        return 0, 0
+
+    added = updated = 0
+    with db_cursor() as cur:
+        existing = {
+            row["id"] for row in cur.execute("SELECT id FROM questions").fetchall()
+        }
+        for q in questions:
+            mas = q.get("model_answer_source") or DEFAULT_MODEL_ANSWER_SOURCE.get(
+                q.get("source"), "unknown"
+            )
+            chains = q.get("chains_with") or []
+            cur.execute(
+                """
+                INSERT OR REPLACE INTO questions (
+                  id, source, source_label, priority, topic, subtopic, difficulty,
+                  marks, question_text, question_type, model_answer, model_answer_source,
+                  marking_scheme_notes, products_mentioned, related_concepts,
+                  is_calculation, exam_technique_notes, figure_path, chains_with
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    q.get("id"),
+                    q.get("source"),
+                    q.get("source_label"),
+                    q.get("priority"),
+                    q.get("topic"),
+                    q.get("subtopic"),
+                    q.get("difficulty"),
+                    int(q.get("marks", 0)),
+                    q.get("question_text"),
+                    q.get("question_type"),
+                    q.get("model_answer"),
+                    mas,
+                    q.get("marking_scheme_notes"),
+                    json.dumps(q.get("products_mentioned") or []),
+                    json.dumps(q.get("related_concepts") or []),
+                    1 if q.get("is_calculation") else 0,
+                    q.get("exam_technique_notes"),
+                    q.get("figure_path"),
+                    json.dumps(chains) if chains else None,
+                ),
+            )
+            if q["id"] in existing:
+                updated += 1
+            else:
+                added += 1
+    if added or updated:
+        # Only log when anything actually changed — quiet on no-op startups.
+        if added:
+            print(f"[startup] sync_questions: {added} added, {updated} updated")
+    return added, updated
 
 
 _XREF_RE = re.compile(r"^\(See\s+(\w+)", re.IGNORECASE)

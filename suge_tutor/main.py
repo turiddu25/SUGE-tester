@@ -27,10 +27,10 @@ templates.env.globals["STATIC_V"] = str(int(time.time()))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # init_schema runs the column migrations, the past_revision -> revision rename,
+    # syncs questions.json into the DB (upsert, non-destructive), and resolves any
+    # cross-referenced model answers. Idempotent — safe to run on every boot.
     db.init_schema()
-    if db.question_count() == 0 and config.QUESTIONS_JSON.exists():
-        n = db.load_questions_from_json()
-        print(f"[startup] seeded {n} questions from {config.QUESTIONS_JSON.name}")
     yield
 
 
