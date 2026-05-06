@@ -61,6 +61,23 @@ MARKING PRINCIPLES (apply all of these):
 
 8. HALF MARKS ARE ALLOWED. If a point is partially made or partially correct, 0.5 is fine.
 
+9. EQUIVALENT PATHS ARE EQUIVALENT. If the student's calculation path is mathematically
+   equivalent to the model's — for example, scaling a salary down to a 6-month window
+   first vs. annualising the customer count and then dividing — both yield the same
+   per-customer cost. Do NOT penalise the alternative path. Only the final number and
+   the conclusion need to match. If you suspect the student's setup is wrong, before
+   marking it down, do the algebra to check whether their path simplifies to the model's.
+
+10. ARITHMETIC SLIPS AT THE END LOSE ONE MARK, NOT THE WHOLE CHAIN. If the student's
+    setup, formula, intermediate steps, and reasoning are correct but they make a single
+    arithmetic / decimal-point error at the FINAL step (e.g. computing 10000/1500 ≈ 65
+    instead of 6.67), award full method marks for the chain and only deduct the final-
+    answer mark — plus, at most, one additional mark for any conclusion that flips
+    because of the wrong number. Do NOT cascade the deduction into earlier method marks.
+    Mark Logan: "if you've gone wrong right at the start, but you did the rest correctly,
+    I'll still give you marks" — this principle applies symmetrically to errors at the
+    END of an otherwise-correct chain.
+
 OUTPUT FORMAT (return ONLY a JSON object — no other text, no markdown fences):
 
 {{
