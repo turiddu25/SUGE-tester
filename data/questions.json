@@ -1612,7 +1612,8 @@
         "channel_optimisation"
       ],
       "is_calculation": false,
-      "exam_technique_notes": ""
+      "exam_technique_notes": "",
+      "figure_path": "figures/2023/q11_q12_cpa_ltvcac_chart.png"
     },
     {
       "id": "paper2023_q12",
@@ -1623,7 +1624,7 @@
       "subtopic": "ltv_cac_calculation",
       "difficulty": "medium",
       "marks": 3,
-      "question_text": "*⚠ Reconstructed from explainer-VTT framing — original chart not imported. Same chart as Q11.*\n\nUsing the same graph as Q11, interpret the LTV/CAC line over time, identifying and explaining the three main phases with reference to course concepts.",
+      "question_text": "Using the same graph as Q11, interpret the LTV/CAC line over time, identifying and explaining the three main phases with reference to course concepts.",
       "question_type": "chart_analysis",
       "model_answer": "**Setup:** LTV/CAC is a ratio — ask what's changing and why it would move. Numerator = LTV; denominator = CAC (of which CPA is one component).\n\n**Stage 1 (rising rapidly):** LTV/CAC rises rapidly, mirroring the INVERSE of CPA — because CPA is falling rapidly, the denominator gets smaller, so the ratio gets bigger.\n\n**Stage 2 (rising more slowly):** CPA is now relatively stable, but LTV/CAC continues to improve. This must be due to either (a) LTV increasing (numerator getting bigger) or (b) other components of CAC beyond channel cost getting smaller (e.g. better conversion of channel arrivals into customers), or both — credit either point.\n\n**Stage 3 (falling rapidly):** LTV/CAC falls rapidly. Even though LTV may still be improving and other CAC components may still be improving, the rise in CPA at this stage is so large that it dominates, making CAC bigger and bigger and ultimately bringing LTV/CAC down.\n\n**Summary:** CPA dominates at the start and end; in the middle, LTV improvements or other CAC improvements explain the continued rise.",
       "model_answer_source": "lecturer",
@@ -1635,7 +1636,8 @@
         "cac_components"
       ],
       "is_calculation": false,
-      "exam_technique_notes": ""
+      "exam_technique_notes": "",
+      "figure_path": "figures/2023/q11_q12_cpa_ltvcac_chart.png"
     },
     {
       "id": "paper2023_q13",
@@ -1725,7 +1727,7 @@
       "subtopic": "metric_suitability",
       "difficulty": "medium",
       "marks": 3,
-      "question_text": "*⚠ Reconstructed from explainer-VTT framing. Original chart not imported.*\n\nA product tracks performance using monthly active users (MAU) and monthly revenue. The MAU graph is stable for many months then suddenly falls, while the revenue graph declines roughly linearly over the same period.\n\n(a) Give an explanation for the performance experienced during this period, accounting for the difference between the revenue profile and the active-user profile.\n\n(b) Suggest a change to the metrics being used by the company that would improve its ability to track product market performance.",
+      "question_text": "A product tracks performance using monthly active users (MAU) and monthly revenue. The MAU graph is stable for many months then suddenly falls, while the revenue graph declines roughly linearly over the same period.\n\n(a) Give an explanation for the performance experienced during this period, accounting for the difference between the revenue profile and the active-user profile.\n\n(b) Suggest a change to the metrics being used by the company that would improve its ability to track product market performance.",
       "question_type": "metric_diagnosis",
       "model_answer": "**Part (a) — Explanation (~2 marks):** This is a classic case of an active-user/retention metric using the WRONG measurement period. Users are reducing their engagement intensity over time — that's what's causing the steady decline in revenue. But this drop in intensity doesn't show up in the MAU count because of how the metric is defined: if you use a product 10 times a month and I use it once a month, MAU counts us both as active. The metric won't distinguish us, even though you're generating much more revenue (more purchases, more ad views). So as users drop their engagement intensity, MAU stays flat — until engagement falls below once-a-month and users stop showing up at all, at which point MAU falls suddenly off a cliff. The revenue graph reflected the true underlying decline all along.\n\n**Part (b) — Metric change (~1 mark):** Change the frequency of the active-users metric to weekly or daily — that would have tracked the revenue graph much more closely and surfaced the problem far earlier.",
       "model_answer_source": "lecturer",
@@ -1737,7 +1739,8 @@
         "retention_metric_suitability"
       ],
       "is_calculation": false,
-      "exam_technique_notes": ""
+      "exam_technique_notes": "",
+      "figure_path": "figures/2023/q16_mau_revenue_divergence.png"
     },
     {
       "id": "paper2023_q17",
@@ -2062,7 +2065,7 @@
       "subtopic": "retention_cohort_chart",
       "difficulty": "medium",
       "marks": 5,
-      "question_text": "*⚠ This question originally included a cohort retention chart for a social-media product. The chart is not yet imported into the app — answer based on a typical social-media cohort curve: a steep drop during the activation phase (first ~4 weeks, falling from 100% to ~20%), then a slower decline to ~12% over 24 weeks.*\n\nThe following cohort activation and retention chart shows the average retention behaviour for a typical cohort of a social media product. Explain the general shape of the graph, and comment on the cohort retention performance of this product.",
+      "question_text": "The following cohort activation and retention chart shows the average retention behaviour for a typical cohort of a social media product. Explain the general shape of the graph, and comment on the cohort retention performance of this product.",
       "question_type": "chart_analysis",
       "model_answer": "**Part 1 — Explain the shape (≈2 marks):** The graph falls quickly at first because more users are typically lost during the activation stage — before they have formed a habit around the product. The graph then falls less quickly because users who have formed a habit are less likely to stop using it, so the decay rate reduces. Over a 6-month period (roughly 24 weeks) most users are eventually lost from the product.\n\n**Part 2 — Comment using the social-media context (≈2 marks):** Crucially, the question tells us this is a social-media product. A typical well-performing social-media product would expect to see the chart level off around 60–70% active users after the activation period. This cohort is not turning that corner, so it is under-performing relative to a healthy social-media benchmark.\n\n**Part 3 — Comment on the long-tail retention performance (≈1 mark):** The ongoing retention performance continues to decline. It is not a catastrophic decline — it is slow and steady — but it will ultimately kill the business. There is, however, a reasonable amount of time to experiment and bring the curve up to level terms.",
       "model_answer_source": "lecturer",
@@ -2077,7 +2080,8 @@
         "social_media_benchmark"
       ],
       "is_calculation": false,
-      "exam_technique_notes": ""
+      "exam_technique_notes": "",
+      "figure_path": "figures/2025/q5_cohort_retention_social_media.png"
     },
     {
       "id": "paper2025_q7",
