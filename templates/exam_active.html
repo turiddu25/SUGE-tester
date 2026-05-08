@@ -45,7 +45,8 @@
             {% set m = q.marks %}
             {% set color = "bg-emerald-100 text-emerald-800" if m <= 2 else ("bg-blue-100 text-blue-800" if m <= 4 else "bg-orange-100 text-orange-800") %}
             <span class="inline-flex items-center rounded-full px-2 py-0.5 font-medium {{ color }}">{{ m }} marks</span>
-            <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-700">{{ q.topic }}</span>
+            {# Topic hidden during exam — would spoil which course concept the question targets.
+               Already revealed on /exam-sim/results/{id} after submit. #}
             {% if q.priority == "highest" %}
             <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-amber-800">★ Past Paper</span>
             {% endif %}

@@ -26,8 +26,10 @@
       {% if question.priority == "highest" %}
       <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-800">★ Past Paper</span>
       {% endif %}
-      <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-700">{{ question.topic }}{% if question.subtopic %} · {{ question.subtopic }}{% endif %}</span>
       <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-600">{{ question.difficulty }}</span>
+      {# Topic/subtopic hidden during the attempt — revealing them spoils which course concept the question is testing.
+         Shown after marking so the post-result review still tells you the concept area. #}
+      <span x-show="result" x-cloak class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-700">{{ question.topic }}{% if question.subtopic %} · {{ question.subtopic }}{% endif %}</span>
     </div>
 
     {% if chain_questions %}
