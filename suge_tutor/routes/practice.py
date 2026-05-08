@@ -55,12 +55,21 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             cq = db.get_question(cid)
             if cq:
                 chain_questions.append(cq)
+        # If this is a cribsheet question, look up the human-readable product name
+        # for the "📋 Cribsheet · {name}" badge in the practice template.
+        cribsheet_product_name = None
+        if question.get("source") == "cribsheet_products" and question.get("product_id"):
+            from ..products import get_product
+            prod = get_product(question["product_id"])
+            if prod:
+                cribsheet_product_name = prod["name"]
         return templates.TemplateResponse(
             request,
             "practice.html",
             {
                 "question": question,
                 "chain_questions": chain_questions,
+                "cribsheet_product_name": cribsheet_product_name,
                 "recommended_minutes": recommended_minutes,
                 "history": history,
                 "current_user": user,

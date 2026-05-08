@@ -134,6 +134,8 @@ def init_schema() -> None:
             cur.execute("ALTER TABLE questions ADD COLUMN figure_path TEXT")
         if "chains_with" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN chains_with TEXT")
+        if "product_id" not in cols:
+            cur.execute("ALTER TABLE questions ADD COLUMN product_id TEXT")
         # Add cached_tokens column to llm_calls if missing (older DBs).
         cur.execute("PRAGMA table_info(llm_calls)")
         llm_cols = {row["name"] for row in cur.fetchall()}
@@ -250,8 +252,8 @@ def sync_questions_from_json(path: Path | None = None) -> tuple[int, int]:
                   id, source, source_label, priority, topic, subtopic, difficulty,
                   marks, question_text, question_type, model_answer, model_answer_source,
                   marking_scheme_notes, products_mentioned, related_concepts,
-                  is_calculation, exam_technique_notes, figure_path, chains_with
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  is_calculation, exam_technique_notes, figure_path, chains_with, product_id
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     q.get("id"),
@@ -273,6 +275,7 @@ def sync_questions_from_json(path: Path | None = None) -> tuple[int, int]:
                     q.get("exam_technique_notes"),
                     q.get("figure_path"),
                     json.dumps(chains) if chains else None,
+                    q.get("product_id"),
                 ),
             )
             if q["id"] in existing:
@@ -420,6 +423,10 @@ DEFAULT_MODEL_ANSWER_SOURCE = {
     "paper_2025": "lecturer_paraphrased",
     # Examples Mark drew from sample/further-sample banks during the 2026 revision lecture.
     "revision_lecture_examples": "lecturer_paraphrased",
+    # AI-generated drills for the 4 cribsheet products (ChatGPT, Snapchat, Medium,
+    # Food Delivery). Drafted from products.py exam_angles + course corpus, run
+    # through a critic pass + mechanical validators. Excluded from default exam-sim.
+    "cribsheet_products": "ai_generated",
 }
 
 
@@ -465,6 +472,7 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
                     q.get("exam_technique_notes"),
                     q.get("figure_path"),
                     json.dumps(chains) if chains else None,
+                    q.get("product_id"),
                 ),
             )
     return len(questions)
@@ -481,6 +489,15 @@ def row_to_question(row: sqlite3.Row | None) -> dict | None:
     return d
 
 
+def question_count_by_product(product_id: str) -> int:
+    """Count cribsheet questions tagged with a particular product_id."""
+    with db_cursor() as cur:
+        return cur.execute(
+            "SELECT COUNT(*) FROM questions WHERE product_id = ? AND source = 'cribsheet_products'",
+            (product_id,),
+        ).fetchone()[0]
+
+
 def list_questions(
     *,
     topic: str | None = None,
@@ -489,6 +506,7 @@ def list_questions(
     priority: str | None = None,
     marks: int | None = None,
     search: str | None = None,
+    product_id: str | None = None,
 ) -> list[dict]:
     sql = "SELECT * FROM questions WHERE 1=1"
     params: list[Any] = []
@@ -498,6 +516,9 @@ def list_questions(
     if source:
         sql += " AND source = ?"
         params.append(source)
+    if product_id:
+        sql += " AND product_id = ?"
+        params.append(product_id)
     if difficulty:
         sql += " AND difficulty = ?"
         params.append(difficulty)

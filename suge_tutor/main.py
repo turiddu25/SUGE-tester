@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 
 from . import db, users
 from .config import config
-from .routes import auth, exam, practice, products, questions, reference, review
+from .routes import auth, cribsheet, exam, practice, products, questions, reference, review
 from .spaced_repetition import days_to_exam
 
 BASE_DIR = config.PROJECT_ROOT
@@ -194,3 +194,4 @@ exam.register(app, templates)
 review.register(app, templates)
 reference.register(app, templates)
 products.register(app, templates)
+cribsheet.register(app, templates)

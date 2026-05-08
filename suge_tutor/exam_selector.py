@@ -26,9 +26,15 @@ def _sort_key_with_jitter(q: dict, jitter: dict[str, float]) -> tuple:
     return (PRIORITY_RANK.get(q.get("priority"), 4), jitter.get(q["id"], 0.0))
 
 
+EXCLUDED_SOURCES = {"cribsheet_products"}
+
+
 def select_exam_questions(seed: int | None = None) -> list[dict]:
     rng = random.Random(seed)
     all_qs = db.list_questions()
+    # Cribsheet drills are practised separately on /cribsheet — they should never
+    # appear in default exam-sim picks (would skew the 16-question, 60-mark mix).
+    all_qs = [q for q in all_qs if q.get("source") not in EXCLUDED_SOURCES]
     jitter = {q["id"]: rng.random() for q in all_qs}
     by_topic: dict[str, list[dict]] = {}
     for q in all_qs:

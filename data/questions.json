@@ -2322,6 +2322,918 @@
       "chains_with": [
         "paper2025_q15"
       ]
+    },
+    {
+      "id": "cribsheet_chatgpt_q1",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "List each of the network effects and compounding growth mechanisms present in the growth model for ChatGPT. For each item identified, clearly state its type and provide a brief description of its operation in the context of ChatGPT.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Marking framework:** 6 marks available. ChatGPT has more than 6 mechanisms / effects, so listing any 6 — correctly named AND briefly described in the ChatGPT context — earns full marks.\n\n**(1) Direct Organic CGM (1 mark):** Word-of-mouth was the dominant early growth engine — every conversation that surprised a user (Nov 2022 launch) acted as a referral event, driving the famous 100M-users-in-2-months curve.\n\n**(2) Indirect Content CGM — initially company-generated, now user-generated (1 mark):** OpenAI demos and screenshots of impressive answers circulated heavily on X / Reddit / TikTok. Initially OpenAI-amplified (CG); now overwhelmingly user-shared screenshots and prompt libraries (UG) — the textbook CG → UG transition.\n\n**(3) Data network effect / RLHF learning loop (1 mark):** More usage → more thumbs-up/down and preference data → better fine-tuned model → better answers attract / retain more users. Logan frames this as a learning loop with network-effect-like compounding properties; it is ChatGPT's strongest moat-like mechanism.\n\n**(4) Scale-based network effects (data + brand) (1 mark):** Scale of training data, infrastructure cost amortisation, and brand recognition all compound with usage — small competitors cannot match the inference cost-curve or brand at the same scale.\n\n**(5) Two-sided developer / plugin / GPTs network effect (1 mark):** Custom GPTs and the GPT Store create a soft two-sided effect: more users → more incentive for developers to build custom GPTs → more useful product → more users. Weaker than classical social NEs but real.\n\n**(6) Ad-space / monetisation CGM via paid tiers (1 mark):** ChatGPT Plus / Enterprise revenue funds further model investment (more compute, better RLHF pipelines, more researchers), which improves the product, which acquires more users — a self-funding compounding loop similar to an ad-space CGM but powered by subscription revenue.\n\nAlternative items that also earn credit if listed instead: Direct Invitation CGM (referral/share-link in Team/Enterprise), Workflow-embedding retention loop (not strictly a CGM but creditable as a compounding mechanism). Listing any 6 of the above with type clearly named and a ChatGPT-specific description gets full marks.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "6 marks, 1 per mechanism. Mark requires both correct naming (using exact taxonomy: Direct Organic CGM, Indirect Content CGM, data network effect, scale network effect, two-sided NE, ad-space / revenue-funded CGM) AND a brief description applied to ChatGPT specifically — generic descriptions of the mechanism without ChatGPT context lose half a mark. Common errors: (a) confusing the data flywheel with a classical network effect (Logan accepts data-NE / learning-loop, but candidates should not claim 'more users makes the chat better for me' — that's wrong); (b) listing 'AI moat' or 'first-mover advantage' which are not course-taxonomy items and earn nothing; (c) describing a mechanism without naming its type. Forewarn: ChatGPT was flagged as an exam product, so candidates should have prepared this growth model.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "organic_cgm",
+        "content_cgm",
+        "data_network_effect",
+        "scale_network_effects",
+        "two_sided_network",
+        "rlhf_learning_loop"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q2",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "cgm_organic_direct",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "ChatGPT reportedly reached around 100 million users in roughly two months after its November 2022 launch — the fastest consumer-product growth ever recorded — despite OpenAI spending almost nothing on paid acquisition during that period. Identify the dominant compounding growth mechanism responsible for this curve, and explain how it operated. Identify one secondary CGM that supported it, and explain how that secondary CGM compounded the effect.",
+      "question_type": "explanation_application",
+      "model_answer": "**Part A — Dominant CGM (2 marks):**\n\nThe dominant mechanism was a **Direct Organic CGM** — word-of-mouth referrals (1 mark). Each conversation that produced a surprisingly good answer (writing, code, planning) effectively acted as a referral event: users told friends, family and colleagues to 'try this', without any invitation link, code or paid incentive (1 mark). The fact that OpenAI was not running paid acquisition is a textbook organic-CGM signature — the exponential rise in homepage traffic with no corresponding ad spend is exactly Logan's stated detection method for organic CGMs.\n\n**Part B — Secondary CGM (2 marks):**\n\nThe secondary mechanism was an **Indirect Content CGM**, content-based (1 mark). Screenshots of impressive ChatGPT outputs — code, essays, creative answers — circulated heavily on X, Reddit and TikTok. Initially this was company-amplified (OpenAI demos), but it rapidly became user-generated (UG) (1 mark). Crucially, this content compounded the organic CGM by operating **above** the ChatGPT transaction frequency — even users who weren't actively using ChatGPT that week were repeatedly reminded it existed via screenshots in their social feeds, which reduced churn and pulled lapsed users back, while also acting as discovery for non-users.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for naming Direct Organic CGM (must use the taxonomy term, not just 'word of mouth'); 1 mark for explaining the no-paid-acquisition / exponential-traffic-without-ad-spend signature; 1 mark for naming Indirect Content CGM (or Content-based Indirect CGM); 1 mark for explaining the screenshot mechanism with reference either to the CG → UG transition OR to operating above transaction frequency. Common errors: (a) calling it a 'viral loop' generically without naming the CGM type — half marks; (b) confusing this with a network effect — explicitly wrong, the question asks for CGMs; (c) naming the data flywheel as the dominant mechanism — wrong because the data flywheel doesn't acquire users, it improves the product. Distinct from paper2025_q2 which asks about LLMs as acquisition channels for *other* startups; this asks about ChatGPT's *own* growth.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "organic_cgm",
+        "direct_cgm",
+        "content_cgm",
+        "company_generated",
+        "user_generated",
+        "above_transaction_frequency"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q3",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "data_network_effect",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "A common student claim is that ChatGPT benefits from strong network effects in the same way that products like Instagram or Snapchat do. Using concepts covered on the course, explain why this claim is largely incorrect for classical network effects, and explain what compounding effect ChatGPT does benefit from instead. Comment on whether this effect provides a defensible moat against competitors such as Anthropic's Claude or Google's Gemini.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 — Classical NEs are weak for ChatGPT (1 mark):** A classical direct network effect requires that other users on the product make the product more valuable to me. For ChatGPT this is largely absent — the value of my next conversation does not depend on whether 1 million or 100 million other people are also using ChatGPT. Unlike Snapchat (where I need my friends on the network) or Instagram (where I need creators and audience), ChatGPT's per-user utility is essentially independent of co-users.\n\n**Point 2 — The actual effect is a data network effect / RLHF learning loop (1 mark):** What ChatGPT does benefit from is a **data-scale network effect**, very similar in structure to TikTok's. More usage produces more interactions, more thumbs-up/down feedback, and more RLHF preference data. That data is used to fine-tune subsequent model versions, producing better answers, which attracts and retains more users, which produces more data — a reinforcing data-scale loop. Logan accepts this framing as a *learning loop* with NE-like compounding properties.\n\n**Point 3 — Mechanism in ChatGPT specifically (1 mark):** Each conversation generates implicit and explicit signal: thumbs ratings, regenerations, edits, abandonment. This signal quality scales with raw usage; it is genuinely hard for a smaller competitor to replicate without comparable traffic. Combined with scale-based effects (training compute, infrastructure cost amortisation) the loop is real.\n\n**Point 4 — Moat commentary (1 mark):** However, the moat is weaker than classical NEs against competitors like Claude or Gemini for two reasons: (a) base-model capability gains are increasingly driven by pre-training scale and architecture, not RLHF data — competitors with comparable compute can leapfrog without ChatGPT's data; (b) switching cost for users is essentially zero (no friend graph to lose), so a meaningfully better competitor product can take share quickly. The data-NE provides an advantage but not the lock-in that, e.g., Snapchat enjoys.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for stating classical direct NE is weak/absent and saying why (per-user utility independent of co-users); 1 mark for naming the data-scale network effect / learning loop; 1 mark for explaining the mechanism in ChatGPT specifically (RLHF, thumbs, fine-tuning); 1 mark for the moat commentary — must say the moat is weaker than classical NEs and give at least one reason (zero switching cost, pre-training-driven gains, or competitor compute parity). Common errors: (a) claiming ChatGPT has strong classical NEs because 'lots of people use it' — wrong, that is scale, not NE; (b) describing the data flywheel without naming the data network effect taxonomy term; (c) declaring it an unassailable moat — Logan deducts for over-claiming.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "data_network_effect",
+        "scale_network_effects",
+        "rlhf_learning_loop",
+        "switching_costs",
+        "moat_strength"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q4",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "activation_inequality",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Internal data at OpenAI suggests that ChatGPT users who do not get a useful answer from the product within their first one or two sessions almost always churn within a week, while users who do get a useful answer in those early sessions show monthly retention of around 80%. Using concepts covered on the course, identify what this gap represents, describe what the 'activation moment' for ChatGPT most likely is, and suggest two product interventions the growth team could deploy to close this gap.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Identify the gap (1 mark):** The gap between near-100% early churn for non-activated users and ~80% retention for activated users is a textbook example of **activation inequality** — the very large performance difference between cohorts who pass the activation event and those who do not. It tells the growth team that retention work is dominated by activation work: if the user fails to activate, no amount of downstream lifecycle messaging will save them.\n\n**Point 2 — Identify the activation moment (1 mark):** ChatGPT's activation moment is the **first response that produces a genuinely useful answer for the user's actual job** — typically writing, code, summarisation, or planning. It is not simply 'sent first message' (too shallow) and not '7-day-active' (too late). The moment is task-completion-flavoured: the user got something out of the product they couldn't easily get elsewhere.\n\n**Point 3 — Intervention 1 — onboarding to a high-quality first task (1 mark):** Replace the empty-textbox cold-start with an onboarding flow that asks the user what they want to do (write an email, debug code, plan a trip), then routes them to a templated prompt known to produce a high-quality answer for that intent. This raises the probability of a useful first response and shortens time-to-activation.\n\n**Point 4 — Intervention 2 — second-session re-engagement around workflow embedding (1 mark):** For users who completed one useful task, prompt the second session around a recurring workflow ('most users come back to draft weekly emails / plan their week / fix code') so that activation extends into habit formation. ChatGPT's retention story is workflow embedding rather than classical NE, so the activation event must hand over cleanly into a recurring use-case before the user drops off. Acceptable alternatives: example-prompt galleries, custom-GPT recommendations matched to declared intent, in-product nudges to save useful conversations as templates.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for naming activation inequality (the taxonomy term — 'big gap between activated and non-activated cohorts' is also creditable but weaker); 1 mark for a credible, ChatGPT-specific activation moment definition (must be task-utility flavoured, not just 'sent a message'); 1 mark for each of two distinct, plausible interventions tied to either time-to-first-useful-answer OR workflow embedding. Generic interventions like 'send a welcome email' or 'improve UX' score zero unless explicitly tied to activation. Common errors: confusing activation with retention; defining the activation moment as a vanity metric (account creation, first message); proposing only one intervention.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "activation_inequality",
+        "activation_moment",
+        "workflow_embedding",
+        "onboarding_flow",
+        "retention_floor"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q5",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "engagement_intensity",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "ChatGPT does not have an obvious 'natural' transaction frequency in the way Deliveroo (4 orders every 28 days) or Snapchat (daily messaging) do. Using concepts covered in the course, propose a plausible natural-frequency / NaP framing for ChatGPT and justify it. Comment briefly on why this NaP is harder to set than for those other products.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 — Propose a NaP (1 mark):** A defensible NaP for ChatGPT is **'3 useful responses per week' (3r7)** for the general consumer, or equivalently **'sessions per workday' (e.g. 1s1 or 2s1)** for productivity / professional use. Both encode workflow embedding at roughly weekly cadence.\n\n**Point 2 — Justify in course terms (1 mark):** The justification is **workflow embedding** — ChatGPT's retention is driven by users incorporating it into a recurring task (drafting weekly emails, weekly planning, code-debugging during the working week). The NaP must therefore match the cadence of the underlying task; weekly is a defensible floor because most professional workflows have a weekly rhythm. A daily NaP overshoots typical use; a monthly NaP undershoots — the user would never form a habit at that cadence and would churn.\n\n**Point 3 — Why NaP is harder to set here (1 mark):** Unlike Deliveroo (where ordering food *is* the transaction and the cadence is observable) or Snapchat (where messaging frequency is intrinsic to the product), ChatGPT covers many heterogeneous use-cases — code, writing, learning, planning — each with a different natural cadence. There is no single transaction; the 'transaction' is whatever recurring task the user embeds it into. So NaP varies meaningfully by user segment, and a single company-wide NaP is a coarse approximation. Companies handle this by segmenting users and tracking segment-specific natural frequencies.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for proposing a credible NaP (must use a cadence form, e.g. NrP or NsP — '3 useful responses per week', 'one session per workday' — vague answers like 'often' score zero); 1 mark for justifying it via workflow embedding or comparable course concept; 1 mark for the harder-to-set commentary, which must mention heterogeneous use-cases or absence of an intrinsic single transaction. Common errors: proposing 'DAU' as a NaP (too generic — DAU is not a NaP); not anchoring the justification in workflow-embedding / habit-formation language.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "natural_frequency",
+        "nap_metric",
+        "workflow_embedding",
+        "habit_formation",
+        "engagement_intensity"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q6",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "growth_phase_transition",
+      "difficulty": "hard",
+      "marks": 5,
+      "question_text": "ChatGPT's user growth was explosive between November 2022 and mid-2023, but visibly decelerated through late 2023 and 2024. Around the same period, OpenAI shifted significant strategic attention from pure consumer growth toward enterprise / API revenue (ChatGPT Enterprise, Team, and developer platform).\n\n(a) Using concepts covered on the course, explain why the consumer-side growth curve decelerated.\n\n(b) Explain why a B2C-led product like ChatGPT might deliberately pivot resources toward B2B / enterprise and what risks this transition carries.",
+      "question_type": "explanation_application",
+      "model_answer": "**Part (a) — Why consumer growth decelerated (2 marks):**\n\n**(i) Saturation of the organic CGM (1 mark):** The Direct Organic CGM that fuelled the 100M-in-2-months curve has a finite seed pool — once most early-adopter and curious-user clusters have heard about ChatGPT through word-of-mouth and screenshots, the organic referral coefficient v decays toward zero. By definition, the growth multiplier GM = 1/(1−v) collapses toward 1 (no further amplification), and continued growth must come from linear marketing or new CGMs. Logan calls this 'linear-marketing saturation' / CGM exhaustion.\n\n**(ii) Competitive fragmentation (1 mark):** Alternative products (Anthropic's Claude, Google's Gemini, Meta AI, Perplexity) entered the same point-of-discovery space. Because switching cost in ChatGPT is essentially zero (no social graph, no embedded data) some users diverted to alternatives, and some new users went straight to competitors. The single-winner LLM market that the early curve implied did not materialise.\n\n**Part (b) — Pivot to B2B and its risks (3 marks):**\n\n**(iii) Reasons for the pivot — economics and CGM type (1 mark):** B2B / enterprise contracts have far higher LTV, longer retention, and meaningful switching costs (data integrations, custom GPTs, security review, procurement contracts). Also, an enterprise rollout effectively gives OpenAI an *invitation CGM* — once a company adopts ChatGPT Enterprise, employees are onboarded en masse, which is much more efficient than per-user consumer acquisition.\n\n**(iv) Reason — funding the data flywheel (1 mark):** Enterprise revenue funds the compute and research investment that keeps the underlying model ahead — i.e. it powers the revenue-funded CGM (similar to an ad-space CGM) that compounds back into consumer-side product quality. Without enterprise revenue, OpenAI cannot fund the next training run.\n\n**(v) Risk — organisational and product mismatch (1 mark):** B2B and B2C products require different organisations: enterprise sales, security/compliance, account management vs. consumer growth/product-marketing. Logan's organisational point applies — running both well from the same org is hard, and the consumer experience can degrade if the product becomes optimised for enterprise admin features. There is also reputational risk: if ChatGPT is perceived primarily as an enterprise tool, the consumer organic CGM may weaken further. Acceptable alternative risks: dependence on a small number of large contracts (concentration risk); slower iteration cycle imposed by enterprise procurement.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "Two-part question — both parts must be answered. Part (a): 1 mark for organic CGM saturation / linear-marketing saturation (must reference CGM exhaustion or v → 0); 1 mark for competitive fragmentation / zero switching cost. Part (b): 1 mark for an LTV / invitation-CGM rationale tied to enterprise economics; 1 mark for revenue-funds-the-flywheel point; 1 mark for an organisational or reputational risk that names the course concept (org mismatch, concentration, consumer-side erosion). Logan explicitly flags this two-part angle ('why did ChatGPT grow so fast AND why has growth slowed') in revision; missing part (b) is the common failure. Don't accept generic 'AI hype faded' — must be expressed in CGM / network terms.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "cgm_saturation",
+        "linear_marketing_saturation",
+        "switching_costs",
+        "invitation_cgm",
+        "b2c_to_b2b_pivot",
+        "organisational_alignment"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Two-part question — both parts must be answered. Watch for (a) saturation AND (b) pivot-rationale; missing either part loses substantial marks.",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q7",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "acquisition",
+      "subtopic": "competitive_attack_strategy",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "A small UK-based start-up wants to compete with ChatGPT in the consumer LLM-assistant market. Despite OpenAI's enormous lead in users, brand and compute, you have been asked to advise the start-up on how it could realistically attract users away from ChatGPT. Using concepts covered on the course, propose a general strategic approach and give two specific, plausible tactical examples that follow from that approach. Comment briefly on the role of open-source models in this attack.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — General strategic approach (1 mark):** ChatGPT, despite its scale, is attackable on the same logic Logan applies to Uber: it is not a monolithic dense network but more like a **collection of weakly-coupled use-case sub-networks** (writing, coding, learning, planning, role-play, etc.) with **near-zero switching cost** (no friend graph, minimal data lock-in). Therefore the right approach is **niche / sub-network attack** — build a clearly superior product for one use-case, not a worse-everywhere general competitor.\n\n**Point 2 — Specific tactic 1 — niche vertical product (1 mark):** Pick one underserved vertical — e.g. an LLM assistant tightly integrated into a UK-specific developer toolchain, or a tutoring assistant aligned to UK A-Level / SQA syllabuses. Build deeper-than-ChatGPT integration and curriculum/codebase awareness in that vertical. Users who do that one task often will switch for the better experience, exactly because switching cost is zero.\n\n**Point 3 — Specific tactic 2 — privacy / data-handling angle (1 mark):** Attack on a dimension OpenAI cannot easily match: on-device or fully-private inference, no training on user data, EU/UK data-residency, or open-weight model bring-your-own-key. This appeals to a specific user segment (regulated professions, privacy-conscious users) and is hard for the incumbent to mirror without cannibalising its own data flywheel. Alternative creditable tactic: hard-side seeding via paying expert contributors / reviewers to fine-tune a domain-specific model.\n\n**Point 4 — Role of open-source (1 mark):** Open-source / open-weight base models (Llama-class, Mistral-class) materially lower the cost of entry — the start-up no longer has to fund a frontier pre-training run, only fine-tuning and product-layer work. This collapses the scale-based moat and enables niche attacks at viable economics; it does not erase ChatGPT's data-NE / RLHF advantage at the frontier, but it makes the niche-attack strategy economically realistic where it would otherwise be impossible.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for a strategic approach explicitly framed as niche / sub-network attack on a weakly-coupled-network incumbent (must reference the network-of-networks / sub-network or zero-switching-cost framing — Logan deducts for tactics-without-strategy answers, exactly as in paper2024_q12); 1 mark for each of two distinct, plausible tactics tied to that strategy; 1 mark for an open-source commentary that mentions cost-of-entry collapse OR moat-erosion. Common errors: (a) suggesting generic 'better marketing' or 'cheaper price' without strategic framing — minimal credit; (b) naming three tactics but no strategy — half marks; (c) ignoring the open-source part.",
+      "products_mentioned": [
+        "ChatGPT"
+      ],
+      "related_concepts": [
+        "sub_network_attack",
+        "switching_costs",
+        "niche_targeting",
+        "open_source_models",
+        "scale_moat_erosion"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_chatgpt_q8",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — ChatGPT",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "activation_comparison",
+      "difficulty": "easy",
+      "marks": 2,
+      "question_text": "Compare and contrast the activation moments of ChatGPT and Snapchat. In each case, name the activation moment in one short phrase and explain in one sentence why activation inequality is severe for that product.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 — ChatGPT (1 mark):** Activation moment = **first response that produces a genuinely useful answer for the user's actual job** (writing, code, planning). Activation inequality is severe because there is no social graph to anchor the user; if the first one or two sessions don't produce utility, the user has no reason to return and churns within a week, while activated users hit ~80% monthly retention.\n\n**Point 2 — Snapchat (1 mark):** Activation moment = **sending a snap and receiving a reciprocal snap from a friend** (time-to-first-reciprocal-snap). Activation inequality is severe because the product's value is the social loop — without a reciprocating friend the network is empty and the user churns within days, whereas activated users sit on the social-media ~60% retention floor.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark per product. Each mark requires (i) a correctly framed activation moment — task-utility for ChatGPT, reciprocal-snap for Snapchat; (ii) a one-sentence justification of activation inequality that names the underlying mechanism (workflow embedding for ChatGPT, social loop for Snapchat). Half-credit if the activation moment is named but the inequality justification is missing or generic. Common errors: defining ChatGPT activation as 'first message sent' (too shallow) or Snapchat activation as 'account created' (vanity metric).",
+      "products_mentioned": [
+        "ChatGPT",
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "activation_moment",
+        "activation_inequality",
+        "retention_floor",
+        "workflow_embedding",
+        "social_loop"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "chatgpt"
+    },
+    {
+      "id": "cribsheet_food_delivery_q1",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 8,
+      "question_text": "List each of the network effects and compounding growth mechanisms present in the growth model for Deliveroo (or food delivery generally — Uber Eats, Meituan are equivalent). For each item identified, clearly state its type and provide a brief description of its operation.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Approach:** Same exercise as the AirBnB / Instagram inventory questions in past papers — name the mechanism, state its type clearly, and give a brief description tied specifically to food delivery. There are more mechanisms available than there are marks (one mark per correctly identified, named, and described mechanism, up to 8 marks).\n\n**(1) Three-sided network effect — diners ↔ restaurants ↔ riders (1 mark):** Each side becomes more valuable to the others as it grows. More diners → more restaurants want to list → more selection → more diners. More riders → faster delivery → more diners. The atomic network is **the city** — London diners don't benefit from Tokyo restaurant supply.\n\n**(2) Direct invitation CGM — refer-a-friend codes (1 mark):** Both Deliveroo and Uber Eats run classic referral schemes where existing users get credit for inviting new users (and the new user gets a discount on their first order). A direct, financially-incentivised CGM.\n\n**(3) Indirect content / social-capital CGM — weak (1 mark):** Some social sharing of orders (e.g. Instagram stories of meals), but weak relative to the invitation CGM. Worth naming and noting its limited contribution.\n\n**(4) Data-scale network effect — demand forecasting and dispatch (1 mark):** More orders → better data on rider routing, restaurant prep times, and demand spikes → faster, cheaper, more reliable delivery. The platform's operational quality improves with use.\n\n**(5) Local-liquidity flywheel (1 mark):** Within a city, density compounds — more orders per square kilometre means a rider can chain deliveries, lowering cost per order and unlocking lower minimum-spend thresholds, which attracts more diners. A geographically constrained scale effect.\n\n**(6) Brand-scale network effect (1 mark):** As the network grows, brand recognition lowers acquisition friction — diners default to the most-recognised app when ordering, restaurants treat being listed as table stakes, riders sign up with the leading platform first.\n\n**(7) Purchasing-power scale effect (1 mark):** A larger Deliveroo gets better unit economics on payments processing, customer-support tooling, packaging deals, and corporate-account contracts.\n\n**(8) Habit-formation loop around the NaP (1 mark):** Once a diner hits the 4o28 cadence (4 orders every 28 days), the product is embedded in the weekly routine, increasing retention and reducing reliance on paid re-acquisition.\n\n**Honest caveat (no mark, but expected at the top of a strong answer):** Most growth in food delivery is **paid linear marketing**, not compounding. The mechanisms above exist but the invitation CGM is weak and a lot of acquisition is TV / Google / social ads. A top answer flags this distinction explicitly.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "8 marks. One mark per correctly identified mechanism that is (a) named, (b) typed clearly, and (c) briefly described as it applies to food delivery. There are more than 8 mechanisms available — students who identify any 8 valid mechanisms score full marks. Watch for the common failure mode of listing every CGM the student has ever heard of without applying it to food delivery (cf. paper2024_q13 marking notes on Instagram). Bonus credit (within the cap) for the candid linear-marketing-vs-compounding caveat — Mark Logan flags this distinction as a key honest framing for food delivery.",
+      "products_mentioned": [
+        "Deliveroo",
+        "Uber Eats",
+        "Meituan"
+      ],
+      "related_concepts": [
+        "n_sided_network",
+        "atomic_networks_geo_concentration",
+        "incentivised_cgm",
+        "data_network_effect",
+        "scale_network_effects",
+        "habit_formation"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q2",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "cgm_vs_linear_marketing",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Identify the principal Compounding Growth Mechanism (CGM) used by Deliveroo and Uber Eats. Then explain why most of these companies' user growth should NOT be classified as a CGM, despite their large advertising spend. Use specific course terminology in your answer.",
+      "question_type": "explanation_application",
+      "model_answer": "**Part 1 — Principal CGM (1 mark):** The principal CGM is a **Direct, Financially-Incentivised (Invitation) CGM** — refer-a-friend codes where the referrer and the referred new user both receive credit on their next order. Identical in form to the Uber referral scheme covered in class.\n\n**Part 2 — Why most growth is NOT a CGM (1 mark):** A CGM by definition is *compounding* — the output of one cycle becomes the input of the next, and growth is generated by users themselves. The bulk of Deliveroo / Uber Eats user acquisition comes from **paid acquisition channels** — TV, Google SEM, Facebook ads, billboards, sponsored content. These are **linear marketing**: spend €X this month, get Y customers; spend nothing next month, get nothing. There is no cycle-to-cycle multiplier.\n\n**Part 3 — Course-terminology framing (2 marks):** The distinction matters because (a) **growth multiplier GM = 1 / (1 − V)** only applies to the genuinely compounding portion of acquisition; the linear-marketing portion is just a fixed input each cycle, not a multiplier (1 mark). (b) Honest growth-modelling for food delivery therefore decomposes monthly new-customer numbers into a small invitation-CGM contribution and a much larger linear-marketing contribution, and the LTV:CAC test must be applied to the linear-marketing portion specifically — it is the dominant cost (1 mark).",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks split 1 + 1 + 2. The phrase 'most of these companies' growth should NOT be classified as a CGM' is the trigger for the linear-marketing distinction — students who simply describe the referral scheme without addressing the linear-marketing point cap at 2 marks. Specific terms expected: invitation CGM (or financially-incentivised CGM), linear marketing, growth multiplier / GM = 1/(1−V), cycle-to-cycle multiplier, LTV:CAC. Mark Logan flags this as one of the harder CGM-vs-linear-marketing distinctions in the course.",
+      "products_mentioned": [
+        "Deliveroo",
+        "Uber Eats"
+      ],
+      "related_concepts": [
+        "incentivised_cgm",
+        "linear_marketing",
+        "growth_multiplier",
+        "paid_acquisition"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q3",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "atomic_networks_geo_concentration",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Deliveroo's network effects are three-sided (diners ↔ restaurants ↔ riders) but geographically local. Using course concepts, explain why a national TV-advertising campaign launched before a city has reached sufficient liquidity is likely to waste money. What strategy should be used instead?",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Atomic network in food delivery is the city, not the nation (1 mark):** Network value for a diner depends on the density of restaurants and riders **in their own postcode**, not nationally. A diner in Aberdeen does not benefit from Deliveroo having a strong network in London. The atomic network — the smallest unit at which the product is meaningfully useful — is the city (or even sub-city catchment).\n\n**Point 2 — National advertising into a sparse local network burns money (1 mark):** A TV ad seen by viewers in cities where restaurant selection is thin and rider supply is patchy will drive sign-ups whose **first experience is a bad one** — long waits, limited menu, cold food. These users churn immediately, and because activation in food delivery is unrecoverable for many users (the first failure kills them), the marketing spend is largely wasted. This is the **sparse network** problem applied to acquisition spend.\n\n**Point 3 — Correct strategy: city-by-city saturation, then expand (2 marks):** Launch and saturate one city at a time — concentrate marketing spend, restaurant onboarding, and rider seeding within a single geography until liquidity is achieved (1 mark). Only then move to the next city, and only switch on broader-reach channels (national TV, brand ads) once enough cities are individually dense enough that a typical viewer's local network can deliver a good first-order experience. This is the canonical **atomic-network growth pattern** Mark Logan emphasises — exactly what Snapchat did with high-school cohorts and what Uber did city-by-city (1 mark).",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks split 1 + 1 + 2. Required terminology: atomic network, sparse network (or 'sparse-locally'), liquidity, city-by-city. The unrecoverable-first-failure point earns marks under either point 2 or point 3. A common failure mode is to argue 'national ads are expensive' without invoking atomic-network / sparse-network concepts — that style of answer caps at 1 mark.",
+      "products_mentioned": [
+        "Deliveroo",
+        "Uber Eats"
+      ],
+      "related_concepts": [
+        "atomic_networks_geo_concentration",
+        "sparse_network",
+        "network_liquidity",
+        "geographic_network_effects"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q4",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "activation_inequality",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "On Deliveroo, the activation event is a first order delivered hot, on time, and correct. Industry data suggests that for many users, a single failed first order (cold food, missing items, late delivery) results in permanent churn — the user uninstalls or never returns. Using course concepts, explain why activation in food delivery exhibits especially severe activation inequality, and identify two operational levers Deliveroo can pull to protect first-order outcomes.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Define activation inequality in this context (1 mark):** Activation inequality describes the gap between what activated users do (high retention, repeat orders, eventually reaching the 4o28 NaP) and what non-activated users do (churn within days). For food delivery the gap is unusually severe because the first-order experience is a **physical, real-world event** with many failure modes — temperature, accuracy, timing, packaging, rider behaviour — any one of which can ruin the experience.\n\n**Point 2 — First-failure unrecoverability (1 mark):** Unlike a software product where a confused first session can be salvaged by an in-app tooltip or a follow-up email, a cold-food failure is a **lived bad experience** the user remembers viscerally. Many users will not give the platform a second chance — the first failure is unrecoverable. This makes the activation funnel binary: succeed once, retain at high rates; fail once, lose forever.\n\n**Point 3 — Operational lever 1: rider density and dispatch quality (1 mark):** Ensuring rider supply is sufficient in the user's catchment area at the moment of order — typically by paying riders an hourly minimum during off-peak periods, by surge incentives at peaks, and by routing algorithms that minimise pickup-to-drop-off time — directly reduces late deliveries (the most common failure mode).\n\n**Point 4 — Operational lever 2: restaurant quality / accuracy controls (1 mark):** Onboarding restaurants with prep-time discipline, packaging standards, and order-accuracy SLAs; suspending or de-ranking restaurants whose error rate exceeds a threshold; subsidising tamper-proof / insulated packaging. Either of these — or related levers like proactive refunds for failed first orders, generous first-order refund policy to convert a near-miss into a recovered user — earns the second-lever mark.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks split 1 + 1 + 1 + 1. The phrase 'activation inequality' must be deployed (point 1). 'Operations is the activation function' framing (from cribsheet) is acceptable shorthand for points 3 and 4. Either of the two operational levers in point 4 — or any other plausible operational lever (proactive refunds, first-order quality guarantees, geographic rollout discipline) — earns the mark, provided it is tied to a specific failure mode. Generic 'improve customer service' answers do not earn the lever marks.",
+      "products_mentioned": [
+        "Deliveroo",
+        "Uber Eats"
+      ],
+      "related_concepts": [
+        "activation_inequality",
+        "first_failure_unrecoverability",
+        "operational_activation",
+        "rider_supply"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q5",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "natural_act_of_product",
+      "difficulty": "easy",
+      "marks": 3,
+      "question_text": "Deliveroo has publicly stated its Natural act of Product (NaP) as '4 orders every 28 days' (4o28). Explain what this NaP means, and discuss why this particular cadence is an appropriate retention metric for a food-delivery product (as opposed to, say, a daily or weekly NaP).",
+      "question_type": "explanation_application",
+      "model_answer": "**Part 1 — What 4o28 means (1 mark):** 4o28 is the threshold of repeated product use that defines a **retained, habituated user**. A diner who places at least 4 orders in any rolling 28-day window has, on Deliveroo's data, embedded the product in their routine and is highly likely to keep ordering; a diner below that cadence is in the activation / re-activation funnel and at risk of churn. The NaP is the operational target the growth team uses to define 'activated' for cohort analysis.\n\n**Part 2 — Why a roughly weekly cadence fits food delivery (1 mark):** Food delivery is a **transactional, paid-per-use product**. Daily would be unrealistic because most users cook, eat at work, or eat out for most meals — daily ordering would only describe a tiny segment of high-spending users and would set the activation bar so high that most genuinely retained users would be classified as churned. Weekly (1 order / 7 days = 4 / 28) matches the realistic upper end of normal household usage.\n\n**Part 3 — Why not slower than weekly (1 mark):** A monthly or less-frequent NaP would be too slow to detect churn in time to intervene. By the time a user had failed to order for 60 days you would already have lost them. The 28-day window is short enough to flag at-risk users while remaining realistic — the cadence corresponds to the natural rhythm of a habituated household using the product roughly once a week.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "3 marks split 1 + 1 + 1. Mark Logan's lecture explicitly cites 4o28 as Deliveroo's stated NaP — students should memorise the number and reference it explicitly. Acceptable variations on point 2/3: arguing the cadence matches the underlying transactional frequency (people don't order takeaway every day), arguing the window is short enough for early-warning churn detection, arguing it corresponds to habit-formation thresholds. Answers that fail to name the 4o28 figure or fail to justify the cadence cap at 1 mark.",
+      "products_mentioned": [
+        "Deliveroo"
+      ],
+      "related_concepts": [
+        "natural_act_of_product",
+        "retention_metrics",
+        "habit_formation",
+        "transaction_frequency"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q6",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "hard_side_seeding",
+      "difficulty": "hard",
+      "marks": 5,
+      "question_text": "When launching a new city, Deliveroo faces a classic chicken-and-egg problem: diners won't order without restaurant selection and reliable riders; restaurants won't list without diner volume; riders won't sign up without orders to fulfil. (a) Identify the hard side of this three-sided market and explain how Deliveroo solved the seeding problem at city launch. (b) Identify two distinct things that can go wrong with this seeding strategy.",
+      "question_type": "scenario_application",
+      "model_answer": "**Part (a) — Identify the hard side and the seeding solution (2 marks):**\n\n**The hard side is the riders (1 mark):** In a three-sided food-delivery market the supply side that is hardest to recruit cold-start is the riders — restaurants will list opportunistically because listing is low-cost, and diners will try the app for a discount, but riders need *paid hours* to be willing to show up. Without riders, no orders can be fulfilled and the other two sides see immediate failure.\n\n**Solution — pay riders an hourly minimum during launch (1 mark):** Deliveroo seeded rider supply by paying an hourly minimum (rather than purely per-delivery rates) during the launch phase of a new city. This guaranteed riders enough income to show up even when order volume was thin, ensuring delivery was reliable from day one. Once order volume crossed a liquidity threshold the hourly minimum could be tapered and rider pay reverted to a per-delivery model. With reliable supply on the rider side, restaurant onboarding and diner acquisition follow more easily.\n\n**Part (b) — Two things that can go wrong (3 marks):**\n\n**Failure 1 — Cost overrun if liquidity isn't reached fast enough (1 mark):** The hourly minimum is a subsidy — every rider-hour without an order is a direct loss. If demand seeding (paid marketing, restaurant onboarding) doesn't catch up quickly enough, the per-city launch budget is consumed before liquidity tips and the city runs unprofitably for far longer than planned. Multiplied across many cities this can sink the business.\n\n**Failure 2 — Rider quality / churn problems when the subsidy is removed (1 mark):** Riders who joined for the guaranteed hourly rate may quit or reduce hours when the platform switches to per-delivery pay, causing a supply collapse just as you need stable supply to support growing demand. This can produce a sudden activation-killing spike in late deliveries.\n\n**Failure 3 (alternative for the third mark) — Anti-network effects on the demand side from poor early experiences (1 mark):** If launch is attempted before rider supply is genuinely seeded, early diners hit the unrecoverable-first-failure problem (cold food, late delivery) and the local market is poisoned — re-launching the same city later is harder than launching it fresh, because the local population has already had a bad experience. (Other valid answers: regulatory backlash from gig-economy controversies; restaurant exclusivity wars with Uber Eats / Just Eat squeezing margins; rider subsidy creates a precedent that's politically hard to remove.)",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "5 marks split 2 (part a: 1 for naming the hard side + 1 for the hourly-minimum mechanism) + 3 (part b: 1 mark each for any two distinct failure modes; the third mark is for either depth on those two failures or a third distinct failure). Required terminology: hard side, chicken-and-egg, seeding, liquidity threshold. The hourly-minimum-pay mechanism is the cribsheet-flagged answer for the seeding question — students who guess 'discount diners first' on the hard-side question lose the seeding mark. Acceptable failure modes: cost overrun, rider churn at subsidy removal, demand-side poisoning from premature launch, regulatory backlash, restaurant exclusivity costs.",
+      "products_mentioned": [
+        "Deliveroo",
+        "Uber Eats"
+      ],
+      "related_concepts": [
+        "hard_side_seeding",
+        "chicken_and_egg",
+        "network_liquidity",
+        "rider_supply",
+        "anti_network_effects"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q7",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "sub_network_attack",
+      "difficulty": "medium",
+      "marks": 5,
+      "question_text": "Deliveroo and Uber Eats already operate large networks across most major UK cities. Explain how a well-funded start-up could nevertheless attack Deliveroo's network in a single city (e.g. Glasgow). State the general strategic approach, and give two specific tactical examples a Glasgow-based start-up could employ. Comment briefly on how effective this approach is likely to be.",
+      "question_type": "scenario_application",
+      "model_answer": "**General strategic point — Deliveroo is a network of networks (1 mark):** Deliveroo's network is geographically segmented — the atomic network is the city, and there are no meaningful network effects spanning Glasgow and London. A Glasgow start-up does not need to compete with Deliveroo's national scale; it only needs to build a *denser, better-experienced* sub-network within Glasgow. The framing 'Deliveroo is a network of networks, attackable on that basis' is the unlock — same logic Mark Logan applies to Uber in the 2024 paper.\n\n**Tactical example 1 — Hard-side attack on riders (1 mark):** Offer Glasgow riders better terms — higher per-delivery rates, lower commission, an hourly minimum during the launch period, better app tooling, faster payout cycles. Riders are the hard side of the market; pulling rider supply out of Deliveroo into your platform reduces Deliveroo's local liquidity and improves yours simultaneously.\n\n**Tactical example 2 — Niche / category attack (1 mark):** Target a Glasgow-specific segment Deliveroo serves poorly — e.g. exclusive partnerships with independent Glasgow restaurants Deliveroo's commission rates have priced out, or a category like late-night / student-area delivery, or a halal-only / vegan-only sub-product. Build a clearly superior product experience for that sub-network so it tips locally.\n\n**Effectiveness commentary (2 marks):** This is likely to be **partially effective in Glasgow specifically** but very hard to scale beyond it (1 mark). City-by-city beachheads are real (the Uber-vs-local-incumbent pattern Logan teaches), and Deliveroo's national marketing economics don't help inside a single city — the local startup can match or beat unit economics within its beachhead. However, two structural constraints limit upside (1 mark): (i) Deliveroo can respond *within Glasgow* by subsidising rider pay and restaurant commissions in that one city until the start-up runs out of money — incumbents can ringfence defensive spend geographically; (ii) graduating from one-city profitability to multi-city scale requires repeating the seeding cost at each new launch, against an incumbent who already has the next city seeded. The strategy works as a sustainable local business; it is unlikely to dethrone Deliveroo nationally.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "5 marks: 1 for the network-of-networks framing (cribsheet-required), 1 for each of two distinct tactical examples (hard-side attack, niche/category attack, exclusivity deals, superior local product, etc. — at least two distinct angles), 2 for effectiveness commentary that explicitly addresses both the local viability AND the scale-out difficulty. Mirrors paper2024_q12 (Uber sub-network attack) marking conventions: students who don't frame around 'network of networks' cap at 3 marks even with good tactical examples. Specific tactical examples MUST be tied to Glasgow / a single city, not generic.",
+      "products_mentioned": [
+        "Deliveroo",
+        "Uber Eats"
+      ],
+      "related_concepts": [
+        "sub_network_attack",
+        "network_of_networks",
+        "hard_side_seeding",
+        "niche_targeting",
+        "atomic_networks_geo_concentration"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_food_delivery_q8",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Food Delivery",
+      "priority": "high",
+      "topic": "acquisition",
+      "subtopic": "ltv_cac_calculation",
+      "difficulty": "easy",
+      "marks": 4,
+      "question_text": "Deliveroo launches in a new city. In a typical month it spends $20,000 on local marketing (Google SEM and social ads combined) and acquires 100 new paying customers from that spend. Each acquired customer places, on average, 4 orders per month with an average order value of $50, and the typical customer is retained for 12 months before churning.\n\n(a) Calculate the customer acquisition cost (CAC).\n(b) Calculate the customer lifetime value (LTV), using the gross-revenue convention used in this course.\n(c) State the LTV:CAC ratio.\n(d) State whether this satisfies the typical investor minimum, and comment briefly.\n\nIgnore other overheads. Show each step.",
+      "question_type": "ltv_cac_calculation",
+      "model_answer": "**Step (a) — CAC (1 mark):** CAC = total acquisition spend / customers acquired = $20,000 / 100 = **$200 per customer**.\n\n**Step (b) — LTV (1 mark):** LTV = revenue per order × orders per month × retention months = $50 × 4 × 12. Compute: $50 × 4 = $200 per month per customer; $200 × 12 = **$2,400 LTV per customer**.\n\n**Step (c) — LTV:CAC ratio (1 mark):** Ratio = LTV / CAC = $2,400 / $200 = **12:1**.\n\n**Step (d) — Investor-minimum check and comment (1 mark):** The typical investor minimum is **3:1**. A ratio of 12:1 is comfortably above this threshold, so on these single-market figures the unit economics look excellent. Honest caveat (within course concepts): this calculation uses gross order revenue, not contribution margin — Deliveroo only retains the take-rate (commission and delivery-fee share), so the *contribution-margin LTV:CAC* will be substantially lower. The figure is also for a single mature city; the calculation does not include the seeding costs (rider hourly minimum, restaurant onboarding) that are incurred before steady state is reached.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks: 1 mark per labelled step (a)-(d). Arithmetic is calculator-free by construction: $20,000 / 100 = $200; $50 × 4 = $200; $200 × 12 = $2,400; $2,400 / $200 = 12. The 3:1 investor-minimum threshold is the trigger phrase from paper2024_q2 / paper2025_q1. The contribution-margin caveat in (d) is bonus framing that demonstrates mastery — not required for the mark, which is satisfied by stating 12:1 > 3:1 and concluding the unit economics pass. Students who use net revenue / contribution margin in (b) and arrive at a different LTV should still earn (b) and (c) provided their stated convention is consistent.",
+      "products_mentioned": [
+        "Deliveroo"
+      ],
+      "related_concepts": [
+        "ltv_cac_threshold",
+        "customer_acquisition_cost",
+        "lifetime_value",
+        "single_market_unit_economics"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": "",
+      "product_id": "food_delivery"
+    },
+    {
+      "id": "cribsheet_medium_q1",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "List each of the network effects and compounding growth mechanisms present in the growth model for Medium (the long-form publishing platform). For each item identified, clearly state its type and provide a brief description of its operation.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Approach:** Same exercise as the AirBnB / Instagram past-paper inventory questions — name the mechanism, state its type clearly, give a brief description applied to Medium. There are more mechanisms available than there are marks (1 mark per correctly identified, named, and described mechanism, capped at 6).\n\n**(1) Content-based indirect CGM — company-generated (1 mark):** In Medium's early days, Ev Williams' team commissioned high-quality articles. These articles act as content that pulls in new readers via search engines and social shares — the canonical indirect content CGM, operating at higher than transaction frequency.\n\n**(2) Content-based indirect CGM — user-generated (1 mark):** As the writer base grew, Medium transitioned the same CGM to user-generated content (the CG→UG transition). Articles written by users now dominate the discovery flywheel.\n\n**(3) Two-sided network effect — writers ↔ readers (1 mark):** More writers → more articles → more reasons for readers to come; more readers → more engagement → more reason for writers to publish. Soft (not direct-social) two-sided effect.\n\n**(4) SEO / data-scale loop (1 mark):** More published articles → more indexed pages → more long-tail search traffic → more reader acquisition without paid spend. A scale-based compounding loop layered on top of the content CGM.\n\n**(5) Financial CGM — writer payouts / Partner Programme (1 mark):** Medium pays writers based on member engagement with their articles. This financially-incentivised mechanism attracts more writers, which feeds the two-sided network effect.\n\n**(6) Social-capital CGM (Direct, writer side) (1 mark):** Writers share their published Medium pieces on Twitter/LinkedIn for clout and audience growth. This drives word-of-mouth-style discovery for non-Medium readers and acts as an organic referral effect for the platform.\n\n**(Additional valid mechanisms beyond the 6 cap):** brand-scale network effect; curation / staff-picks reducing anti-network effects from variable UG quality; data network effect via personalised recommendations.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "6 marks. Award 1 mark per mechanism that is (a) named, (b) typed correctly (e.g. 'indirect content CGM — UG sub-type', 'two-sided network effect'), and (c) briefly described as applied to Medium specifically. Listing types without applying them to Medium loses marks (cf. paper2024_q13 Instagram marking note). The CG→UG split should be credited as two distinct items because they are different sub-types operating at different stages. Don't penalise students who give 5 strong items plus a weak 6th — cap at 6, take the best.",
+      "products_mentioned": [
+        "Medium"
+      ],
+      "related_concepts": [
+        "indirect_cgm",
+        "content_cgm",
+        "company_generated",
+        "user_generated",
+        "two_sided_network",
+        "seo_loop",
+        "financial_cgm",
+        "social_capital_cgm"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q2",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "cgm_indirect_content",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Identify the dominant compounding growth mechanism present in Medium's growth model and explain how it operates. In your answer, name the CGM type explicitly and describe how the search-engine indexing of Medium articles contributes to the loop.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 — Name the CGM type (1 mark):** The dominant CGM on Medium is an **indirect, content-based CGM**. It is indirect because the article (the content) is what drives new-user acquisition rather than a referral link or invitation from an existing user.\n\n**Point 2 — How it operates on Medium (1 mark):** Each published article is a discoverable artefact. Readers find articles via search engines and social shares; some of those readers go on to become repeat readers, and a fraction become writers themselves, producing more articles — feeding the loop.\n\n**Point 3 — The SEO contribution (1 mark):** Every published article becomes a new page that Google indexes. As the article corpus grows, Medium accumulates an enormous long-tail of indexed pages targeting many different search queries — so search traffic compounds with the article count rather than scaling linearly with marketing spend.\n\n**Point 4 — Why this is compounding rather than linear (1 mark):** Articles persist and continue to attract traffic for months or years after publication, so the CGM operates **above transaction frequency** (a reader who never publishes still keeps generating exposure for the platform every time their article shows up in someone else's search). The output of past cycles becomes the input to future cycles, which is the compounding signature.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for naming the indirect content CGM. 1 mark for describing the article-as-acquisition-artefact loop. 1 mark for the SEO indexing point (the question explicitly asks for it — students who skip this lose a mark). 1 mark for distinguishing compounding from linear marketing (article persistence / above-transaction-frequency). Don't double-credit students who restate the same point in two ways.",
+      "products_mentioned": [
+        "Medium"
+      ],
+      "related_concepts": [
+        "indirect_cgm",
+        "content_cgm",
+        "seo_loop",
+        "above_transaction_frequency",
+        "compounding_vs_linear"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q3",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "two_sided_marketplace",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Medium has a two-sided structure of writers and readers. Using concepts from the course, explain the network effect operating between the two sides and discuss why this network effect is generally considered weaker than the direct social network effect found in a product such as Snapchat.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 — Identify the two-sided network effect (1 mark):** Medium exhibits a **soft two-sided network effect**: more writers on the platform means more (and more varied) articles, which makes Medium more valuable to readers; more readers means more potential audience and engagement, which makes Medium more valuable to writers.\n\n**Point 2 — How the two sides reinforce each other (1 mark):** The two sides reinforce each other indirectly — writers and readers don't necessarily know each other personally, but each side scales the value of the platform for the other. This is the same structural pattern as a content marketplace.\n\n**Point 3 — Why it is weaker than Snapchat-style direct NE (1 mark):** In Snapchat the network effect is **direct and personal**: the value to me depends specifically on whether *my friends* are on the platform. On Medium, a reader doesn't need any specific writer to be present — they just need the platform to have *enough good articles*. The dependency is on aggregate supply, not on identity, so the per-user marginal value of an additional writer is much smaller.\n\n**Point 4 — Consequence for growth dynamics / atomic networks (1 mark):** Because the dependency is aggregate rather than personal, Medium does not benefit from the dense **atomic network** dynamic that lets Snapchat give small friend groups full value on day one. Medium has to accumulate a large library of writers before readers experience strong network value, which is one reason its growth has been slower and less explosive than direct-social products.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for naming the two-sided NE. 1 mark for describing the bidirectional reinforcement on Medium specifically. 1 mark for the direct-vs-indirect / aggregate-vs-personal contrast with Snapchat. 1 mark for the atomic-network consequence (slower, less explosive growth). Students who only describe Medium without contrasting Snapchat cap at 2 marks — the question explicitly asks for the comparison.",
+      "products_mentioned": [
+        "Medium",
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "two_sided_network",
+        "direct_network_effect",
+        "atomic_network",
+        "soft_network_effect",
+        "aggregate_vs_personal_dependency"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q4",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "two_sided_activation",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Medium has two distinct user populations — readers and writers — and the activation event for each side is different. Using concepts from the course, identify the activation moment for each side, explain why writer activation is harder to achieve than reader activation, and comment on which side a Medium growth team should prioritise investing in and why.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Reader activation moment (1 mark):** A reader is activated when they read an article that holds them long enough that they come back for another (the canonical 'first session that beat the random-article bar' moment). It is a low-friction, single-action activation that the recommendation system can drive.\n\n**Point 2 — Writer activation moment (1 mark):** A writer is activated when they publish a piece that gets meaningful engagement (claps, responses, follows). The activation requires both *producing* a piece of work and *receiving* a positive social signal.\n\n**Point 3 — Why writer activation is harder (1 mark):** Writer activation requires significantly higher effort (drafting an article is much more work than reading one), and the activation outcome is conditional on other users showing up to engage — so the activation function depends on the rest of the network being live, not just on the writer's own behaviour. This makes writer activation slower and the funnel narrower.\n\n**Point 4 — Which side to prioritise and why (1 mark):** Prioritise **writer activation**, because writers are the harder, more valuable side — every activated writer produces ongoing content that drives reader acquisition (via the indirect content CGM and SEO loop) for months or years. Reader activation is important but more easily handled by curation and recommendation. Concentrating activation investment on the constrained side is the standard two-sided-marketplace strategy.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark each: reader activation moment, writer activation moment, reasoned explanation of why writer activation is harder, prioritisation recommendation with justification. Accept either side as the priority answer if the justification is sound, but the standard course answer is writer-side because the writer is the constrained / harder / more compounding side. Students who confuse activation with retention or NaP cap at 2 marks.",
+      "products_mentioned": [
+        "Medium"
+      ],
+      "related_concepts": [
+        "activation_moment",
+        "activation_inequality",
+        "two_sided_marketplace",
+        "constrained_side",
+        "writer_activation"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Multi-part question: identify both moments, contrast their difficulty, recommend a side. All four sub-asks must be addressed.",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q5",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "natural_frequency",
+      "difficulty": "easy",
+      "marks": 3,
+      "question_text": "Medium serves both readers and writers, but the two sides engage with the product at very different cadences. Suggest a plausible Natural Frequency (NaP) for each side, justify the difference in cadence, and explain why a single product can sustainably hold two distinct NaPs at the same time.",
+      "question_type": "explanation_application",
+      "model_answer": "**Point 1 — Reader NaP (1 mark):** A reasonable reader NaP is around **2 articles per week (2a7)** — readers consume articles like they consume any other content feed; a couple of times per week is enough to form a habit without pressure to use the product daily.\n\n**Point 2 — Writer NaP (1 mark):** A reasonable writer NaP is around **1 published piece per month (1p30)** — writing a long-form article is high-effort, so writer cadence is much lower; once a month is a realistic, sustainable rhythm for a typical writer.\n\n**Point 3 — Why a single product can hold both (1 mark):** The two sides are doing different things, so their NaPs measure different actions (consumption vs production) and don't have to match. The product just needs each side to clear its own NaP often enough to keep that side retained — readers stay engaged at a consumption cadence, writers stay engaged at a production cadence, and the two-sided network effect holds them together. A product mistakenly trying to force one common NaP would likely either burn out writers (too frequent) or under-engage readers (too infrequent).",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for a sensible reader NaP (any plausible reader cadence between several-per-week and weekly is fine). 1 mark for a sensible writer NaP (monthly or every-few-weeks). 1 mark for the explanation that the two NaPs measure different actions and that the product holds both because each side is independently retained at its own cadence. Reject answers that give the same NaP for both sides — that misses the entire point of the question.",
+      "products_mentioned": [
+        "Medium"
+      ],
+      "related_concepts": [
+        "natural_frequency",
+        "engagement_intensity",
+        "two_sided_marketplace",
+        "consumption_vs_production_cadence"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q6",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "cg_to_ug_transition",
+      "difficulty": "hard",
+      "marks": 5,
+      "question_text": "Medium's content-based indirect CGM has historically operated at a higher frequency than the platform's underlying transaction frequency, and over time the company shifted the balance of the CGM from company-generated content toward user-generated content.\n\n(a) Explain why a content CGM might be deliberately operated at a higher frequency than the product's transaction frequency. (2 marks)\n\n(b) Explain why Medium would later transition the CGM from company-generated content to user-generated content, and identify one significant risk this transition introduces. (3 marks)",
+      "question_type": "explanation_application",
+      "model_answer": "**Part (a) — Above-transaction-frequency operation (2 marks):**\n\n**Point 1 (1 mark):** You cannot force a user to transact more often than they naturally would — for Medium, you can't make a reader pay for a subscription more frequently or compel them to come back daily. But you can keep reminding them that the product exists in between transactions.\n\n**Point 2 (1 mark):** A content CGM operating above transaction frequency therefore acts as an **awareness / retention reminder** — articles surfacing in search and social feeds keep Medium top-of-mind so that when the user does want to read long-form, they come to Medium rather than a competitor.\n\n**Part (b) — CG → UG transition and its risk (3 marks):**\n\n**Point 3 (1 mark):** Medium initially used company-generated content because Ev Williams' team could **directly control quality and cadence**, which was essential when the writer base was too small to produce enough good content of its own.\n\n**Point 4 (1 mark):** Medium transitioned to user-generated content for **scalability**. Staff-commissioned content is bounded by headcount and budget — there are only so many editors. A large writer base can produce orders of magnitude more articles than the company ever could in-house, which is what makes the CGM compound rather than plateau.\n\n**Point 5 (1 mark) — Risk:** The major risk is **quality variance / trust degradation**. UG content is uneven — some articles are excellent, many are mediocre or worse. If poor-quality articles dominate a reader's first impression, the platform's brand erodes and reader retention falls (an anti-network effect). Medium mitigates this with editor-curated mechanisms such as 'staff picks' and recommendation-based surfacing, but the risk is intrinsic to the transition.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "Part (a): 1 mark for the cannot-force-more-transactions point, 1 mark for the awareness/reminder mechanism. Part (b): 1 mark for why CG first (control / early-stage / quality assurance), 1 mark for why UG later (scalability beyond staff/LLM headcount), 1 mark for naming a credible risk (quality variance, trust, moderation cost — quality variance is the canonical answer). This is the canonical Logan two-part question (cf. revision_q2 / sample_q12) but applied specifically to Medium and extended with the risk component. Common student error: answering only one part — penalise heavily if part (a) or (b) is missing.",
+      "products_mentioned": [
+        "Medium"
+      ],
+      "related_concepts": [
+        "content_cgm",
+        "above_transaction_frequency",
+        "company_generated",
+        "user_generated",
+        "cg_to_ug_transition",
+        "anti_network_effects",
+        "quality_curation"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Two-part question. This is the canonical Logan example for content CGMs — both parts must be answered, and part (b) explicitly asks for a risk as well as a rationale.",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q7",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "competitive_threat",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "Substack — a newsletter-publishing platform where readers subscribe to individual writers — has emerged as a significant competitor to Medium for high-profile long-form writers. Using concepts covered on the course, explain why Substack's model is structurally threatening to Medium's two-sided network effect, and suggest one strategic response Medium could employ to defend its position.",
+      "question_type": "scenario_application",
+      "model_answer": "**Point 1 — Substack disintermediates the platform-side network effect (1 mark):** On Medium, a writer's audience belongs to *Medium*: readers come for the platform and discover writers there. On Substack, the writer owns the **direct relationship with their subscribers** (an email list). This shifts the value of the network from platform-aggregate to writer-personal — meaning Medium's two-sided NE doesn't help retain top writers, because they no longer need the platform's reader base.\n\n**Point 2 — Hard-side attack on the constrained side (1 mark):** This is the canonical **hard-side attack** pattern (cf. Uber-vs-startup logic in paper2024_q12): Substack offers Medium's most valuable, hardest-to-acquire side — the writers — better terms (full subscriber ownership, higher revenue share). If the hard side defects, the soft side (readers) follows, and Medium's two-sided NE collapses asymmetrically.\n\n**Point 3 — Anti-compounding effect on Medium's content CGM (1 mark):** Every top writer who moves to Substack writes one fewer article on Medium, which reduces the indexed-pages corpus, weakens Medium's SEO loop, and shrinks the ambient awareness that the indirect content CGM produces. This is anti-compounding: each defection makes the next defection slightly more attractive.\n\n**Point 4 — Strategic response (1 mark):** A reasonable response is for Medium to give writers more of what Substack provides without giving up the platform advantages — for example, **paid newsletters with audience portability**, stronger writer-to-subscriber direct messaging, or **better revenue share via the Partner Programme** (closing the financial gap). The point is to neutralise the financial-asymmetry and ownership advantages Substack offers while keeping Medium's discovery/SEO benefits as the differentiator. (Other defensible answers: invest in editorial curation that Substack can't replicate; double down on the two-sided NE by improving discovery for new writers.)",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark for identifying the disintermediation / writer-owns-audience point. 1 mark for framing this as a hard-side attack on the constrained side. 1 mark for the anti-compounding consequence on Medium's content CGM and SEO loop. 1 mark for any defensible strategic response with reasoning (the most common credit-worthy answers are: better revenue share, audience-portability features, or doubled-down editorial curation as a non-replicable differentiator). Students who name course concepts explicitly (hard-side attack, two-sided NE, content CGM) earn marks more reliably than those describing the threat in generic business terms.",
+      "products_mentioned": [
+        "Medium",
+        "Substack"
+      ],
+      "related_concepts": [
+        "two_sided_network",
+        "hard_side_attack",
+        "constrained_side",
+        "content_cgm",
+        "anti_compounding",
+        "competitive_strategy"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_medium_q8",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Medium",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "natural_frequency",
+      "difficulty": "easy",
+      "marks": 3,
+      "question_text": "Medium has 100,000 weekly active readers. Internal analytics show the reader Natural Frequency (NaP) is 2 articles per week. Of the weekly active readers, 25% exceed NaP and read on average 4 articles per week, while the remaining 75% engage at exactly NaP (2 articles per week).\n\nCalculate the total number of article-reads generated per week across the weekly active reader base. Show your working.",
+      "question_type": "engagement_calculation",
+      "model_answer": "**Step 1 — Split the reader base by engagement tier:**\n- Above-NaP readers: 25% × 100,000 = **25,000 readers** at 4 articles/week.\n- At-NaP readers: 75% × 100,000 = **75,000 readers** at 2 articles/week.\n\n**Step 2 — Compute reads per tier:**\n- Above-NaP reads: 25,000 × 4 = **100,000 article-reads/week**.\n- At-NaP reads: 75,000 × 2 = **150,000 article-reads/week**.\n\n**Step 3 — Sum:** Total = 100,000 + 150,000 = **250,000 article-reads per week**.\n\n**Final answer: 250,000 article-reads per week.**",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "3 marks: 1 mark for splitting the base correctly into 25,000 + 75,000; 1 mark for computing reads per tier (100,000 and 150,000); 1 mark for the correct total of 250,000. Award partial credit along the chain for arithmetic slips as long as the method is correct (cf. paper2025_q15 marking convention). Calculator-free arithmetic — numbers are deliberately clean.",
+      "products_mentioned": [
+        "Medium"
+      ],
+      "related_concepts": [
+        "natural_frequency",
+        "engagement_intensity",
+        "weekly_active_users",
+        "engagement_distribution"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": "",
+      "product_id": "medium"
+    },
+    {
+      "id": "cribsheet_snapchat_q1",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "growth_model_application",
+      "difficulty": "hard",
+      "marks": 6,
+      "question_text": "List each of the network effects and compounding growth mechanisms present in the growth model for Snapchat. For each item, state its type and provide a brief description of its operation.",
+      "question_type": "growth_model_inventory",
+      "model_answer": "**Network effects:**\n\n**(1) Direct social network effect within friend groups (1 mark):** Snapchat is more useful to me when my actual friends are on it — value flows directly between users sending and receiving snaps. Crucially this network is *dense locally but sparse globally*: a small high-school cohort being fully on Snapchat is enough for the product to be valuable to its members, regardless of overall penetration. This is the textbook **atomic-network** pattern.\n\n**(2) Data / scale network effect on the recommendation and Discover side (1 mark):** As Snapchat grows, the recommendation algorithms behind Discover, Spotlight and ad targeting improve with more usage data, lifting engagement and ad performance.\n\n**(3) Brand / scale effects (1 mark):** At large scale Snap negotiates better unit costs on cloud, storage and bandwidth, and brand recognition lowers acquisition friction — particularly important among teen cohorts where the brand carries social cachet.\n\n**Compounding growth mechanisms:**\n\n**(4) Direct organic CGM (1 mark):** To use Snapchat usefully you need your friends on it, so users actively recruit their friend group by word-of-mouth. This is the dominant CGM in the early growth story.\n\n**(5) Direct invitation CGM (1 mark):** 'Add friends' contact-sync flows let users invite their phonebook directly inside the product — a personal-utility-flavoured invitational CGM that piggy-backs on the address book.\n\n**(6) Streaks as a CGM-flavoured retention loop (1 mark):** Streaks are not a pure CGM but operate similarly — a streak cannot be maintained alone, so each participant pulls the other back daily. This produces a viral *pull* (re-engaging lapsed friends rather than recruiting strangers) on top of the retention benefit.\n\n**(7) Indirect content CGM via Stories / Discover (extra, for safety):** Stories cross-posted to other platforms (and Discover / publisher partner content) generate ambient awareness for non-users, drawing them into Snapchat.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark per correctly named AND briefly described mechanism applied specifically to Snapchat, max 6. Naming matters — 'streaks' described purely as 'a fun feature' will not score; the candidate must frame it as a CGM-flavoured retention loop (or equivalent). The atomic-network framing on point (1) is the unlock — students who only say 'social network effect' without the dense-local / sparse-global insight are scoring the bare minimum on that point.",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "network_effects",
+        "atomic_networks",
+        "organic_cgm",
+        "invitation_cgm",
+        "streaks",
+        "data_network_effect"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "6 marks → aim for 6 distinct mechanisms (a 7th is cheap insurance). Name each with course terminology (e.g. 'direct organic CGM' not just 'word-of-mouth') and tie each to Snapchat specifically.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q2",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "social_capital_cgm",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Identify the compounding growth mechanisms (CGMs) at work in Snapchat. For each, name its type using course terminology and briefly describe its operation in the Snapchat context.",
+      "question_type": "definition_listing",
+      "model_answer": "**(1) Direct organic CGM (1 mark):** Snapchat is essentially worthless to a user whose friends are not on it, so activated users actively recruit their friend group by word-of-mouth. The personal-utility motive (I want to send snaps to my friends) drives the invitations.\n\n**(2) Direct invitation CGM (1 mark):** The in-product 'add friends' flow with contact-sync surfaces phonebook contacts and prompts the user to invite them directly — a frictionless invitational CGM piggy-backing on the address book.\n\n**(3) Streaks as a CGM-flavoured retention loop (1 mark):** A streak requires two participants to send daily; if one lapses, the streak breaks for both. This produces a *re-engagement* viral pull — a lapsed friend gets nudged back by their counterpart — which behaves like a CGM operating on the existing user base rather than on new acquisition.\n\n**(4) Indirect content CGM via Stories / Discover (1 mark):** Stories shared off-platform and Discover / publisher content produce ambient awareness for non-users, who then download the app — content acting as the referral vehicle rather than a person.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "1 mark per CGM, correctly named with course terminology AND tied to Snapchat. The streaks point is the differentiator — many candidates will list streaks as 'a retention feature' without recognising the viral-pull / CGM-flavoured framing. Accept either ordering of points but the four distinct mechanisms must be present for full marks. Three of four also acceptable for 3/4.",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "organic_cgm",
+        "invitation_cgm",
+        "streaks",
+        "content_cgm",
+        "retention_loop"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Use the precise course terms ('direct organic CGM', 'direct invitation CGM', 'indirect content CGM'). Mark Logan flags streaks specifically as a CGM-flavoured mechanic, not just a retention gimmick — frame it that way.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q3",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "network_effects_atomic_sparse",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Using network-effects concepts studied on the course, explain why Snapchat's network was valuable to its early users despite Snapchat having only a tiny share of the global messaging market. In your answer, refer explicitly to the structure of Snapchat's network.",
+      "question_type": "scenario_application",
+      "model_answer": "**(1) Direct social network effect, but locally measured (1 mark):** Snapchat carries a direct (one-sided) social network effect — value to me increases as my friends join. The relevant 'network' for measuring that value, however, is *my friend group*, not the global user base.\n\n**(2) Dense locally, sparse globally — the atomic-network pattern (1 mark):** Snapchat's network was dense within small friend cohorts (e.g. a single high-school year group) and sparse across the rest of the world. As long as one cohort was densely connected, the product had genuine value for its members on day one — independent of overall penetration.\n\n**(3) Atomic networks as the unit of value (1 mark):** This is the textbook atomic-network pattern: the smallest viable network is a friend group of perhaps 5–20 teenagers, and once that atomic unit is dense, the product works. Growth then proceeds atomic-network by atomic-network (cohort to cohort), not by uniform global spread.\n\n**(4) Why the global-share framing is misleading (1 mark):** A small global share would be fatal for a product whose network effect is measured globally (e.g. a marketplace), but is irrelevant for Snapchat because no user cares whether someone in another country uses it. Comparing Snapchat to global incumbents on share alone misses the structure of the network.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks. The dense-locally / sparse-globally framing AND the atomic-network terminology are essentially required for full marks. A candidate who simply says 'social network effect' without distinguishing local from global density is scoring at most 1–2. Credit awarded for explicitly contrasting Snapchat's structure with networks where global density matters (marketplaces, search).",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "atomic_networks",
+        "network_density",
+        "sparse_network",
+        "direct_network_effect",
+        "smallest_viable_network"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Use the explicit terms 'atomic network', 'dense locally, sparse globally', and 'smallest viable network'. The question is testing whether you can articulate the structural distinction, not just name network effects in general.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q4",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "retention_floor",
+      "difficulty": "medium",
+      "marks": 4,
+      "question_text": "Snapchat's growth team observes that, of every 1,000 users acquired in a given week, roughly 400 send a snap and receive one back within their first 48 hours, while the remaining 600 do not. Six months later, the team plots a cohort retention chart for that week's signups. Using concepts studied on the course, describe what shape you would expect the chart to take, and what overall retention rate you would expect at the 6-month mark. Justify your answer.",
+      "question_type": "scenario_application",
+      "model_answer": "**(1) Identify the activation moment (1 mark):** Snapchat's activation is sending a snap that gets a snap back — the first reciprocal exchange. The 400 users who completed this within 48 hours are *activated*; the 600 who did not are *non-activated*. This is the standard activation-inequality split for a social-media product.\n\n**(2) Shape — steep early drop from non-activated churn (1 mark):** The cohort chart will fall steeply over the first few weeks as the 600 non-activated users churn out almost entirely (social-media non-activated users typically churn within days). The curve will look almost vertical at the start.\n\n**(3) Shape — levelling off as the activated cohort persists (1 mark):** After the activation phase, the curve flattens dramatically because the activated 400 are stickily engaged — friend-network lock-in plus streaks make their retention much higher than the early slope suggests.\n\n**(4) Apply the ~60% retention floor to the activated portion (1 mark):** Mark Logan's social-media rule of thumb is that *activated* users retain at roughly 60% over the medium term. Of the 400 activated users, ~60% (≈240) should still be active at 6 months. The 600 non-activated users contribute essentially nothing. Total cohort retention at 6 months ≈ 240 / 1,000 = **~24%** — a healthy outcome by social-media standards because the floor is being held by the activated half of the cohort, not because the headline number is impressive.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks. Awarded for: (1) naming the Snapchat-specific activation moment (reciprocal snap), (2) describing the steep-then-flat shape, (3) explaining *why* it flattens (activation inequality), (4) applying the ~60% retention floor to the *activated* segment specifically — not to the whole cohort. A candidate who applies 60% to the full 1,000 (giving 600) misunderstands the floor and loses the final mark. The ~24% figure is the target answer; ±5pp accepted with sound reasoning.",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "activation_inequality",
+        "retention_floor",
+        "cohort_retention_chart",
+        "reciprocal_activation",
+        "social_media_benchmark"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "The 60% floor applies to *activated* users only. Splitting the cohort by activation status before applying the floor is the move the marker is looking for.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q5",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "activation_retention",
+      "subtopic": "engagement_intensity",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "Snapchat's 'streaks' feature shows the number of consecutive days two friends have exchanged snaps, and breaks if a day is missed. Using concepts covered in the course, comment on streaks as an engagement-intensity and natural-frequency mechanism.",
+      "question_type": "scenario_application",
+      "model_answer": "**(1) Streaks formalise a daily natural frequency (1 mark):** Messaging products run at a daily cadence — a plausible Snapchat NaP framing is something like 'send a snap to 2 friends per day' (2s1). Streaks make this NaP explicit and visible, turning it into a commitment device: a 100-day streak is, in effect, a 100-day NaP commitment.\n\n**(2) High engagement intensity for the social-media category (1 mark):** Daily reciprocal exchange with multiple friends is genuinely high engagement intensity — much higher than e.g. BeReal's once-per-day single post. Streaks lift the floor on engagement intensity rather than just nudging users back.\n\n**(3) Risk — anti-network-effect / spam edge (1 mark):** Pushed too hard, daily-streak pressure can cross into spam: notifications and guilt-driven re-engagement risk anti-network effects (users associate the app with obligation rather than fun). A well-designed streak balances commitment with not punishing genuinely busy users — otherwise the very mechanic that drives intensity drives churn.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "3 marks. Looking for explicit use of the course terms 'natural frequency' / 'NaP', 'engagement intensity', and at least one of 'commitment device' or 'anti-network effects'. A candidate who only describes streaks ('they encourage daily use') without naming the underlying concepts scores at most 1. Credit also given for the alternative framing that streaks act as a CGM-flavoured retention loop, provided the NaP / engagement-intensity language is still present.",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "natural_frequency",
+        "engagement_intensity",
+        "commitment_device",
+        "anti_network_effects",
+        "habit_formation"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Mark the question as fundamentally about engagement intensity — name the NaP cadence (daily) and explain how streaks formalise it.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q6",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "network_effects_atomic_sparse",
+      "difficulty": "hard",
+      "marks": 5,
+      "question_text": "Snapchat launched in 2011 from a single American high-school cohort and within a few years had built a globally significant social network. By contrast, Google+ launched in 2011 leveraging Google's existing 1-billion-user account base and was effectively dead within five years; Meta's Threads launched in 2023 with 41.8M DAUs by day two but retention collapsed by ~79% within weeks. Using network-effects concepts studied on the course, provide a reasonable explanation for Snapchat's success against the failures of Google+ and Threads.",
+      "question_type": "scenario_application",
+      "model_answer": "**(1) Snapchat as an atomic-network success (1 mark):** Snapchat seeded *dense* networks one cohort at a time (high-school year groups). The smallest viable network — perhaps 10–20 friends — was achievable in a single school. Once that atomic unit was dense, the product worked completely for its users regardless of global penetration.\n\n**(2) Google+ and Threads as sparse-global launches (1 mark, essentially required):** Both Google+ and Threads launched by *replicating an existing identity graph* (Google accounts; Instagram follows). The resulting network was sparse with respect to the new product's actual use case — the people I follow on Instagram for visual content are not the people I want for Twitter-style discourse. Headline DAU numbers were inflated by onboarding friction-removal but the underlying network density for the *relevant* use case was thin.\n\n**(3) Anti-network effects of an empty room (1 mark):** When a new user joined Google+ or Threads, the experience was an empty feed — content the user didn't care about, posted by people not posting for that context. That immediately produces anti-network effects: bad first experience, no reason to return. Snapchat avoided this because new users joined into an already-dense friend cohort.\n\n**(4) Strategy contrast — cohort-by-cohort vs national launch (1 mark):** Snapchat's growth pattern was atomic-network-by-atomic-network: dense one cohort, then expand to the next adjacent cohort (siblings, neighbouring schools, etc.). Google+ and Threads attempted national/global launches before any single sub-network was dense — exactly the sparse-network anti-pattern Mark Logan flags.\n\n**(5) Why headline numbers misled in 2011 / 2023 (1 mark):** Both Google+ (auto-enrolled Google account holders) and Threads (auto-imported Instagram followers) booked huge initial DAU figures from onboarding tricks. These collapsed because the underlying network was sparse for the new use case — the trick gets people through the door but cannot manufacture density. Snapchat never reported flattering top-line numbers but had something neither competitor had: a dense, working atomic network.",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "5 marks. Point (2) — the dense-vs-sparse network framing — is essentially required, mirroring the marking guidance on the canonical Threads question (paper2024_q15). The candidate must identify Snapchat as an *atomic-network* success and Google+/Threads as *sparse-global* failures. Awarded any 5 of the points above provided point (2) is present. Recognising that headline DAUs from onboarding tricks mask network density (point 5) is a strong differentiator.",
+      "products_mentioned": [
+        "Snapchat",
+        "Google+",
+        "Threads"
+      ],
+      "related_concepts": [
+        "atomic_networks",
+        "sparse_network",
+        "network_density",
+        "anti_network_effects",
+        "smallest_viable_network",
+        "google_plus_case_study"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Frame Snapchat as the success-case mirror of the Threads / Google+ failures. Use the explicit terms 'atomic network', 'dense locally, sparse globally', and 'sparse with respect to the relevant use case'.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q7",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "sub_network_attack",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "Snapchat has built a deeply entrenched friend-network among western teenagers, with high streak counts and strong daily engagement. Explain how a start-up could nevertheless attempt to attract participants away from Snapchat's network. State the general strategic approach and give specific examples of actions that could be taken.",
+      "question_type": "scenario_application",
+      "model_answer": "**(1) General strategic point — Snapchat is a network of networks (1 mark):** Although Snapchat's friend-network is famously sticky, it is not a single homogeneous network — it is a network of friend-cohort sub-networks (a school year, a friend group, a specific city's teen scene). The network effects across the whole are weaker than the headline scale suggests, so Snapchat is attackable by a sub-network attack on individual cohorts. To get full marks, frame the answer around this 'network of networks' insight.\n\n**(2) Specific example — target a single cohort with a superior product fit (1 mark):** Pick one identifiable cohort (e.g. a particular university intake, a specific country's teen segment, a specific interest community) and build a product experience that is materially better for *them* — a feature set, content type or moderation regime that fits their needs better than Snapchat's generic offering. Once that atomic network flips, expand to adjacent cohorts.\n\n**(3) Specific example — hard-side seeding via influencers (1 mark):** Pay or sign creators / influencers who are central to a target cohort to publish exclusively on the new platform. Their followers in that cohort then have a concrete reason to switch, dragging the dense friend sub-network with them.\n\n**(4) Specific example — exploit an anti-network-effect weakness (1 mark):** Identify a category of user that Snapchat is poorly serving (e.g. heavier-content users frustrated by ephemerality, or a sub-community uneasy about Discover content / ads / safety) and build for them. Snapchat's anti-network effects in that segment become the start-up's pull. (Equivalent credit: attack on a feature axis Snapchat structurally cannot match — e.g. higher-fidelity persistent content for a creator sub-community.)",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "4 marks. The 'network of networks' framing on point (1) is required for full marks — listing tactics without that framing tops out at 2/4. Specific examples must be tied to Snapchat's actual sub-network structure (friend cohorts), not generic. Hard-side seeding (influencers) and anti-network-effect exploitation are both valid; either earns the relevant mark.",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "sub_network_attack",
+        "network_of_networks",
+        "hard_side_seeding",
+        "anti_network_effects",
+        "atomic_networks"
+      ],
+      "is_calculation": false,
+      "exam_technique_notes": "Mirror the Uber sub-network-attack answer pattern: lead with 'network of networks', then give specific Snapchat-tied examples. Don't list generic tactics.",
+      "product_id": "snapchat"
+    },
+    {
+      "id": "cribsheet_snapchat_q8",
+      "source": "cribsheet_products",
+      "source_label": "Cribsheet Products — Snapchat",
+      "priority": "high",
+      "topic": "compounding_growth",
+      "subtopic": "growth_multiplier",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "Snapchat's growth team measures its direct invitation CGM and finds that, on average, each user in a cycle generates 0.5 new sign-ups in the next cycle (i.e. v = 0.5).\n\n4,000 users obtained from linear marketing are used to seed the CGM, which then runs through multiple cycles until exhaustion. Assume no noise or error.\n\n(a) How many additional users sign up during the first cycle (i.e. with how many users does cycle 2 commence)?\n(b) What is the growth multiplier (GM)?\n(c) How many users in total will the CGM have produced when it has run to exhaustion (including the original seed)?\n\nGive answers to zero decimal places.",
+      "question_type": "cgm_calculation",
+      "model_answer": "**(a) Cycle-2 starting users (1 mark):** cycle₂ = v × cycle₁ = 0.5 × 4,000 = **2,000 users**.\n\n**(b) Growth multiplier (1 mark):** GM = 1 / (1 − v) = 1 / (1 − 0.5) = 1 / 0.5 = **2.0**.\n\n**(c) Total users at exhaustion (1 mark):** Total = seed × GM = 4,000 × 2.0 = **8,000 users** (which is the seed plus the geometric sum 2,000 + 1,000 + 500 + 250 + … = 4,000 across all subsequent cycles).",
+      "model_answer_source": "ai_generated",
+      "marking_scheme_notes": "3 marks, one per part. (a) tests application of v as the cycle-to-cycle ratio; (b) tests the GM = 1/(1−v) formula; (c) tests the seed × GM result and ideally an explicit recognition that the GM already bakes in the geometric sum to exhaustion. A candidate who correctly states GM = 2.0 but then computes total as seed × v or forgets to include the seed loses the final mark. Mental arithmetic only — all values are clean.",
+      "products_mentioned": [
+        "Snapchat"
+      ],
+      "related_concepts": [
+        "growth_multiplier",
+        "viral_coefficient",
+        "cgm_cycles",
+        "invitation_cgm"
+      ],
+      "is_calculation": true,
+      "exam_technique_notes": "Memorise GM = 1/(1−v) and total = seed × GM. The cycle-2 starting number is just v × seed. All three parts fall out of those two relationships.",
+      "product_id": "snapchat"
     }
   ]
 }

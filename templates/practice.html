@@ -26,6 +26,9 @@
       {% if question.priority == "highest" %}
       <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-800">★ Past Paper</span>
       {% endif %}
+      {% if cribsheet_product_name %}
+      <span class="inline-flex items-center rounded-full bg-indigo-100 px-2 py-0.5 font-medium text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200" title="This is a cribsheet drill — focused on a product Mark confirmed for the 2026 exam">📋 Cribsheet · {{ cribsheet_product_name }}</span>
+      {% endif %}
       <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-600">{{ question.difficulty }}</span>
       {# Topic/subtopic hidden during the attempt — revealing them spoils which course concept the question is testing.
          Shown after marking so the post-result review still tells you the concept area. #}
