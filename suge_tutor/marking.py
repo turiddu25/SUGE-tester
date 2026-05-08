@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import json
 import re
+import time
+from datetime import datetime, timezone
 from typing import Any
 
 import httpx
 
+from . import db
 from .config import config
 
 SYSTEM_PROMPT_TEMPLATE = """You are an experienced examiner for the COMPSCI4087 Startup Growth Engineering course at
@@ -175,11 +178,13 @@ async def call_llm(prompt: str) -> str:
         body["temperature"] = 0.6
     url = config.LLM_BASE_URL.rstrip("/") + "/chat/completions"
     timeout = httpx.Timeout(config.LLM_TIMEOUT_SECONDS, connect=15.0)
+    t_start = time.monotonic()
     try:
         async with httpx.AsyncClient(timeout=timeout) as client:
             resp = await client.post(url, headers=headers, json=body)
     except httpx.HTTPError as exc:
         raise LLMError(f"Network error calling LLM: {exc}") from exc
+    latency_ms = int((time.monotonic() - t_start) * 1000)
 
     if resp.status_code in (401, 403):
         raise LLMAuthError(
@@ -198,6 +203,28 @@ async def call_llm(prompt: str) -> str:
     # If the visible `content` is empty, fall back to it so JSON extraction has something to chew on.
     if not content.strip():
         content = msg.get("reasoning_content") or ""
+
+    # Log token usage for cost tracking. Best-effort — never block marking on a
+    # logging failure (e.g. transient DB lock).
+    try:
+        usage = data.get("usage") or {}
+        cached_tokens = int(
+            (usage.get("prompt_tokens_details") or {}).get("cached_tokens") or 0
+        )
+        db.log_llm_call(
+            user_id=None,
+            attempt_id=None,
+            model=config.LLM_MODEL,
+            prompt_tokens=int(usage.get("prompt_tokens") or 0),
+            completion_tokens=int(usage.get("completion_tokens") or 0),
+            total_tokens=int(usage.get("total_tokens") or 0),
+            cached_tokens=cached_tokens,
+            latency_ms=latency_ms,
+            called_at=datetime.now(timezone.utc).isoformat(),
+        )
+    except Exception:
+        pass
+
     return content
 
 
@@ -239,3 +266,45 @@ async def test_connection() -> dict[str, Any]:
     except LLMError as exc:
         return {"ok": False, "error": "llm", "message": str(exc)}
     return {"ok": True, "sample": raw[:200]}
+
+
+# Module-level TTL cache so we don't hit Moonshot's billing endpoint on every
+# page render. Refresh every 60 seconds — balance changes slowly and we already
+# have an exact local figure for spend.
+_balance_cache: dict[str, Any] = {"value": None, "fetched_at": 0.0}
+_BALANCE_TTL_SECONDS = 60.0
+
+
+async def fetch_balance() -> dict[str, Any]:
+    """Fetch the remaining USD balance from Moonshot's official endpoint:
+        GET /v1/users/me/balance
+    Returns {available_balance, voucher_balance, cash_balance} in USD, or
+    {error, message} if the call failed. Cached 60s to avoid spamming the API."""
+    now = time.monotonic()
+    if (
+        _balance_cache["value"] is not None
+        and (now - _balance_cache["fetched_at"]) < _BALANCE_TTL_SECONDS
+    ):
+        return _balance_cache["value"]
+    if not config.LLM_API_KEY:
+        return {"error": "no_api_key"}
+    url = config.LLM_BASE_URL.rstrip("/") + "/users/me/balance"
+    headers = {"Authorization": f"Bearer {config.LLM_API_KEY}"}
+    try:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=5.0)) as client:
+            resp = await client.get(url, headers=headers)
+        if resp.status_code >= 400:
+            return {"error": "http", "status": resp.status_code, "message": resp.text[:200]}
+        body = resp.json()
+        data = (body.get("data") or {}) if body.get("status") else {}
+        result = {
+            "available_balance": float(data.get("available_balance") or 0),
+            "voucher_balance": float(data.get("voucher_balance") or 0),
+            "cash_balance": float(data.get("cash_balance") or 0),
+            "available_gbp": float(data.get("available_balance") or 0) * config.USD_TO_GBP,
+        }
+        _balance_cache["value"] = result
+        _balance_cache["fetched_at"] = now
+        return result
+    except httpx.HTTPError as exc:
+        return {"error": "network", "message": str(exc)}

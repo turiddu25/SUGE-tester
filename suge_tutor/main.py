@@ -23,6 +23,10 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 # Cache-bust query string for our /static/* assets — bumps on every server restart
 # so a fresh `uvicorn` is enough to evict stale JS/CSS from the browser.
 templates.env.globals["STATIC_V"] = str(int(time.time()))
+# Make total LLM spend available in every template (used in the base footer).
+# This is a callable so templates re-query each render — the underlying SUM is
+# trivial and we don't want a stale figure.
+templates.env.globals["llm_spend"] = db.llm_spend_summary
 
 
 @asynccontextmanager
@@ -166,6 +170,15 @@ def _rolling_average_series(user_id: str, *, days: int = 14) -> dict:
             data.append(round(sum(samples) / len(samples), 1) if samples else None)
         datasets.append({"label": topic, "data": data, "color": palette[i % len(palette)]})
     return {"labels": labels, "datasets": datasets}
+
+
+@app.get("/api/llm/balance")
+async def api_llm_balance():
+    """Surface the remaining USD/GBP balance from Moonshot's official
+    /v1/users/me/balance endpoint. Cached 60s in the marking module."""
+    from .marking import fetch_balance
+    data = await fetch_balance()
+    return JSONResponse(data)
 
 
 @app.exception_handler(404)

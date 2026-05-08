@@ -74,6 +74,19 @@ CREATE TABLE IF NOT EXISTS settings (
   key TEXT PRIMARY KEY,
   value TEXT
 );
+
+CREATE TABLE IF NOT EXISTS llm_calls (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT,
+  attempt_id INTEGER,
+  model TEXT,
+  prompt_tokens INTEGER NOT NULL DEFAULT 0,
+  completion_tokens INTEGER NOT NULL DEFAULT 0,
+  total_tokens INTEGER NOT NULL DEFAULT 0,
+  cached_tokens INTEGER NOT NULL DEFAULT 0,
+  latency_ms INTEGER,
+  called_at TEXT NOT NULL
+);
 """
 
 
@@ -121,6 +134,11 @@ def init_schema() -> None:
             cur.execute("ALTER TABLE questions ADD COLUMN figure_path TEXT")
         if "chains_with" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN chains_with TEXT")
+        # Add cached_tokens column to llm_calls if missing (older DBs).
+        cur.execute("PRAGMA table_info(llm_calls)")
+        llm_cols = {row["name"] for row in cur.fetchall()}
+        if llm_cols and "cached_tokens" not in llm_cols:
+            cur.execute("ALTER TABLE llm_calls ADD COLUMN cached_tokens INTEGER NOT NULL DEFAULT 0")
     _migrate_past_revision_to_revision()
     sync_questions_from_json()
     _resolve_cross_referenced_answers()
@@ -314,6 +332,75 @@ def _resolve_cross_referenced_answers() -> int:
     if fixed:
         print(f"[startup] resolved {fixed} cross-referenced model answers")
     return fixed
+
+
+def log_llm_call(
+    *,
+    user_id: str | None,
+    attempt_id: int | None,
+    model: str,
+    prompt_tokens: int,
+    completion_tokens: int,
+    total_tokens: int,
+    cached_tokens: int = 0,
+    latency_ms: int | None,
+    called_at: str,
+) -> int:
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO llm_calls (
+              user_id, attempt_id, model, prompt_tokens, completion_tokens,
+              total_tokens, cached_tokens, latency_ms, called_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (user_id, attempt_id, model, prompt_tokens, completion_tokens,
+             total_tokens, cached_tokens, latency_ms, called_at),
+        )
+        return cur.lastrowid or 0
+
+
+def llm_spend_summary() -> dict:
+    """Aggregate token usage and compute cost in USD/GBP. Cache-hit input tokens
+    are billed at a lower rate than cache-miss; the API tells us which is which
+    via usage.prompt_tokens_details.cached_tokens. Returns:
+       {calls, prompt_tokens, completion_tokens, cached_tokens, total_tokens,
+        cost_usd, cost_gbp}.
+    Computed locally from token counts × Kimi K2.6 published rates — no
+    dependency on the provider's billing API."""
+    with db_cursor() as cur:
+        row = cur.execute(
+            """
+            SELECT
+              COUNT(*) AS calls,
+              COALESCE(SUM(prompt_tokens), 0) AS prompt_tokens,
+              COALESCE(SUM(completion_tokens), 0) AS completion_tokens,
+              COALESCE(SUM(total_tokens), 0) AS total_tokens,
+              COALESCE(SUM(cached_tokens), 0) AS cached_tokens
+            FROM llm_calls
+            """
+        ).fetchone()
+    calls = row["calls"]
+    pt = row["prompt_tokens"]
+    ct = row["completion_tokens"]
+    tt = row["total_tokens"]
+    cached = row["cached_tokens"]
+    uncached_pt = max(0, pt - cached)
+    cost_usd = (
+        cached * config.LLM_PRICE_INPUT_CACHED_PER_M_USD / 1_000_000
+        + uncached_pt * config.LLM_PRICE_INPUT_UNCACHED_PER_M_USD / 1_000_000
+        + ct * config.LLM_PRICE_OUTPUT_PER_M_USD / 1_000_000
+    )
+    cost_gbp = cost_usd * config.USD_TO_GBP
+    return {
+        "calls": calls,
+        "prompt_tokens": pt,
+        "completion_tokens": ct,
+        "cached_tokens": cached,
+        "total_tokens": tt,
+        "cost_usd": round(cost_usd, 4),
+        "cost_gbp": round(cost_gbp, 4),
+    }
 
 
 # Default provenance for each `source` value. Established by audit:

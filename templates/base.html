@@ -73,8 +73,37 @@
   </main>
 
   <footer class="mx-auto max-w-6xl px-6 py-6 text-xs text-neutral-400 dark:text-neutral-600">
-    Local revision app · COMPSCI4087 Startup Growth Engineering · press <kbd class="rounded bg-neutral-200 px-1 py-0.5 font-mono text-[10px] dark:bg-neutral-800">?</kbd> for shortcuts
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <span>Local revision app · COMPSCI4087 Startup Growth Engineering · press <kbd class="rounded bg-neutral-200 px-1 py-0.5 font-mono text-[10px] dark:bg-neutral-800">?</kbd> for shortcuts</span>
+      {% set spend = llm_spend() %}
+      {% if spend.calls > 0 %}
+      <span class="text-neutral-500 dark:text-neutral-500" title="Total LLM API spend across all marking calls. Computed locally from token usage × Moonshot Kimi K2.6 published rates (${{ '%.4f'|format(spend.cost_usd) }} USD; cached input billed at lower rate when applicable).">
+        ·  💸 £{{ '%.4f'|format(spend.cost_gbp) }} on AI marking ({{ spend.calls }} call{% if spend.calls != 1 %}s{% endif %}, {{ '{:,}'.format(spend.total_tokens) }} tokens{% if spend.cached_tokens %}, {{ '{:,}'.format(spend.cached_tokens) }} cached{% endif %})
+      </span>
+      {% endif %}
+      <span id="kimi-balance" class="text-neutral-500 dark:text-neutral-500"></span>
+    </div>
   </footer>
+
+  <script>
+    // Fetch remaining Moonshot/Kimi balance and surface it next to the spend pill.
+    // Polled lazily — only on initial page load, with a 60s TTL on the server side.
+    (function () {
+      var el = document.getElementById("kimi-balance");
+      if (!el) return;
+      fetch("/api/llm/balance")
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || data.error) return;
+          var usd = data.available_balance;
+          var gbp = data.available_gbp;
+          if (typeof usd !== "number") return;
+          el.textContent = " ·  💰 £" + gbp.toFixed(2) + " left on Moonshot ($" + usd.toFixed(2) + ")";
+          el.title = "Remaining Kimi/Moonshot balance — fetched from /v1/users/me/balance, cached 60s server-side. Cash: $" + (data.cash_balance || 0).toFixed(2) + " · Voucher: $" + (data.voucher_balance || 0).toFixed(2);
+        })
+        .catch(function () {});
+    })();
+  </script>
 
   <script src="/static/js/app.js?v={{ STATIC_V }}"></script>
   <script src="/static/js/shortcuts.js?v={{ STATIC_V }}"></script>

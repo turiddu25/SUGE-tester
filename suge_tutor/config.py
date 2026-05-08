@@ -34,5 +34,17 @@ class Config:
     # as the exam approaches and never push a question past it.
     EXAM_DATE: str = _get("EXAM_DATE", "2026-05-15") or "2026-05-15"
 
+    # Per-million-token prices in USD for Kimi K2.6 cost tracking. Verified May
+    # 2026 against the official platform.kimi.ai pricing page. Cache-hit input
+    # tokens are billed at a 6x lower rate than cache-miss — the API response
+    # tells us which is which via usage.prompt_tokens_details.cached_tokens.
+    # Override in .env if rates change or you switch model.
+    LLM_PRICE_INPUT_CACHED_PER_M_USD: float = float(_get("LLM_PRICE_INPUT_CACHED_PER_M_USD", "0.16") or "0.16")
+    LLM_PRICE_INPUT_UNCACHED_PER_M_USD: float = float(_get("LLM_PRICE_INPUT_UNCACHED_PER_M_USD", "0.95") or "0.95")
+    LLM_PRICE_OUTPUT_PER_M_USD: float = float(_get("LLM_PRICE_OUTPUT_PER_M_USD", "4.00") or "4.00")
+    # USD->GBP fx rate. Default verified May 2026 (1 USD = 0.734 GBP). Currency
+    # rates drift; bump in .env occasionally if accuracy matters.
+    USD_TO_GBP: float = float(_get("USD_TO_GBP", "0.734") or "0.734")
+
 
 config = Config()
