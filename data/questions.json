@@ -1600,7 +1600,7 @@
       "subtopic": "channel_types",
       "difficulty": "medium",
       "marks": 3,
-      "question_text": "*⚠ Reconstructed from explainer-VTT framing — original chart not imported.* The chart shows two lines on a logarithmic time axis (0 to 5 years): a CPA line (red) and an LTV/CAC line.\n\nWith reference to concepts from the course, interpret the CPA profile (red line) over time, identifying and explaining the three main phases.",
+      "question_text": "The chart shows two lines on a logarithmic time axis (0 to 5 years): a CPA line (red) and an LTV/CAC line.\n\nWith reference to concepts from the course, interpret the CPA profile (red line) over time, identifying and explaining the three main phases.",
       "question_type": "chart_analysis",
       "model_answer": "**Three phases — one mark each — explain WHY each phase has its shape, not just describe it:**\n\n**Phase 1 (low and falling):** CPA starts relatively low and falls lower. The channel is new with limited competition, and the organisation is learning and optimising on it, driving cost-per-acquisition down.\n\n**Phase 2 (stable plateau):** CPA reaches a relatively stable, low level for a period. The organisation has done all the optimisation it reasonably can; competition hasn't yet ramped up, so CPA plateaus.\n\n**Phase 3 (rising sharply):** CPA begins to rise — gradually at first as competition arrives in the channel, then aggressively/exponentially as the channel saturates. More companies pile in, channel suppliers can charge more, and it becomes a runaway effect.\n\n(Reversing stages 2 and 3 in your description — plateau followed by steep rise — also earns full marks.)",
       "model_answer_source": "lecturer",
