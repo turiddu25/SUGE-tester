@@ -22,6 +22,23 @@ USERS: dict[str, dict] = {
         "name": "Aryan",
         "grade_targets": {"A5": 56, "B3": 36, "C3": 16},
     },
+    "fraser": {
+        "id": "fraser",
+        "name": "Fraser",
+        # Placeholder targets — same defaults as Salvo. Update once Fraser's
+        # coursework standing is known so the dashboard A5/B3/C3 thresholds
+        # reflect the percentages he actually needs in the exam.
+        "grade_targets": {"A5": 53, "B3": 33, "C3": 13},
+    },
+    "guest": {
+        "id": "guest",
+        "name": "Guest",
+        # No personalised grade targets — the targets card on the dashboard
+        # hides when grade_targets is empty (see home.html:34). Guest mode
+        # is for browsing the bank without committing per-user attempt data
+        # to a named account; attempts still get tagged user_id="guest".
+        "grade_targets": {},
+    },
 }
 
 COOKIE_NAME = "suge_user"
