@@ -30,6 +30,13 @@ USERS: dict[str, dict] = {
         # reflect the percentages he actually needs in the exam.
         "grade_targets": {"A5": 53, "B3": 33, "C3": 13},
     },
+    "dickson": {
+        "id": "dickson",
+        "name": "Dickson",
+        # Placeholder targets — same defaults as Salvo. Update once Dickson's
+        # coursework standing is known.
+        "grade_targets": {"A5": 53, "B3": 33, "C3": 13},
+    },
     "guest": {
         "id": "guest",
         "name": "Guest",
