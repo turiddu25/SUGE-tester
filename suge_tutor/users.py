@@ -37,15 +37,6 @@ USERS: dict[str, dict] = {
         # coursework standing is known.
         "grade_targets": {"A5": 53, "B3": 33, "C3": 13},
     },
-    "guest": {
-        "id": "guest",
-        "name": "Guest",
-        # No personalised grade targets — the targets card on the dashboard
-        # hides when grade_targets is empty (see home.html:34). Guest mode
-        # is for browsing the bank without committing per-user attempt data
-        # to a named account; attempts still get tagged user_id="guest".
-        "grade_targets": {},
-    },
 }
 
 COOKIE_NAME = "suge_user"
