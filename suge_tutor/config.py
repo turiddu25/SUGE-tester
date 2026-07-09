@@ -66,7 +66,7 @@ class Config:
     LLM_CONCURRENCY: int = int(_get("LLM_CONCURRENCY", "4") or "4")
     APP_SECRET_KEY: str = _get("APP_SECRET_KEY", "dev-secret-change-me") or "dev-secret-change-me"
     APP_KEY_FREE_CALL_LIMIT: int = int(_get("APP_KEY_FREE_CALL_LIMIT", "20") or "20")
-    ADMIN_EMAIL: str = _get("ADMIN_EMAIL", "calling.nardo@gmail.com") or "calling.nardo@gmail.com"
+    ADMIN_EMAIL: str = _get("ADMIN_EMAIL", "colin.nardo@gmail.com") or "colin.nardo@gmail.com"
     ALLOW_LOCAL_USER_PICKER: bool = (_get("ALLOW_LOCAL_USER_PICKER", "0" if os.getenv("VERCEL") else "1") or "0").lower() in {"1", "true", "yes"}
 
     # Exam date — drives the spaced-repetition scheduler so intervals compress
