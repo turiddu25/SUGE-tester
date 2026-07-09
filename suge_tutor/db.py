@@ -297,6 +297,7 @@ class CursorAdapter:
         sql = sql.replace("INSERT OR IGNORE INTO", "INSERT INTO")
         sql = sql.replace("INSERT OR REPLACE INTO", "INSERT INTO")
         sql = sql.replace("?", "%s")
+        sql = re.sub(r"%(?![sbt])", "%%", sql)
         low = " ".join(sql.lower().split())
         if low.startswith("insert into app_users") and "null" in low and "on conflict" not in low:
             sql += " ON CONFLICT (id) DO NOTHING"
