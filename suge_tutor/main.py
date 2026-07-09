@@ -100,7 +100,7 @@ async def home(request: Request):
             [
                 (grade, target)
                 for grade, target in user["grade_targets"].items()
-                if isinstance(target, (int, float))
+                if grade in {"A5", "B3", "C3"} and isinstance(target, (int, float))
             ],
             key=lambda item: item[1],
             reverse=True,
