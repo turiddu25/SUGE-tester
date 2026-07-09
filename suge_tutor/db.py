@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS app_users (
   name TEXT NOT NULL,
   email TEXT UNIQUE,
   password_hash TEXT,
+  is_admin INTEGER NOT NULL DEFAULT 0,
   grade_targets_json TEXT,
   created_at TEXT NOT NULL
 );
@@ -158,6 +159,7 @@ CREATE TABLE IF NOT EXISTS app_users (
   name TEXT NOT NULL,
   email TEXT UNIQUE,
   password_hash TEXT,
+  is_admin INTEGER NOT NULL DEFAULT 0,
   grade_targets_json TEXT,
   created_at TEXT NOT NULL
 );
@@ -335,8 +337,10 @@ def init_schema() -> None:
     if _is_postgres():
         with db_cursor() as cur:
             cur.executescript(POSTGRES_SCHEMA)
+            cur.execute("ALTER TABLE app_users ADD COLUMN IF NOT EXISTS is_admin INTEGER NOT NULL DEFAULT 0")
             cur.execute("ALTER TABLE llm_calls ADD COLUMN IF NOT EXISTS used_own_key INTEGER NOT NULL DEFAULT 0")
         seed_default_users()
+        sync_admin_user()
         sync_questions_from_json()
         _resolve_cross_referenced_answers()
         return
@@ -369,6 +373,10 @@ def init_schema() -> None:
             cur.execute("ALTER TABLE questions ADD COLUMN product_id TEXT")
         if "exam_year" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN exam_year TEXT DEFAULT '2025-26'")
+        cur.execute("PRAGMA table_info(app_users)")
+        user_cols = {row["name"] for row in cur.fetchall()}
+        if "is_admin" not in user_cols:
+            cur.execute("ALTER TABLE app_users ADD COLUMN is_admin INTEGER NOT NULL DEFAULT 0")
         # Add cached_tokens column to llm_calls if missing (older DBs).
         cur.execute("PRAGMA table_info(llm_calls)")
         llm_cols = {row["name"] for row in cur.fetchall()}
@@ -378,6 +386,7 @@ def init_schema() -> None:
             cur.execute("ALTER TABLE llm_calls ADD COLUMN used_own_key INTEGER NOT NULL DEFAULT 0")
     _migrate_past_revision_to_revision()
     seed_default_users()
+    sync_admin_user()
     sync_questions_from_json()
     _resolve_cross_referenced_answers()
 
@@ -390,8 +399,8 @@ def seed_default_users() -> None:
         for user in LOCAL_USERS.values():
             cur.execute(
                 """
-                INSERT OR IGNORE INTO app_users (id, name, email, password_hash, grade_targets_json, created_at)
-                VALUES (?, ?, ?, NULL, ?, ?)
+                INSERT OR IGNORE INTO app_users (id, name, email, password_hash, is_admin, grade_targets_json, created_at)
+                VALUES (?, ?, ?, NULL, 0, ?, ?)
                 """,
                 (
                     user["id"],
@@ -428,8 +437,8 @@ def create_user(
     with db_cursor() as cur:
         cur.execute(
             """
-            INSERT INTO app_users (id, name, email, password_hash, grade_targets_json, created_at)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO app_users (id, name, email, password_hash, is_admin, grade_targets_json, created_at)
+            VALUES (?, ?, ?, ?, 0, ?, ?)
             """,
             (user_id, name, email, password_hash, json.dumps(grade_targets or {}), now),
         )
@@ -459,8 +468,28 @@ def row_to_user(row: sqlite3.Row | None) -> dict | None:
     if not row:
         return None
     d = dict(row)
+    d["is_admin"] = bool(d.get("is_admin"))
     d["grade_targets"] = json.loads(d.get("grade_targets_json") or "{}")
     return d
+
+
+def sync_admin_user() -> None:
+    with db_cursor() as cur:
+        cur.execute("UPDATE app_users SET is_admin = CASE WHEN lower(email) = lower(?) THEN 1 ELSE 0 END", (config.ADMIN_EMAIL,))
+
+
+def admin_users_overview() -> list[dict]:
+    with db_cursor() as cur:
+        rows = cur.execute(
+            """
+            SELECT u.id, u.name, u.email, u.is_admin, u.created_at,
+                   COALESCE((SELECT COUNT(*) FROM attempts a WHERE a.user_id = u.id), 0) AS attempts_count,
+                   COALESCE((SELECT COUNT(*) FROM llm_calls l WHERE l.user_id = u.id), 0) AS llm_calls_count
+            FROM app_users u
+            ORDER BY u.created_at DESC
+            """
+        ).fetchall()
+    return [dict(r) for r in rows]
 
 
 def create_session(token: str, user_id: str, created_at: str, expires_at: str) -> None:

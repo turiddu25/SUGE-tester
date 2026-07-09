@@ -3,11 +3,26 @@ from __future__ import annotations
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.templating import Jinja2Templates
 
-from .. import users
+from .. import db, users
 from ..products import get_product, list_products
 
 
 def register(app: FastAPI, templates: Jinja2Templates) -> None:
+    @app.get("/exam-2026")
+    async def exam_2026(request: Request):
+        cards = []
+        for p in list_products():
+            cards.append({**p, "question_count": db.question_count_by_product(p["id"])})
+        return templates.TemplateResponse(
+            request,
+            "exam_2026.html",
+            {
+                "products": list_products(),
+                "cards": cards,
+                "current_user": users.current_user(request),
+            },
+        )
+
     @app.get("/products")
     async def products_index(request: Request):
         return templates.TemplateResponse(

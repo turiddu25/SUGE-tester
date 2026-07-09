@@ -135,6 +135,20 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             },
         )
 
+    @app.get("/admin")
+    async def admin_page(request: Request):
+        user = users.current_user(request)
+        if not users.is_admin(user):
+            return RedirectResponse(url="/login?next=/admin", status_code=303)
+        return templates.TemplateResponse(
+            request,
+            "admin.html",
+            {
+                "current_user": user,
+                "users_": db.admin_users_overview(),
+            },
+        )
+
     @app.post("/settings")
     async def save_settings(
         request: Request,

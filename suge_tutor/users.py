@@ -82,6 +82,10 @@ def current_user(request: Request) -> dict | None:
     return None
 
 
+def is_admin(user: dict | None) -> bool:
+    return bool(user and user.get("is_admin"))
+
+
 def all_users() -> list[dict]:
     users = _db().list_users()
     return users or list(LOCAL_USERS.values())

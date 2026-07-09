@@ -45,10 +45,12 @@
         <a href="/questions" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Questions</a>
         <a href="/review" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Review</a>
         <a href="/exam-sim" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Exam Sim</a>
-        <a href="/products" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Products</a>
-        <a href="/cribsheet" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Cribsheet</a>
+        <a href="/exam-2026" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">2026 Exam</a>
         <a href="/reference" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Reference</a>
         <a href="/settings" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Settings</a>
+        {% if current_user and current_user.is_admin %}
+        <a href="/admin" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Admin</a>
+        {% endif %}
 
         <button type="button" id="theme-toggle"
                 class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 hover:border-indigo-400 hover:text-indigo-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
