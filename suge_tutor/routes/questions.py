@@ -16,7 +16,11 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         priority: str | None = None,
         marks: int | None = None,
         q: str | None = None,
+        exam_year: str | None = None,
     ):
+        user = users.current_user(request)
+        settings = db.ensure_user_settings(user["id"]) if user else None
+        active_exam_year = exam_year or (settings or {}).get("exam_year") or "2025-26"
         rows = db.list_questions(
             topic=topic,
             source=source,
@@ -24,6 +28,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             priority=priority,
             marks=marks,
             search=q,
+            exam_year=active_exam_year,
         )
         topics = sorted({r["topic"] for r in rows} | {
             "activation_retention",
@@ -45,7 +50,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
                 "questions": rows,
                 "topics": topics,
                 "sources": sources,
-                "current_user": users.current_user(request),
+                "current_user": user,
                 "filters": {
                     "topic": topic or "",
                     "source": source or "",
@@ -53,6 +58,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
                     "priority": priority or "",
                     "marks": marks if marks is not None else "",
                     "q": q or "",
+                    "exam_year": active_exam_year,
                 },
             },
         )

@@ -5,9 +5,9 @@
   <div class="flex items-end justify-between gap-4">
     <div>
       <h1 class="font-serif text-2xl tracking-tight">Question Bank</h1>
-      <p class="text-sm text-neutral-600">{{ questions|length }} question(s) shown</p>
+      <p class="text-sm text-neutral-600">{{ questions|length }} question(s) shown · {{ filters.exam_year }} exam</p>
     </div>
-    <a href="/practice/random?{% if filters.topic %}topic={{ filters.topic }}&{% endif %}{% if filters.source %}source={{ filters.source }}&{% endif %}{% if filters.difficulty %}difficulty={{ filters.difficulty }}&{% endif %}{% if filters.priority %}priority={{ filters.priority }}&{% endif %}"
+     <a href="/practice/random?{% if filters.topic %}topic={{ filters.topic }}&{% endif %}{% if filters.source %}source={{ filters.source }}&{% endif %}{% if filters.difficulty %}difficulty={{ filters.difficulty }}&{% endif %}{% if filters.priority %}priority={{ filters.priority }}&{% endif %}"
        class="rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-700">
       🎲 Random{% if filters.topic or filters.source or filters.difficulty or filters.priority %} (filtered){% endif %}
     </a>
@@ -39,6 +39,7 @@
       <option value="{{ p }}" {% if filters.priority == p %}selected{% endif %}>{{ p }}</option>
       {% endfor %}
     </select>
+    <input type="text" name="exam_year" value="{{ filters.exam_year }}" class="rounded border-neutral-300 px-2 py-1.5 text-sm" />
     <div class="md:col-span-6 flex items-center gap-2">
       <button class="rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-700">Apply</button>
       <a href="/questions" class="text-sm text-neutral-600 hover:text-indigo-700">Clear</a>
@@ -69,6 +70,7 @@
           </td>
           <td class="px-3 py-2 text-neutral-700">{{ q.topic }}</td>
           <td class="px-3 py-2">
+            <span class="inline-flex items-center rounded-full bg-cyan-100 px-2 py-0.5 text-xs text-cyan-800 dark:bg-cyan-900/40 dark:text-cyan-200">{{ q.exam_year or '2025-26' }}</span>
             {% if q.priority == "highest" %}
               <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">★ {{ q.source_label or q.source }}</span>
             {% elif q.source == "further_sample_questions" %}

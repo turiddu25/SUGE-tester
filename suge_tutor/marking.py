@@ -10,6 +10,7 @@ import httpx
 
 from . import db
 from .config import config
+from . import users
 
 SYSTEM_PROMPT_TEMPLATE = """You are an experienced examiner for the COMPSCI4087 Startup Growth Engineering course at
 the University of Glasgow, taught by Professor Mark Logan. You are marking a student's
@@ -150,16 +151,62 @@ class LLMAuthError(LLMError):
     pass
 
 
-async def call_llm(prompt: str) -> str:
-    if not config.LLM_API_KEY:
+class LLMQuotaError(LLMError):
+    pass
+
+
+def _month_start_iso() -> str:
+    now = datetime.now(timezone.utc)
+    return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
+
+
+def _llm_runtime(user_id: str | None) -> dict[str, Any]:
+    runtime = {
+        "provider": config.LLM_PROVIDER,
+        "base_url": config.LLM_BASE_URL,
+        "api_key": config.LLM_API_KEY,
+        "model": config.LLM_MODEL,
+        "using_own_key": False,
+    }
+    if not user_id:
+        return runtime
+    settings = db.ensure_user_settings(user_id)
+    own_key = users.decrypt_secret(settings.get("encrypted_llm_api_key"))
+    if settings.get("use_own_key") and own_key:
+        runtime.update(
+            {
+                "provider": settings.get("llm_provider") or runtime["provider"],
+                "base_url": settings.get("llm_base_url") or runtime["base_url"],
+                "api_key": own_key,
+                "model": settings.get("llm_model") or runtime["model"],
+                "using_own_key": True,
+            }
+        )
+        return runtime
+    budget = settings.get("monthly_budget_gbp")
+    if budget is None:
+        budget = config.DEFAULT_MONTHLY_LLM_BUDGET_GBP
+    spend = db.llm_spend_summary_for_user(user_id, _month_start_iso())
+    if float(spend["cost_gbp"] or 0) >= float(budget):
+        raise LLMQuotaError(
+            f"Monthly AI marking budget reached (£{spend['cost_gbp']:.4f} of £{float(budget):.2f}). Add your own API key in Settings to continue."
+        )
+    return runtime
+
+
+async def call_llm(prompt: str, *, user_id: str | None = None) -> str:
+    runtime = _llm_runtime(user_id)
+    api_key = runtime["api_key"]
+    model = runtime["model"]
+    if not api_key:
         raise LLMAuthError("No LLM_API_KEY configured. Set it in .env or via /settings.")
 
     headers = {
-        "Authorization": f"Bearer {config.LLM_API_KEY}",
+        "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
     body: dict = {
-        "model": config.LLM_MODEL,
+        "model": model,
         "temperature": config.LLM_TEMPERATURE,
         "max_tokens": config.LLM_MAX_TOKENS,
         "messages": [
@@ -173,10 +220,10 @@ async def call_llm(prompt: str) -> str:
     # Kimi K2.6 enables chain-of-thought by default. We don't need the reasoning,
     # we want the JSON answer fast — switch it off when supported.
     # K2.6 also enforces temperature=0.6 when thinking is disabled (and 1.0 when enabled).
-    if "k2.6" in config.LLM_MODEL.lower():
+    if "k2.6" in model.lower():
         body["thinking"] = {"type": "disabled"}
         body["temperature"] = 0.6
-    url = config.LLM_BASE_URL.rstrip("/") + "/chat/completions"
+    url = runtime["base_url"].rstrip("/") + "/chat/completions"
     timeout = httpx.Timeout(config.LLM_TIMEOUT_SECONDS, connect=15.0)
     t_start = time.monotonic()
     try:
@@ -212,9 +259,9 @@ async def call_llm(prompt: str) -> str:
             (usage.get("prompt_tokens_details") or {}).get("cached_tokens") or 0
         )
         db.log_llm_call(
-            user_id=None,
+            user_id=user_id,
             attempt_id=None,
-            model=config.LLM_MODEL,
+            model=model,
             prompt_tokens=int(usage.get("prompt_tokens") or 0),
             completion_tokens=int(usage.get("completion_tokens") or 0),
             total_tokens=int(usage.get("total_tokens") or 0),
@@ -228,13 +275,15 @@ async def call_llm(prompt: str) -> str:
     return content
 
 
-async def mark_answer(question: dict, student_answer: str) -> dict[str, Any]:
+async def mark_answer(question: dict, student_answer: str, *, user_id: str | None = None) -> dict[str, Any]:
     """Returns a dict with marking fields plus 'raw_response' and optional 'error'."""
     prompt = build_prompt(question, student_answer)
     try:
-        raw = await call_llm(prompt)
+        raw = await call_llm(prompt, user_id=user_id)
     except LLMAuthError as exc:
         return {"error": "auth", "message": str(exc), "raw_response": ""}
+    except LLMQuotaError as exc:
+        return {"error": "quota", "message": str(exc), "raw_response": ""}
     except LLMError as exc:
         return {"error": "llm", "message": str(exc), "raw_response": ""}
 

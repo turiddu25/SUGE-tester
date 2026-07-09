@@ -23,6 +23,7 @@
       {% set m = question.marks %}
       {% set color = "bg-emerald-100 text-emerald-800" if m <= 2 else ("bg-blue-100 text-blue-800" if m <= 4 else "bg-orange-100 text-orange-800") %}
       <span class="inline-flex items-center rounded-full px-2 py-0.5 font-medium {{ color }}">{{ m }} marks</span>
+      <span class="inline-flex items-center rounded-full bg-cyan-100 px-2 py-0.5 font-medium text-cyan-800 dark:bg-cyan-900/40 dark:text-cyan-200">{{ question.exam_year or '2025-26' }} exam</span>
       {% if question.priority == "highest" %}
       <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-800">★ Past Paper</span>
       {% endif %}

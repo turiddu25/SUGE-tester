@@ -165,7 +165,7 @@
   </div>
 
   <div class="text-xs text-neutral-400">
-    LLM: {{ config.provider }} · {{ config.model }} ·
+    LLM: {{ config.provider }} · {{ config.model }} · {{ user_settings.exam_year if user_settings else '2025-26' }} exam ·
     {% if config.api_key_set %}<span class="text-emerald-700">key set</span>{% else %}<span class="text-rose-600">no key</span>{% endif %}
   </div>
 </section>

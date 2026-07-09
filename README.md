@@ -29,6 +29,19 @@ revision app for COMPSCI4087 Startup Growth Engineering.
 - **Provider-agnostic LLM.** Kimi/Moonshot is the default but the same code works with OpenAI, Anthropic, or local Ollama by changing one config variable. If your "Kimi subscription" turns out to be the consumer chat product (no API), you can swap providers without rewriting code.
 - **No build step.** Python + SQLite + HTML/Tailwind/AlpineJS via CDN. `pip install` and run.
 
+## Vercel deployment notes
+
+This repo includes a minimal Vercel entrypoint in `api/index.py` and routes all
+requests to the FastAPI app via `vercel.json`.
+
+On Vercel, environment variables must be configured in the Vercel dashboard; the
+app intentionally does not load the local `.env` file when `VERCEL` is set.
+
+The current SQLite database is only a bootstrapping fallback on Vercel. It is
+created under the platform temp directory, so user attempts, exam sessions, and
+review state should be treated as ephemeral until the app is moved to hosted
+Postgres/Supabase.
+
 ## The "must-not-lose" details
 
 - Exam: **105 minutes (90 + 15 buffer), 60 marks, 16 questions, 1–8 marks each, mostly written, ONE multiple choice, no negative marking, no calculator**.

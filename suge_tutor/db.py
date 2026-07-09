@@ -29,7 +29,38 @@ CREATE TABLE IF NOT EXISTS questions (
   is_calculation INTEGER,
   exam_technique_notes TEXT,
   figure_path TEXT,
-  chains_with TEXT
+  chains_with TEXT,
+  exam_year TEXT DEFAULT '2025-26'
+);
+
+CREATE TABLE IF NOT EXISTS app_users (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE,
+  password_hash TEXT,
+  grade_targets_json TEXT,
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_sessions (
+  token TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  expires_at TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES app_users(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_settings (
+  user_id TEXT PRIMARY KEY,
+  exam_year TEXT NOT NULL DEFAULT '2025-26',
+  llm_provider TEXT,
+  llm_base_url TEXT,
+  llm_model TEXT,
+  encrypted_llm_api_key TEXT,
+  monthly_budget_gbp REAL,
+  use_own_key INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES app_users(id)
 );
 
 CREATE TABLE IF NOT EXISTS attempts (
@@ -89,6 +120,8 @@ CREATE TABLE IF NOT EXISTS llm_calls (
 );
 """
 
+DEFAULT_EXAM_YEAR = "2025-26"
+
 
 def get_connection() -> sqlite3.Connection:
     config.DB_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -125,7 +158,7 @@ def init_schema() -> None:
         if cols and "user_id" not in cols:
             cur.execute("DROP TABLE review_queue")
             cur.executescript(SCHEMA)
-        # Add model_answer_source / figure_path / chains_with if missing.
+        # Add model_answer_source / figure_path / chains_with / exam_year if missing.
         cur.execute("PRAGMA table_info(questions)")
         cols = {row["name"] for row in cur.fetchall()}
         if "model_answer_source" not in cols:
@@ -136,14 +169,178 @@ def init_schema() -> None:
             cur.execute("ALTER TABLE questions ADD COLUMN chains_with TEXT")
         if "product_id" not in cols:
             cur.execute("ALTER TABLE questions ADD COLUMN product_id TEXT")
+        if "exam_year" not in cols:
+            cur.execute("ALTER TABLE questions ADD COLUMN exam_year TEXT DEFAULT '2025-26'")
         # Add cached_tokens column to llm_calls if missing (older DBs).
         cur.execute("PRAGMA table_info(llm_calls)")
         llm_cols = {row["name"] for row in cur.fetchall()}
         if llm_cols and "cached_tokens" not in llm_cols:
             cur.execute("ALTER TABLE llm_calls ADD COLUMN cached_tokens INTEGER NOT NULL DEFAULT 0")
     _migrate_past_revision_to_revision()
+    seed_default_users()
     sync_questions_from_json()
     _resolve_cross_referenced_answers()
+
+
+def seed_default_users() -> None:
+    from .users import LOCAL_USERS
+
+    now = _utcnow()
+    with db_cursor() as cur:
+        for user in LOCAL_USERS.values():
+            cur.execute(
+                """
+                INSERT OR IGNORE INTO app_users (id, name, email, password_hash, grade_targets_json, created_at)
+                VALUES (?, ?, ?, NULL, ?, ?)
+                """,
+                (
+                    user["id"],
+                    user["name"],
+                    None,
+                    json.dumps(user.get("grade_targets") or {}),
+                    now,
+                ),
+            )
+            cur.execute(
+                """
+                INSERT OR IGNORE INTO user_settings (user_id, exam_year, monthly_budget_gbp, updated_at)
+                VALUES (?, ?, ?, ?)
+                """,
+                (user["id"], DEFAULT_EXAM_YEAR, config.DEFAULT_MONTHLY_LLM_BUDGET_GBP, now),
+            )
+
+
+def _utcnow() -> str:
+    from datetime import datetime, timezone
+
+    return datetime.now(timezone.utc).isoformat()
+
+
+def create_user(
+    *,
+    user_id: str,
+    name: str,
+    email: str | None,
+    password_hash: str,
+    grade_targets: dict | None = None,
+) -> dict:
+    now = _utcnow()
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO app_users (id, name, email, password_hash, grade_targets_json, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (user_id, name, email, password_hash, json.dumps(grade_targets or {}), now),
+        )
+    ensure_user_settings(user_id)
+    return get_user(user_id) or {"id": user_id, "name": name, "email": email, "grade_targets": grade_targets or {}}
+
+
+def get_user(user_id: str) -> dict | None:
+    with db_cursor() as cur:
+        row = cur.execute("SELECT * FROM app_users WHERE id = ?", (user_id,)).fetchone()
+    return row_to_user(row)
+
+
+def get_user_by_email(email: str) -> dict | None:
+    with db_cursor() as cur:
+        row = cur.execute("SELECT * FROM app_users WHERE lower(email) = lower(?)", (email,)).fetchone()
+    return row_to_user(row)
+
+
+def list_users() -> list[dict]:
+    with db_cursor() as cur:
+        rows = cur.execute("SELECT * FROM app_users ORDER BY created_at, name").fetchall()
+    return [row_to_user(r) for r in rows if row_to_user(r)]
+
+
+def row_to_user(row: sqlite3.Row | None) -> dict | None:
+    if not row:
+        return None
+    d = dict(row)
+    d["grade_targets"] = json.loads(d.get("grade_targets_json") or "{}")
+    return d
+
+
+def create_session(token: str, user_id: str, created_at: str, expires_at: str) -> None:
+    with db_cursor() as cur:
+        cur.execute(
+            "INSERT INTO user_sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
+            (token, user_id, created_at, expires_at),
+        )
+
+
+def get_session_user(token: str, now: str) -> dict | None:
+    with db_cursor() as cur:
+        row = cur.execute(
+            """
+            SELECT u.* FROM user_sessions s
+            JOIN app_users u ON u.id = s.user_id
+            WHERE s.token = ? AND s.expires_at > ?
+            """,
+            (token, now),
+        ).fetchone()
+    return row_to_user(row)
+
+
+def delete_session(token: str) -> None:
+    with db_cursor() as cur:
+        cur.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
+
+
+def ensure_user_settings(user_id: str) -> dict:
+    now = _utcnow()
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            INSERT OR IGNORE INTO user_settings (user_id, exam_year, monthly_budget_gbp, updated_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (user_id, DEFAULT_EXAM_YEAR, config.DEFAULT_MONTHLY_LLM_BUDGET_GBP, now),
+        )
+    return get_user_settings(user_id) or {}
+
+
+def get_user_settings(user_id: str) -> dict | None:
+    with db_cursor() as cur:
+        row = cur.execute("SELECT * FROM user_settings WHERE user_id = ?", (user_id,)).fetchone()
+    return dict(row) if row else None
+
+
+def update_user_settings(
+    user_id: str,
+    *,
+    exam_year: str,
+    llm_provider: str | None,
+    llm_base_url: str | None,
+    llm_model: str | None,
+    encrypted_llm_api_key: str | None,
+    monthly_budget_gbp: float | None,
+    use_own_key: bool,
+) -> None:
+    ensure_user_settings(user_id)
+    with db_cursor() as cur:
+        cur.execute(
+            """
+            UPDATE user_settings
+            SET exam_year = ?, llm_provider = ?, llm_base_url = ?, llm_model = ?,
+                encrypted_llm_api_key = COALESCE(?, encrypted_llm_api_key),
+                monthly_budget_gbp = ?, use_own_key = ?, updated_at = ?
+            WHERE user_id = ?
+            """,
+            (
+                exam_year or DEFAULT_EXAM_YEAR,
+                llm_provider or None,
+                llm_base_url or None,
+                llm_model or None,
+                encrypted_llm_api_key,
+                monthly_budget_gbp,
+                1 if use_own_key else 0,
+                _utcnow(),
+                user_id,
+            ),
+        )
 
 
 def _migrate_past_revision_to_revision() -> int:
@@ -180,8 +377,8 @@ def _migrate_past_revision_to_revision() -> int:
                       id, source, source_label, priority, topic, subtopic, difficulty,
                       marks, question_text, question_type, model_answer, model_answer_source,
                       marking_scheme_notes, products_mentioned, related_concepts,
-                      is_calculation, exam_technique_notes, figure_path, chains_with
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                      is_calculation, exam_technique_notes, figure_path, chains_with, exam_year
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         new,
@@ -203,6 +400,7 @@ def _migrate_past_revision_to_revision() -> int:
                         row["exam_technique_notes"],
                         row["figure_path"] if "figure_path" in row.keys() else None,
                         row["chains_with"] if "chains_with" in row.keys() else None,
+                        row["exam_year"] if "exam_year" in row.keys() else "2025-26",
                     ),
                 )
             # Now both old and new rows exist — safe to migrate references.
@@ -252,8 +450,8 @@ def sync_questions_from_json(path: Path | None = None) -> tuple[int, int]:
                   id, source, source_label, priority, topic, subtopic, difficulty,
                   marks, question_text, question_type, model_answer, model_answer_source,
                   marking_scheme_notes, products_mentioned, related_concepts,
-                  is_calculation, exam_technique_notes, figure_path, chains_with, product_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  is_calculation, exam_technique_notes, figure_path, chains_with, product_id, exam_year
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     q.get("id"),
@@ -276,6 +474,7 @@ def sync_questions_from_json(path: Path | None = None) -> tuple[int, int]:
                     q.get("figure_path"),
                     json.dumps(chains) if chains else None,
                     q.get("product_id"),
+                    q.get("exam_year") or "2025-26",
                 ),
             )
             if q["id"] in existing:
@@ -406,6 +605,31 @@ def llm_spend_summary() -> dict:
     }
 
 
+def llm_spend_summary_for_user(user_id: str, since_iso: str) -> dict:
+    with db_cursor() as cur:
+        row = cur.execute(
+            """
+            SELECT COALESCE(SUM(prompt_tokens), 0) AS prompt_tokens,
+                   COALESCE(SUM(completion_tokens), 0) AS completion_tokens,
+                   COALESCE(SUM(cached_tokens), 0) AS cached_tokens,
+                   COUNT(*) AS calls
+            FROM llm_calls
+            WHERE user_id = ? AND called_at >= ?
+            """,
+            (user_id, since_iso),
+        ).fetchone()
+    pt = row["prompt_tokens"]
+    ct = row["completion_tokens"]
+    cached = row["cached_tokens"]
+    uncached_pt = max(0, pt - cached)
+    cost_usd = (
+        cached * config.LLM_PRICE_INPUT_CACHED_PER_M_USD / 1_000_000
+        + uncached_pt * config.LLM_PRICE_INPUT_UNCACHED_PER_M_USD / 1_000_000
+        + ct * config.LLM_PRICE_OUTPUT_PER_M_USD / 1_000_000
+    )
+    return {"calls": row["calls"], "cost_gbp": round(cost_usd * config.USD_TO_GBP, 4)}
+
+
 # Default provenance for each `source` value. Established by audit:
 #   - past_paper_examples: SUGE_PastPapers.md is a Moodle outline; lecturer's worked
 #     answers are video-only, so JSON model_answers were drafted by AI.
@@ -449,8 +673,8 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
                   marks, question_text, question_type, model_answer, model_answer_source,
                   marking_scheme_notes,
                   products_mentioned, related_concepts, is_calculation, exam_technique_notes,
-                  figure_path, chains_with
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  figure_path, chains_with, product_id, exam_year
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     q.get("id"),
@@ -473,6 +697,7 @@ def load_questions_from_json(path: Path | None = None, *, replace: bool = True) 
                     q.get("figure_path"),
                     json.dumps(chains) if chains else None,
                     q.get("product_id"),
+                    q.get("exam_year") or DEFAULT_EXAM_YEAR,
                 ),
             )
     return len(questions)
@@ -507,6 +732,7 @@ def list_questions(
     marks: int | None = None,
     search: str | None = None,
     product_id: str | None = None,
+    exam_year: str | None = None,
 ) -> list[dict]:
     sql = "SELECT * FROM questions WHERE 1=1"
     params: list[Any] = []
@@ -519,6 +745,9 @@ def list_questions(
     if product_id:
         sql += " AND product_id = ?"
         params.append(product_id)
+    if exam_year:
+        sql += " AND COALESCE(exam_year, ?) = ?"
+        params.extend([DEFAULT_EXAM_YEAR, exam_year])
     if difficulty:
         sql += " AND difficulty = ?"
         params.append(difficulty)

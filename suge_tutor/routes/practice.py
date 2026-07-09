@@ -25,11 +25,14 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         difficulty: str | None = None,
         priority: str | None = None,
     ):
+        user = users.current_user(request)
+        settings = db.ensure_user_settings(user["id"]) if user else None
         pool = db.list_questions(
             topic=topic,
             source=source,
             difficulty=difficulty,
             priority=priority,
+            exam_year=(settings or {}).get("exam_year"),
         )
         if not pool:
             return RedirectResponse(url="/questions", status_code=303)
@@ -90,13 +93,13 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         if not question:
             raise HTTPException(status_code=404, detail="Question not found")
 
-        result = await mark_answer(question, payload.student_answer)
+        user = users.current_user(request)
+        result = await mark_answer(question, payload.student_answer, user_id=user["id"] if user else None)
         attempted_at = datetime.now(timezone.utc).isoformat()
 
         marks_awarded = result.get("marks_awarded") if not result.get("error") else None
         marks_total = result.get("marks_total") or question.get("marks")
 
-        user = users.current_user(request)
         attempt_id = db.insert_attempt(
             question_id=payload.question_id,
             student_answer=payload.student_answer,

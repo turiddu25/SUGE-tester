@@ -82,7 +82,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             if not q:
                 return item.question_id, {"error": "missing_question", "raw_response": ""}
             async with sem:
-                result = await mark_answer(q, item.answer)
+                result = await mark_answer(q, item.answer, user_id=user["id"] if user else None)
             return item.question_id, result
 
         tasks = [mark_one(item) for item in payload.items]

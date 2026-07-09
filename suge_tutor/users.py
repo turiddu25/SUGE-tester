@@ -1,17 +1,25 @@
-"""Tiny local accounts. No auth — the user picks Salvo or Aryan from a screen.
+"""User/session helpers.
 
-Each user also has personal grade targets (calculated externally — see below).
+Seeded local accounts retain personal grade targets (calculated externally).
 SUGE is 50% of the course; the other 50% is coursework. Targets here are the
 EXAM percentages required to land each grade given current coursework standing.
 """
 
 from __future__ import annotations
 
+import base64
+import hashlib
+import hmac
+import secrets
+from datetime import datetime, timedelta, timezone
+
 from fastapi import Request
+
+from .config import config
 
 # Grade targets are the exam percentages each user needs to score, given their
 # coursework standing, to achieve A5 / B3 / C3 overall.
-USERS: dict[str, dict] = {
+LOCAL_USERS: dict[str, dict] = {
     "salvo": {
         "id": "salvo",
         "name": "Salvo",
@@ -40,21 +48,98 @@ USERS: dict[str, dict] = {
 }
 
 COOKIE_NAME = "suge_user"
+SESSION_COOKIE_NAME = "suge_session"
+
+
+def _db():
+    from . import db
+
+    return db
+
+
+def _now() -> datetime:
+    return datetime.now(timezone.utc)
 
 
 def current_user(request: Request) -> dict | None:
+    token = request.cookies.get(SESSION_COOKIE_NAME)
+    if token:
+        user = _db().get_session_user(token, _now().isoformat())
+        if user:
+            return user
     uid = request.cookies.get(COOKIE_NAME)
-    if not uid:
-        return None
-    return USERS.get(uid.lower())
+    if uid:
+        if config.ALLOW_LOCAL_USER_PICKER:
+            return _db().get_user(uid.lower()) or LOCAL_USERS.get(uid.lower())
+    return None
 
 
 def all_users() -> list[dict]:
-    return list(USERS.values())
+    users = _db().list_users()
+    return users or list(LOCAL_USERS.values())
 
 
 def is_valid_user(uid: str) -> bool:
-    return uid.lower() in USERS
+    return config.ALLOW_LOCAL_USER_PICKER and (_db().get_user(uid.lower()) is not None or uid.lower() in LOCAL_USERS)
+
+
+def create_session(user_id: str) -> tuple[str, datetime]:
+    token = secrets.token_urlsafe(32)
+    created = _now()
+    expires = created + timedelta(days=365)
+    _db().create_session(token, user_id, created.isoformat(), expires.isoformat())
+    return token, expires
+
+
+def delete_session(token: str | None) -> None:
+    if token:
+        _db().delete_session(token)
+
+
+def password_hash(password: str) -> str:
+    salt = secrets.token_hex(16)
+    digest = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt.encode("ascii"), 200_000)
+    return f"pbkdf2_sha256${salt}${digest.hex()}"
+
+
+def verify_password(password: str, stored: str | None) -> bool:
+    if not stored:
+        return False
+    try:
+        scheme, salt, digest = stored.split("$", 2)
+    except ValueError:
+        return False
+    if scheme != "pbkdf2_sha256":
+        return False
+    actual = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt.encode("ascii"), 200_000).hex()
+    return hmac.compare_digest(actual, digest)
+
+
+def user_id_from_email(email: str) -> str:
+    base = "".join(ch for ch in email.lower().split("@")[0] if ch.isalnum()) or "user"
+    candidate = base[:24]
+    if not _db().get_user(candidate):
+        return candidate
+    return f"{candidate}-{secrets.token_hex(3)}"
+
+
+def encrypt_secret(value: str) -> str:
+    key = hashlib.sha256(config.APP_SECRET_KEY.encode("utf-8")).digest()
+    data = value.encode("utf-8")
+    out = bytes(b ^ key[i % len(key)] for i, b in enumerate(data))
+    return base64.urlsafe_b64encode(out).decode("ascii")
+
+
+def decrypt_secret(value: str | None) -> str | None:
+    if not value:
+        return None
+    key = hashlib.sha256(config.APP_SECRET_KEY.encode("utf-8")).digest()
+    try:
+        data = base64.urlsafe_b64decode(value.encode("ascii"))
+    except Exception:
+        return None
+    out = bytes(b ^ key[i % len(key)] for i, b in enumerate(data))
+    return out.decode("utf-8", errors="ignore")
 
 
 def grade_for(percentage: float | None, targets: dict[str, int]) -> dict:

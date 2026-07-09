@@ -71,6 +71,7 @@ async def home(request: Request):
     day_start = now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
 
     today_count = db.attempts_today(user["id"], day_start) if user else 0
+    user_settings = db.ensure_user_settings(user["id"]) if user else None
     total_count = db.attempts_total(user["id"]) if user else 0
     topic_avgs = db.topic_averages(user["id"]) if user else []
     weakest = topic_avgs[0] if topic_avgs else None
@@ -122,6 +123,7 @@ async def home(request: Request):
         {
             "question_count": db.question_count(),
             "current_user": user,
+            "user_settings": user_settings,
             "today_count": today_count,
             "total_count": total_count,
             "topic_avgs": topic_avgs,

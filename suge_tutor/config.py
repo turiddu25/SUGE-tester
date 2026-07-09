@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import os
+import tempfile
 from pathlib import Path
 
 from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(PROJECT_ROOT / ".env")
+if not os.getenv("VERCEL"):
+    load_dotenv(PROJECT_ROOT / ".env")
 
 
 def _get(key: str, default: str | None = None) -> str | None:
@@ -16,9 +18,23 @@ def _get(key: str, default: str | None = None) -> str | None:
     return val
 
 
+def _path_from_env(key: str, default: Path) -> Path:
+    raw = _get(key)
+    if not raw:
+        return default
+    path = Path(raw)
+    return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+def _default_db_path() -> Path:
+    if os.getenv("VERCEL"):
+        return Path(tempfile.gettempdir()) / "suge_tutor.db"
+    return PROJECT_ROOT / "data" / "suge_tutor.db"
+
+
 class Config:
     PROJECT_ROOT: Path = PROJECT_ROOT
-    DB_PATH: Path = PROJECT_ROOT / (_get("DB_PATH", "data/suge_tutor.db") or "data/suge_tutor.db")
+    DB_PATH: Path = _path_from_env("DB_PATH", _default_db_path())
     QUESTIONS_JSON: Path = PROJECT_ROOT / "data" / "questions.json"
 
     LLM_PROVIDER: str = _get("LLM_PROVIDER", "moonshot") or "moonshot"
@@ -29,6 +45,9 @@ class Config:
     LLM_MAX_TOKENS: int = int(_get("LLM_MAX_TOKENS", "2000") or "2000")
     LLM_TIMEOUT_SECONDS: float = float(_get("LLM_TIMEOUT_SECONDS", "60") or "60")
     LLM_CONCURRENCY: int = int(_get("LLM_CONCURRENCY", "4") or "4")
+    APP_SECRET_KEY: str = _get("APP_SECRET_KEY", "dev-secret-change-me") or "dev-secret-change-me"
+    DEFAULT_MONTHLY_LLM_BUDGET_GBP: float = float(_get("DEFAULT_MONTHLY_LLM_BUDGET_GBP", "3.00") or "3.00")
+    ALLOW_LOCAL_USER_PICKER: bool = (_get("ALLOW_LOCAL_USER_PICKER", "0" if os.getenv("VERCEL") else "1") or "0").lower() in {"1", "true", "yes"}
 
     # Exam date — drives the spaced-repetition scheduler so intervals compress
     # as the exam approaches and never push a question past it.
