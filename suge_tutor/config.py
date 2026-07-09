@@ -4,11 +4,21 @@ import os
 import tempfile
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+def _load_env_file(path: Path) -> None:
+    if not path.exists():
+        return
+    for key, value in dotenv_values(path).items():
+        if value:
+            os.environ[key] = value
+
+
 if not os.getenv("VERCEL"):
-    load_dotenv(PROJECT_ROOT / ".env")
+    _load_env_file(PROJECT_ROOT / ".env")
+    _load_env_file(PROJECT_ROOT / ".env.local")
+    _load_env_file(PROJECT_ROOT / ".env.development.local")
 
 
 def _get(key: str, default: str | None = None) -> str | None:
@@ -35,6 +45,15 @@ def _default_db_path() -> Path:
 class Config:
     PROJECT_ROOT: Path = PROJECT_ROOT
     DB_PATH: Path = _path_from_env("DB_PATH", _default_db_path())
+    DATABASE_URL: str = (
+        _get("DATABASE_URL")
+        or _get("POSTGRES_URL")
+        or _get("POSTGRES_PRISMA_URL")
+        or _get("POSTGRES_URL_NON_POOLING")
+        or _get("NEON_DATABASE_URL")
+        or ""
+    )
+    DB_BACKEND: str = "postgres" if DATABASE_URL else "sqlite"
     QUESTIONS_JSON: Path = PROJECT_ROOT / "data" / "questions.json"
 
     LLM_PROVIDER: str = _get("LLM_PROVIDER", "moonshot") or "moonshot"

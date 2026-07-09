@@ -15,3 +15,5 @@ venv/
 .claude/
 *.vtt
 .tmp/
+.vercel
+.env*

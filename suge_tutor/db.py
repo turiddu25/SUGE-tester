@@ -9,6 +9,13 @@ from typing import Any, Iterable, Iterator
 
 from .config import config
 
+try:
+    import psycopg
+    from psycopg.rows import dict_row
+except ImportError:  # pragma: no cover - optional until Postgres is configured
+    psycopg = None
+    dict_row = None
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS questions (
   id TEXT PRIMARY KEY,
@@ -120,10 +127,126 @@ CREATE TABLE IF NOT EXISTS llm_calls (
 );
 """
 
+POSTGRES_SCHEMA = """
+CREATE TABLE IF NOT EXISTS questions (
+  id TEXT PRIMARY KEY,
+  source TEXT NOT NULL,
+  source_label TEXT,
+  priority TEXT,
+  topic TEXT NOT NULL,
+  subtopic TEXT,
+  difficulty TEXT,
+  marks INTEGER NOT NULL,
+  question_text TEXT NOT NULL,
+  question_type TEXT,
+  model_answer TEXT,
+  model_answer_source TEXT,
+  marking_scheme_notes TEXT,
+  products_mentioned TEXT,
+  related_concepts TEXT,
+  is_calculation INTEGER,
+  exam_technique_notes TEXT,
+  figure_path TEXT,
+  chains_with TEXT,
+  product_id TEXT,
+  exam_year TEXT DEFAULT '2025-26'
+);
+
+CREATE TABLE IF NOT EXISTS app_users (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE,
+  password_hash TEXT,
+  grade_targets_json TEXT,
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_sessions (
+  token TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES app_users(id),
+  created_at TEXT NOT NULL,
+  expires_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_settings (
+  user_id TEXT PRIMARY KEY REFERENCES app_users(id),
+  exam_year TEXT NOT NULL DEFAULT '2025-26',
+  llm_provider TEXT,
+  llm_base_url TEXT,
+  llm_model TEXT,
+  encrypted_llm_api_key TEXT,
+  monthly_budget_gbp REAL,
+  use_own_key INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS attempts (
+  id SERIAL PRIMARY KEY,
+  question_id TEXT NOT NULL REFERENCES questions(id),
+  user_id TEXT,
+  student_answer TEXT NOT NULL,
+  marks_awarded REAL,
+  marks_total INTEGER,
+  marking_response_json TEXT,
+  attempted_at TEXT NOT NULL,
+  duration_seconds INTEGER,
+  exam_session_id INTEGER,
+  flagged_for_review INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS exam_sessions (
+  id SERIAL PRIMARY KEY,
+  user_id TEXT,
+  mode TEXT NOT NULL,
+  started_at TEXT NOT NULL,
+  finished_at TEXT,
+  total_marks_awarded REAL,
+  total_marks_possible INTEGER,
+  config_json TEXT
+);
+
+CREATE TABLE IF NOT EXISTS review_queue (
+  id SERIAL PRIMARY KEY,
+  question_id TEXT NOT NULL REFERENCES questions(id),
+  user_id TEXT NOT NULL,
+  next_review_at TEXT NOT NULL,
+  ease_level INTEGER DEFAULT 0,
+  last_rating TEXT,
+  last_rated_at TEXT,
+  UNIQUE(question_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT
+);
+
+CREATE TABLE IF NOT EXISTS llm_calls (
+  id SERIAL PRIMARY KEY,
+  user_id TEXT,
+  attempt_id INTEGER,
+  model TEXT,
+  prompt_tokens INTEGER NOT NULL DEFAULT 0,
+  completion_tokens INTEGER NOT NULL DEFAULT 0,
+  total_tokens INTEGER NOT NULL DEFAULT 0,
+  cached_tokens INTEGER NOT NULL DEFAULT 0,
+  latency_ms INTEGER,
+  called_at TEXT NOT NULL
+);
+"""
+
 DEFAULT_EXAM_YEAR = "2025-26"
 
 
-def get_connection() -> sqlite3.Connection:
+def _is_postgres() -> bool:
+    return config.DB_BACKEND == "postgres"
+
+
+def get_connection():
+    if _is_postgres():
+        if psycopg is None:
+            raise RuntimeError("psycopg is required when DATABASE_URL/POSTGRES_URL is configured")
+        return psycopg.connect(config.DATABASE_URL, row_factory=dict_row)
     config.DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(config.DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -131,11 +254,74 @@ def get_connection() -> sqlite3.Connection:
     return conn
 
 
+class CursorAdapter:
+    def __init__(self, cur, *, postgres: bool):
+        self.cur = cur
+        self.postgres = postgres
+        self.lastrowid = None
+        self.rowcount = -1
+
+    def execute(self, sql: str, params: Iterable[Any] | None = None):
+        params = tuple(params or ())
+        if self.postgres:
+            sql = self._pg_sql(sql)
+        result = self.cur.execute(sql, params)
+        self.rowcount = getattr(self.cur, "rowcount", -1)
+        if self.postgres and " RETURNING id" in sql:
+            row = self.cur.fetchone()
+            self.lastrowid = row["id"] if row else None
+        else:
+            self.lastrowid = getattr(self.cur, "lastrowid", None)
+        return self
+
+    def executemany(self, sql: str, params_seq):
+        if self.postgres:
+            sql = self._pg_sql(sql)
+        result = self.cur.executemany(sql, params_seq)
+        self.rowcount = getattr(self.cur, "rowcount", -1)
+        return result
+
+    def executescript(self, sql: str):
+        if self.postgres:
+            return self.cur.execute(sql)
+        return self.cur.executescript(sql)
+
+    def fetchone(self):
+        return self.cur.fetchone()
+
+    def fetchall(self):
+        return self.cur.fetchall()
+
+    def _pg_sql(self, sql: str) -> str:
+        sql = sql.strip()
+        sql = sql.replace("INSERT OR IGNORE INTO", "INSERT INTO")
+        sql = sql.replace("INSERT OR REPLACE INTO", "INSERT INTO")
+        sql = sql.replace("?", "%s")
+        low = " ".join(sql.lower().split())
+        if low.startswith("insert into app_users") and "null" in low and "on conflict" not in low:
+            sql += " ON CONFLICT (id) DO NOTHING"
+        if low.startswith("insert into user_settings") and "on conflict" not in low:
+            sql += " ON CONFLICT (user_id) DO NOTHING"
+        if low.startswith("insert into attempts") and "returning id" not in low:
+            sql += " RETURNING id"
+        if low.startswith("insert into exam_sessions") and "returning id" not in low:
+            sql += " RETURNING id"
+        if low.startswith("insert into llm_calls") and "returning id" not in low:
+            sql += " RETURNING id"
+        if low.startswith("insert into questions") and "on conflict" not in low:
+            cols = re.search(r"INSERT INTO questions \((.*?)\) VALUES", sql, re.IGNORECASE | re.DOTALL)
+            if cols:
+                names = [c.strip() for c in cols.group(1).split(",")]
+                updates = ", ".join(f"{name} = excluded.{name}" for name in names if name != "id")
+                sql += f" ON CONFLICT (id) DO UPDATE SET {updates}"
+        return sql
+
+
 @contextmanager
 def db_cursor() -> Iterator[sqlite3.Cursor]:
     conn = get_connection()
     try:
-        cur = conn.cursor()
+        cur = CursorAdapter(conn.cursor(), postgres=_is_postgres())
         yield cur
         conn.commit()
     finally:
@@ -143,6 +329,14 @@ def db_cursor() -> Iterator[sqlite3.Cursor]:
 
 
 def init_schema() -> None:
+    if _is_postgres():
+        with db_cursor() as cur:
+            cur.executescript(POSTGRES_SCHEMA)
+        seed_default_users()
+        sync_questions_from_json()
+        _resolve_cross_referenced_answers()
+        return
+
     with db_cursor() as cur:
         cur.executescript(SCHEMA)
         # Online migration: add user_id columns to pre-existing tables.
