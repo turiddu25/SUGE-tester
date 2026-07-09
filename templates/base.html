@@ -35,13 +35,30 @@
   <link rel="stylesheet" href="/static/css/overrides.css?v={{ STATIC_V }}" />
 </head>
 <body class="h-full bg-neutral-50 text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
-  <header class="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
-    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6">
-      <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
-        <span class="inline-block h-2.5 w-2.5 rounded-full bg-indigo-600"></span>
-        SUGE Tutor
-      </a>
-      <nav class="flex w-full items-center gap-3 overflow-x-auto whitespace-nowrap pb-1 text-sm md:w-auto md:flex-wrap md:justify-end md:gap-5 md:overflow-visible md:whitespace-normal md:pb-0">
+  <header class="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900" x-data="{ mobileOpen: false }">
+    <div class="mx-auto max-w-6xl px-4 py-3 md:px-6">
+      <div class="flex items-center justify-between gap-3">
+        <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
+          <span class="inline-block h-2.5 w-2.5 rounded-full bg-indigo-600"></span>
+          SUGE Tutor
+        </a>
+        <div class="flex items-center gap-2 md:hidden">
+          <button type="button" class="theme-toggle-button"
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 hover:border-indigo-400 hover:text-indigo-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                  title="Toggle dark mode (press D)">
+            <svg class="h-4 w-4 hidden dark:block" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.95 2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-2.05 4.95a1 1 0 01-1.41 0l-.71-.71a1 1 0 111.41-1.41l.71.71a1 1 0 010 1.41zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.95-2.05a1 1 0 011.41 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm1.05-4.95a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="h-4 w-4 block dark:hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 116.707 2.707a8.001 8.001 0 0010.586 10.586z"/></svg>
+          </button>
+          <button type="button" @click="mobileOpen = !mobileOpen"
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 hover:border-indigo-400 hover:text-indigo-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                  aria-label="Open menu">
+            <svg x-show="!mobileOpen" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm1 4a1 1 0 100 2h12a1 1 0 100-2H4z" clip-rule="evenodd"/></svg>
+            <svg x-show="mobileOpen" x-cloak class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="mt-3 hidden items-center justify-end gap-5 text-sm md:flex">
         <a href="/questions" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Questions</a>
         <a href="/review" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Review</a>
         <a href="/exam-sim" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Exam Sim</a>
@@ -51,8 +68,7 @@
         {% if current_user and current_user.is_admin %}
         <a href="/admin" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Admin</a>
         {% endif %}
-
-        <button type="button" id="theme-toggle"
+        <button type="button" class="theme-toggle-button"
                 class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 hover:border-indigo-400 hover:text-indigo-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
                 title="Toggle dark mode (press D)">
           <svg class="h-4 w-4 hidden dark:block" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.95 2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-2.05 4.95a1 1 0 01-1.41 0l-.71-.71a1 1 0 111.41-1.41l.71.71a1 1 0 010 1.41zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.95-2.05a1 1 0 011.41 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm1.05-4.95a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
@@ -75,6 +91,33 @@
         <a href="/register?next={{ request.url.path | urlencode }}" class="rounded bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700">Create account</a>
         {% endif %}
       </nav>
+
+      <div x-show="mobileOpen" x-cloak class="mt-3 border-t border-neutral-200 pt-3 dark:border-neutral-800 md:hidden">
+        <nav class="flex flex-col gap-3 text-sm">
+          <a href="/questions" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Questions</a>
+          <a href="/review" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Review</a>
+          <a href="/exam-sim" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Exam Sim</a>
+          <a href="/exam-2026" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">2026 Exam</a>
+          <a href="/reference" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Reference</a>
+          <a href="/settings" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Settings</a>
+          {% if current_user and current_user.is_admin %}
+          <a href="/admin" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Admin</a>
+          {% endif %}
+          {% if current_user %}
+          <div class="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+            <span>{{ current_user.name }}</span>
+            <form method="post" action="/users/logout">
+              <button class="text-neutral-500 hover:text-indigo-700 dark:text-neutral-400 dark:hover:text-indigo-300">Logout</button>
+            </form>
+          </div>
+          {% else %}
+          <div class="flex flex-col gap-2 pt-1">
+            <a href="/login?next={{ request.url.path | urlencode }}" class="text-neutral-600 hover:text-indigo-700 dark:text-neutral-300 dark:hover:text-indigo-300">Sign in</a>
+            <a href="/register?next={{ request.url.path | urlencode }}" class="inline-flex justify-center rounded bg-indigo-600 px-3 py-2 text-xs font-medium text-white hover:bg-indigo-700">Create account</a>
+          </div>
+          {% endif %}
+        </nav>
+      </div>
     </div>
   </header>
 

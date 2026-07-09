@@ -29,6 +29,7 @@ window.toggleTheme = function () {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("theme-toggle");
-  if (btn) btn.addEventListener("click", window.toggleTheme);
+  document.querySelectorAll(".theme-toggle-button").forEach((btn) => {
+    btn.addEventListener("click", window.toggleTheme);
+  });
 });

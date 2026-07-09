@@ -14,32 +14,32 @@
   <div class="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-100">Exam sim requires your own API key because it uses a full paper of marking calls.</div>
   {% endif %}
 
-  <form method="post" action="/settings" class="space-y-5 rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+  <form method="post" action="/settings" autocomplete="off" class="space-y-5 rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
     <div>
       <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">Exam year</label>
-      <input name="exam_year" value="{{ settings.exam_year or '2025-26' }}" class="mt-1 w-40 rounded border-neutral-300 px-3 py-2 text-sm" />
+      <input name="exam_year" autocomplete="off" value="{{ settings.exam_year or '2025-26' }}" class="mt-1 w-40 rounded border-neutral-300 px-3 py-2 text-sm" />
       <p class="mt-1 text-xs text-neutral-500">Used for page badges and default content filtering as future question banks are added.</p>
     </div>
 
     <div class="grid gap-4 md:grid-cols-2">
       <div>
         <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">Provider</label>
-        <input name="llm_provider" value="{{ settings.llm_provider or '' }}" placeholder="openai, moonshot, kimi_code" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
+        <input name="llm_provider" autocomplete="off" data-1p-ignore value="{{ settings.llm_provider or '' }}" placeholder="openai, moonshot, kimi_code" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
       </div>
       <div>
         <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">Model</label>
-        <input name="llm_model" value="{{ settings.llm_model or '' }}" placeholder="Leave blank for app default" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
+        <input name="llm_model" autocomplete="off" data-1p-ignore value="{{ settings.llm_model or '' }}" placeholder="Leave blank for app default" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
       </div>
     </div>
 
     <div>
       <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">Base URL</label>
-      <input name="llm_base_url" value="{{ settings.llm_base_url or '' }}" placeholder="https://api.openai.com/v1" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
+      <input name="llm_base_url" type="url" autocomplete="off" spellcheck="false" data-1p-ignore value="{{ settings.llm_base_url or '' }}" placeholder="https://api.openai.com/v1" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
     </div>
 
     <div>
       <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">API key</label>
-      <input name="llm_api_key" type="password" placeholder="{% if has_own_key %}Key saved - enter a new one to replace it{% else %}Paste your key{% endif %}" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
+      <input name="llm_api_key" type="password" autocomplete="new-password" spellcheck="false" data-1p-ignore placeholder="{% if has_own_key %}Key saved - enter a new one to replace it{% else %}Paste your key{% endif %}" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
       <label class="mt-2 flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
         <input type="checkbox" name="use_own_key" value="1" {% if settings.use_own_key %}checked{% endif %} />
         Use my own key for AI marking when available
@@ -58,7 +58,7 @@
         {% for key, component in coursework_components.items() %}
         <label class="block text-sm">
           <span class="font-medium text-neutral-700 dark:text-neutral-200">{{ component.label }} ({{ component.weight }}%)</span>
-          <input name="{{ key }}" type="number" min="0" max="100" step="0.1" value="{{ coursework.get(key, '') }}" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
+          <input name="{{ key }}" type="number" min="0" max="100" step="0.1" autocomplete="off" value="{{ coursework.get(key, '') }}" class="mt-1 w-full rounded border-neutral-300 px-3 py-2 text-sm" />
         </label>
         {% endfor %}
       </div>
