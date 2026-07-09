@@ -65,7 +65,7 @@ class Config:
     LLM_TIMEOUT_SECONDS: float = float(_get("LLM_TIMEOUT_SECONDS", "60") or "60")
     LLM_CONCURRENCY: int = int(_get("LLM_CONCURRENCY", "4") or "4")
     APP_SECRET_KEY: str = _get("APP_SECRET_KEY", "dev-secret-change-me") or "dev-secret-change-me"
-    DEFAULT_MONTHLY_LLM_BUDGET_GBP: float = float(_get("DEFAULT_MONTHLY_LLM_BUDGET_GBP", "3.00") or "3.00")
+    APP_KEY_FREE_CALL_LIMIT: int = int(_get("APP_KEY_FREE_CALL_LIMIT", "20") or "20")
     ALLOW_LOCAL_USER_PICKER: bool = (_get("ALLOW_LOCAL_USER_PICKER", "0" if os.getenv("VERCEL") else "1") or "0").lower() in {"1", "true", "yes"}
 
     # Exam date — drives the spaced-repetition scheduler so intervals compress

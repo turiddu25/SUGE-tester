@@ -95,7 +95,7 @@
 
   <script>
     // Fetch remaining Moonshot/Kimi balance and surface it next to the spend pill.
-    // Polled lazily — only on initial page load, with a 60s TTL on the server side.
+    // Polled lazily, only on initial page load, with a 60s TTL on the server side.
     (function () {
       var el = document.getElementById("kimi-balance");
       if (!el) return;
@@ -107,7 +107,7 @@
           var gbp = data.available_gbp;
           if (typeof usd !== "number") return;
           el.textContent = " ·  💰 £" + gbp.toFixed(2) + " left on Moonshot ($" + usd.toFixed(2) + ")";
-          el.title = "Remaining Kimi/Moonshot balance — fetched from /v1/users/me/balance, cached 60s server-side. Cash: $" + (data.cash_balance || 0).toFixed(2) + " · Voucher: $" + (data.voucher_balance || 0).toFixed(2);
+          el.title = "Remaining Kimi/Moonshot balance, fetched from /v1/users/me/balance, cached 60s server-side. Cash: $" + (data.cash_balance || 0).toFixed(2) + " · Voucher: $" + (data.voucher_balance || 0).toFixed(2);
         })
         .catch(function () {});
     })();

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ question.id }} — Practice — SUGE Tutor{% endblock %}
+{% block title %}{{ question.id }} - Practise - SUGE Tutor{% endblock %}
 {% block content %}
 <section
   x-data='practice({
@@ -28,7 +28,7 @@
       <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-800">★ Past Paper</span>
       {% endif %}
       {% if cribsheet_product_name %}
-      <span class="inline-flex items-center rounded-full bg-indigo-100 px-2 py-0.5 font-medium text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200" title="This is a cribsheet drill — focused on a product Mark confirmed for the 2026 exam">📋 Cribsheet · {{ cribsheet_product_name }}</span>
+      <span class="inline-flex items-center rounded-full bg-indigo-100 px-2 py-0.5 font-medium text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200" title="This is a cribsheet drill focused on a product Mark confirmed for the 2026 exam">📋 Cribsheet · {{ cribsheet_product_name }}</span>
       {% endif %}
       <span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-600">{{ question.difficulty }}</span>
       {# Topic/subtopic hidden during the attempt — revealing them spoils which course concept the question is testing.
@@ -110,7 +110,7 @@
             <div class="mt-0.5 text-3xl font-semibold tracking-tight">
               <span x-text="formatNum(result.marks_awarded)"></span> / <span x-text="result.marks_total"></span>
             </div>
-            <div class="text-sm text-neutral-500"><span x-text="result.percentage ?? '—'"></span>%</div>
+            <div class="text-sm text-neutral-500"><span x-text="result.percentage ?? '-'"></span>%</div>
           </div>
           <div class="flex flex-col items-end gap-1 text-sm">
             <span x-show="result.would_pass_in_real_exam === true" class="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-800">Would pass in real exam</span>
@@ -172,7 +172,7 @@
           <div class="mt-2 flex flex-wrap gap-2">
             <button type="button" @click="rate('easy')" :disabled="rating || rated"
               class="rounded border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-800 hover:bg-emerald-100 disabled:opacity-60">
-              ✓ Got it — easy <span class="text-xs text-emerald-700">(+7d)</span>
+              ✓ Got it - easy <span class="text-xs text-emerald-700">(+7d)</span>
             </button>
             <button type="button" @click="rate('needs')" :disabled="rating || rated"
               class="rounded border border-amber-300 bg-amber-50 px-3 py-1.5 text-sm text-amber-800 hover:bg-amber-100 disabled:opacity-60">
@@ -180,7 +180,7 @@
             </button>
             <button type="button" @click="rate('hard')" :disabled="rating || rated"
               class="rounded border border-rose-300 bg-rose-50 px-3 py-1.5 text-sm text-rose-800 hover:bg-rose-100 disabled:opacity-60">
-              ✗ Hard — review soon <span class="text-xs text-rose-700">(+1d)</span>
+              ✗ Hard - review soon <span class="text-xs text-rose-700">(+1d)</span>
             </button>
             <span x-show="rated" x-cloak class="self-center text-xs text-neutral-600">
               Saved. Next review: <span class="font-mono" x-text="ratedAtLabel"></span>
@@ -205,9 +205,9 @@
       {% elif mas == "lecturer_paraphrased" %}
         <span class="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-800 dark:bg-blue-900/40 dark:text-blue-200" title="Lecturer answer, paraphrased to fit this app's structure">✓ Lecturer (paraphrased)</span>
       {% elif mas == "ai_generated" %}
-        <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-800 dark:bg-amber-900/40 dark:text-amber-200" title="No lecturer source available — answer drafted by AI from lecture concepts. Treat as guidance, not gospel.">⚠ AI-drafted answer</span>
+        <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-800 dark:bg-amber-900/40 dark:text-amber-200" title="No lecturer source available. Answer drafted by AI from lecture concepts. Treat as guidance, not gospel.">⚠ AI-drafted answer</span>
       {% elif mas == "needs_manual_check" %}
-        <span class="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800 dark:bg-orange-900/40 dark:text-orange-200" title="Source is the study-notes PDF. Provenance not auto-verified — cross-check against the PDF before trusting verbatim.">? Needs manual check</span>
+        <span class="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800 dark:bg-orange-900/40 dark:text-orange-200" title="Source is the study-notes PDF. Provenance not auto-verified. Cross-check against the PDF before trusting verbatim.">? Needs manual check</span>
       {% else %}
         <span class="inline-flex items-center gap-1 rounded-full bg-neutral-200 px-2 py-0.5 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300" title="Provenance unknown">Unknown source</span>
       {% endif %}
@@ -229,7 +229,7 @@
         <span class="font-mono text-xs text-neutral-400">{{ a.attempted_at[:19] }}</span>
         <div class="flex items-center gap-3">
           <span class="{% if a.marks_awarded is none %}text-rose-600 dark:text-rose-400{% endif %}">
-            {% if a.marks_awarded is not none %}{{ "%.1f"|format(a.marks_awarded) }} / {{ a.marks_total }}{% else %}— failed{% endif %}
+            {% if a.marks_awarded is not none %}{{ "%.1f"|format(a.marks_awarded) }} / {{ a.marks_total }}{% else %}- failed{% endif %}
           </span>
           {% if a.exam_session_id is none %}
           <button type="button" @click="deleteAttempt({{ a.id }})"

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Exam Simulation — SUGE Tutor{% endblock %}
+{% block title %}Exam simulation - SUGE Tutor{% endblock %}
 {% block content %}
 <section class="space-y-5">
   <div>
-    <h1 class="font-serif text-2xl tracking-tight">Exam Simulation</h1>
+    <h1 class="font-serif text-2xl tracking-tight">Exam simulation</h1>
     <p class="text-sm text-neutral-600">Mimics the real exam: 16 questions, 60 marks, 105 minutes, mostly written.</p>
   </div>
 
@@ -34,9 +34,11 @@
       <p class="mt-1 text-xs text-neutral-500">Use the same seed to redo the same paper, or leave blank to generate a fresh one.</p>
     </div>
     <div class="flex items-center justify-between">
-      <p class="text-sm text-neutral-600 dark:text-neutral-400">Submitting will use ~16 LLM calls when you finish.</p>
-      {% if current_user %}
+      <p class="text-sm text-neutral-600 dark:text-neutral-400">Exam sim uses about 16 LLM calls, so it requires your own API key.</p>
+      {% if current_user and has_own_key %}
       <button class="rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">Start exam</button>
+      {% elif current_user %}
+      <a href="/settings?exam_key_required=1" class="rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">Add your key</a>
       {% else %}
       <a href="/login?next=/exam-sim" class="rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">Sign in to start</a>
       {% endif %}

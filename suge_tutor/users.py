@@ -50,6 +50,13 @@ LOCAL_USERS: dict[str, dict] = {
 COOKIE_NAME = "suge_user"
 SESSION_COOKIE_NAME = "suge_session"
 MIN_PASSWORD_LENGTH = 15
+GRADE_THRESHOLDS = {"A5": 70, "B3": 60, "C3": 50}
+COURSEWORK_COMPONENTS = {
+    "quiz_1_2": {"label": "Quiz Weeks 1-2", "weight": 5},
+    "quiz_3_4": {"label": "Quiz Weeks 3-4", "weight": 10},
+    "quiz_5_7": {"label": "Quiz Weeks 5-7", "weight": 10},
+    "main_assignment": {"label": "Main Assignment", "weight": 25},
+}
 
 
 def _db():
@@ -160,6 +167,18 @@ def decrypt_secret(value: str | None) -> str | None:
     return out.decode("utf-8", errors="ignore")
 
 
+def coursework_exam_targets(scores: dict[str, float]) -> dict:
+    coursework_points = 0.0
+    for key, meta in COURSEWORK_COMPONENTS.items():
+        score = max(0.0, min(100.0, float(scores.get(key) or 0.0)))
+        coursework_points += score * float(meta["weight"]) / 100.0
+    targets = {
+        grade: max(0, min(100, round((overall - coursework_points) / 0.5)))
+        for grade, overall in GRADE_THRESHOLDS.items()
+    }
+    return {"targets": targets, "coursework": scores, "coursework_points": round(coursework_points, 2)}
+
+
 def grade_for(percentage: float | None, targets: dict[str, int]) -> dict:
     """Given an exam percentage and a user's targets, return:
 
@@ -170,7 +189,8 @@ def grade_for(percentage: float | None, targets: dict[str, int]) -> dict:
     """
     if percentage is None:
         return {"achieved": None, "next": None}
-    sorted_grades = sorted(targets.items(), key=lambda kv: -kv[1])  # high → low
+    numeric_targets = {k: v for k, v in targets.items() if isinstance(v, (int, float))}
+    sorted_grades = sorted(numeric_targets.items(), key=lambda kv: -kv[1])  # high to low
     achieved = None
     for name, threshold in sorted_grades:
         if percentage >= threshold:

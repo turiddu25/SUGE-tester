@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Spaced Review — SUGE Tutor{% endblock %}
+{% block title %}Spaced Review - SUGE Tutor{% endblock %}
 {% block content %}
 <section class="space-y-6">
   <div>
     <h1 class="font-serif text-2xl tracking-tight">Spaced Review</h1>
     <p class="text-sm text-neutral-600">
-      Questions you've rated come back here when they're due. Mark Logan: "Re-do questions a few days later — small, regular, repeated revision."
+      Questions you've rated come back here when they're due. Mark Logan: "Re-do questions a few days later, small, regular, repeated revision."
     </p>
   </div>
 
@@ -38,7 +38,7 @@
           <span class="truncate text-neutral-700">{{ r.question_text }}</span>
         </div>
         <div class="flex shrink-0 items-center gap-3 text-xs text-neutral-500">
-          <span class="font-mono">{{ r.last_rating or "—" }}</span>
+          <span class="font-mono">{{ r.last_rating or "-" }}</span>
           <a href="/practice/{{ r.question_id }}" class="rounded border border-neutral-300 bg-white px-2 py-1 hover:border-indigo-500 hover:text-indigo-700">Practise</a>
         </div>
       </li>

@@ -18,12 +18,16 @@ from ..models import ExamSubmitRequest
 def register(app: FastAPI, templates: Jinja2Templates) -> None:
     @app.get("/exam-sim")
     async def exam_setup(request: Request):
+        user = users.current_user(request)
+        settings = db.ensure_user_settings(user["id"]) if user else None
+        has_own_key = bool(settings and settings.get("use_own_key") and settings.get("encrypted_llm_api_key"))
         return templates.TemplateResponse(
             request,
             "exam_setup.html",
             {
                 "topic_targets": TARGET_TOPIC_MARKS,
-                "current_user": users.current_user(request),
+                "current_user": user,
+                "has_own_key": has_own_key,
             },
         )
 
@@ -32,6 +36,9 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         user = users.current_user(request)
         if user is None:
             return RedirectResponse(url="/login?next=/exam-sim", status_code=303)
+        settings = db.ensure_user_settings(user["id"])
+        if not (settings.get("use_own_key") and settings.get("encrypted_llm_api_key")):
+            return RedirectResponse(url="/settings?exam_key_required=1", status_code=303)
         form = await request.form()
         seed_str = form.get("seed", "").strip()
         seed = int(seed_str) if seed_str else None

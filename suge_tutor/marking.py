@@ -155,11 +155,6 @@ class LLMQuotaError(LLMError):
     pass
 
 
-def _month_start_iso() -> str:
-    now = datetime.now(timezone.utc)
-    return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
-
-
 def _llm_runtime(user_id: str | None) -> dict[str, Any]:
     runtime = {
         "provider": config.LLM_PROVIDER,
@@ -183,13 +178,10 @@ def _llm_runtime(user_id: str | None) -> dict[str, Any]:
             }
         )
         return runtime
-    budget = settings.get("monthly_budget_gbp")
-    if budget is None:
-        budget = config.DEFAULT_MONTHLY_LLM_BUDGET_GBP
-    spend = db.llm_spend_summary_for_user(user_id, _month_start_iso())
-    if float(spend["cost_gbp"] or 0) >= float(budget):
+    used = db.app_key_call_count(user_id)
+    if used >= config.APP_KEY_FREE_CALL_LIMIT:
         raise LLMQuotaError(
-            f"Monthly AI marking budget reached (£{spend['cost_gbp']:.4f} of £{float(budget):.2f}). Add your own API key in Settings to continue."
+            f"You have used {config.APP_KEY_FREE_CALL_LIMIT} AI marking attempts on the shared app key. Add your own API key in Settings to continue."
         )
     return runtime
 
@@ -266,6 +258,7 @@ async def call_llm(prompt: str, *, user_id: str | None = None) -> str:
             completion_tokens=int(usage.get("completion_tokens") or 0),
             total_tokens=int(usage.get("total_tokens") or 0),
             cached_tokens=cached_tokens,
+            used_own_key=bool(runtime["using_own_key"]),
             latency_ms=latency_ms,
             called_at=datetime.now(timezone.utc).isoformat(),
         )

@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS llm_calls (
   completion_tokens INTEGER NOT NULL DEFAULT 0,
   total_tokens INTEGER NOT NULL DEFAULT 0,
   cached_tokens INTEGER NOT NULL DEFAULT 0,
+  used_own_key INTEGER NOT NULL DEFAULT 0,
   latency_ms INTEGER,
   called_at TEXT NOT NULL
 );
@@ -230,6 +231,7 @@ CREATE TABLE IF NOT EXISTS llm_calls (
   completion_tokens INTEGER NOT NULL DEFAULT 0,
   total_tokens INTEGER NOT NULL DEFAULT 0,
   cached_tokens INTEGER NOT NULL DEFAULT 0,
+  used_own_key INTEGER NOT NULL DEFAULT 0,
   latency_ms INTEGER,
   called_at TEXT NOT NULL
 );
@@ -333,6 +335,7 @@ def init_schema() -> None:
     if _is_postgres():
         with db_cursor() as cur:
             cur.executescript(POSTGRES_SCHEMA)
+            cur.execute("ALTER TABLE llm_calls ADD COLUMN IF NOT EXISTS used_own_key INTEGER NOT NULL DEFAULT 0")
         seed_default_users()
         sync_questions_from_json()
         _resolve_cross_referenced_answers()
@@ -371,6 +374,8 @@ def init_schema() -> None:
         llm_cols = {row["name"] for row in cur.fetchall()}
         if llm_cols and "cached_tokens" not in llm_cols:
             cur.execute("ALTER TABLE llm_calls ADD COLUMN cached_tokens INTEGER NOT NULL DEFAULT 0")
+        if llm_cols and "used_own_key" not in llm_cols:
+            cur.execute("ALTER TABLE llm_calls ADD COLUMN used_own_key INTEGER NOT NULL DEFAULT 0")
     _migrate_past_revision_to_revision()
     seed_default_users()
     sync_questions_from_json()
@@ -398,10 +403,10 @@ def seed_default_users() -> None:
             )
             cur.execute(
                 """
-                INSERT OR IGNORE INTO user_settings (user_id, exam_year, monthly_budget_gbp, updated_at)
-                VALUES (?, ?, ?, ?)
+                INSERT OR IGNORE INTO user_settings (user_id, exam_year, updated_at)
+                VALUES (?, ?, ?)
                 """,
-                (user["id"], DEFAULT_EXAM_YEAR, config.DEFAULT_MONTHLY_LLM_BUDGET_GBP, now),
+                (user["id"], DEFAULT_EXAM_YEAR, now),
             )
 
 
@@ -489,10 +494,10 @@ def ensure_user_settings(user_id: str) -> dict:
     with db_cursor() as cur:
         cur.execute(
             """
-            INSERT OR IGNORE INTO user_settings (user_id, exam_year, monthly_budget_gbp, updated_at)
-            VALUES (?, ?, ?, ?)
+            INSERT OR IGNORE INTO user_settings (user_id, exam_year, updated_at)
+            VALUES (?, ?, ?)
             """,
-            (user_id, DEFAULT_EXAM_YEAR, config.DEFAULT_MONTHLY_LLM_BUDGET_GBP, now),
+            (user_id, DEFAULT_EXAM_YEAR, now),
         )
     return get_user_settings(user_id) or {}
 
@@ -503,6 +508,14 @@ def get_user_settings(user_id: str) -> dict | None:
     return dict(row) if row else None
 
 
+def update_user_grade_targets(user_id: str, grade_targets: dict) -> None:
+    with db_cursor() as cur:
+        cur.execute(
+            "UPDATE app_users SET grade_targets_json = ? WHERE id = ?",
+            (json.dumps(grade_targets), user_id),
+        )
+
+
 def update_user_settings(
     user_id: str,
     *,
@@ -511,7 +524,6 @@ def update_user_settings(
     llm_base_url: str | None,
     llm_model: str | None,
     encrypted_llm_api_key: str | None,
-    monthly_budget_gbp: float | None,
     use_own_key: bool,
 ) -> None:
     ensure_user_settings(user_id)
@@ -521,7 +533,7 @@ def update_user_settings(
             UPDATE user_settings
             SET exam_year = ?, llm_provider = ?, llm_base_url = ?, llm_model = ?,
                 encrypted_llm_api_key = COALESCE(?, encrypted_llm_api_key),
-                monthly_budget_gbp = ?, use_own_key = ?, updated_at = ?
+                use_own_key = ?, updated_at = ?
             WHERE user_id = ?
             """,
             (
@@ -530,7 +542,6 @@ def update_user_settings(
                 llm_base_url or None,
                 llm_model or None,
                 encrypted_llm_api_key,
-                monthly_budget_gbp,
                 1 if use_own_key else 0,
                 _utcnow(),
                 user_id,
@@ -740,6 +751,7 @@ def log_llm_call(
     completion_tokens: int,
     total_tokens: int,
     cached_tokens: int = 0,
+    used_own_key: bool = False,
     latency_ms: int | None,
     called_at: str,
 ) -> int:
@@ -748,13 +760,24 @@ def log_llm_call(
             """
             INSERT INTO llm_calls (
               user_id, attempt_id, model, prompt_tokens, completion_tokens,
-              total_tokens, cached_tokens, latency_ms, called_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+              total_tokens, cached_tokens, used_own_key, latency_ms, called_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (user_id, attempt_id, model, prompt_tokens, completion_tokens,
-             total_tokens, cached_tokens, latency_ms, called_at),
+             total_tokens, cached_tokens, 1 if used_own_key else 0, latency_ms, called_at),
         )
         return cur.lastrowid or 0
+
+
+def app_key_call_count(user_id: str) -> int:
+    with db_cursor() as cur:
+        row = cur.execute(
+            "SELECT COUNT(*) AS c FROM llm_calls WHERE user_id = ? AND COALESCE(used_own_key, 0) = 0",
+            (user_id,),
+        ).fetchone()
+    if not row:
+        return 0
+    return int(row["c"] if isinstance(row, dict) else row[0])
 
 
 def llm_spend_summary() -> dict:
@@ -798,31 +821,6 @@ def llm_spend_summary() -> dict:
         "cost_usd": round(cost_usd, 4),
         "cost_gbp": round(cost_gbp, 4),
     }
-
-
-def llm_spend_summary_for_user(user_id: str, since_iso: str) -> dict:
-    with db_cursor() as cur:
-        row = cur.execute(
-            """
-            SELECT COALESCE(SUM(prompt_tokens), 0) AS prompt_tokens,
-                   COALESCE(SUM(completion_tokens), 0) AS completion_tokens,
-                   COALESCE(SUM(cached_tokens), 0) AS cached_tokens,
-                   COUNT(*) AS calls
-            FROM llm_calls
-            WHERE user_id = ? AND called_at >= ?
-            """,
-            (user_id, since_iso),
-        ).fetchone()
-    pt = row["prompt_tokens"]
-    ct = row["completion_tokens"]
-    cached = row["cached_tokens"]
-    uncached_pt = max(0, pt - cached)
-    cost_usd = (
-        cached * config.LLM_PRICE_INPUT_CACHED_PER_M_USD / 1_000_000
-        + uncached_pt * config.LLM_PRICE_INPUT_UNCACHED_PER_M_USD / 1_000_000
-        + ct * config.LLM_PRICE_OUTPUT_PER_M_USD / 1_000_000
-    )
-    return {"calls": row["calls"], "cost_gbp": round(cost_usd * config.USD_TO_GBP, 4)}
 
 
 # Default provenance for each `source` value. Established by audit:
@@ -912,10 +910,13 @@ def row_to_question(row: sqlite3.Row | None) -> dict | None:
 def question_count_by_product(product_id: str) -> int:
     """Count cribsheet questions tagged with a particular product_id."""
     with db_cursor() as cur:
-        return cur.execute(
+        row = cur.execute(
             "SELECT COUNT(*) FROM questions WHERE product_id = ? AND source = 'cribsheet_products'",
             (product_id,),
-        ).fetchone()[0]
+        ).fetchone()
+    if not row:
+        return 0
+    return int(next(iter(row.values())) if isinstance(row, dict) else row[0])
 
 
 def list_questions(

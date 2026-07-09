@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}SUGE Tutor — {{ current_user.name if current_user else "Home" }}{% endblock %}
+{% block title %}SUGE Tutor - {{ current_user.name if current_user else "Home" }}{% endblock %}
 {% block content %}
 <section class="space-y-6">
   <div class="flex items-end justify-between gap-4">
@@ -35,7 +35,7 @@
   <div class="rounded-lg border border-indigo-200 bg-indigo-50 p-5 dark:border-indigo-900/50 dark:bg-indigo-950/40">
     <div class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">Guest mode</div>
     <h2 class="mt-1 font-serif text-2xl tracking-tight text-neutral-950 dark:text-neutral-50">Browse the tutor before creating an account.</h2>
-    <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-700 dark:text-neutral-300">The question bank, product crib sheets, exam format, and reference material are public. Sign in when you want AI marking, saved attempts, spaced review, exam history, BYOK, and monthly budget controls.</p>
+    <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-700 dark:text-neutral-300">The question bank, product crib sheets, exam format, and reference material are public. Sign in when you want AI marking, saved attempts, spaced review, exam history, BYOK, and shared-key attempt tracking.</p>
     <div class="mt-4 flex flex-wrap gap-2">
       <a href="/questions" class="rounded bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">Explore questions</a>
       <a href="/register" class="rounded border border-indigo-300 bg-white px-3 py-2 text-sm font-medium text-indigo-800 hover:border-indigo-500 dark:border-indigo-800 dark:bg-indigo-950 dark:text-indigo-100">Create account</a>
@@ -50,7 +50,7 @@
         <div class="text-xs uppercase tracking-wide text-neutral-500">Your exam targets</div>
         <p class="text-xs text-neutral-500 dark:text-neutral-400">
           % needed in <em>this</em> exam (the other 50% is coursework).
-          {% if best_exam %}Best simulated exam: <strong class="text-neutral-700 dark:text-neutral-200">{{ best_exam.percentage }}%</strong>.{% else %}No exam-mode result yet — run one to see where you stand.{% endif %}
+          {% if best_exam %}Best simulated exam: <strong class="text-neutral-700 dark:text-neutral-200">{{ best_exam.percentage }}%</strong>.{% else %}No exam-mode result yet. Run one to see where you stand.{% endif %}
         </p>
       </div>
       {% if grade_status and grade_status.achieved %}
@@ -62,7 +62,7 @@
 
     {% set best_pct = best_exam.percentage if best_exam else 0 %}
     <div class="mt-3 space-y-2">
-      {% for grade, target in current_user.grade_targets.items() | list | sort(attribute=1, reverse=true) %}
+      {% for grade, target in current_user.grade_targets.items() | list | sort(attribute=1, reverse=true) if target is number %}
       {% set hit = best_exam and best_pct >= target %}
       <div class="flex items-center gap-3">
         <div class="w-10 text-sm font-semibold {% if hit %}text-emerald-700 dark:text-emerald-300{% else %}text-neutral-500{% endif %}">{{ grade }}</div>
@@ -116,7 +116,7 @@
     <div class="lg:col-span-2 rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 p-5">
       <div class="flex items-baseline justify-between">
         <div>
-          <div class="text-xs uppercase tracking-wide text-neutral-500">Score by topic — last 14 days</div>
+          <div class="text-xs uppercase tracking-wide text-neutral-500">Score by topic, last 14 days</div>
           <p class="text-xs text-neutral-500">Daily average % per topic, using your latest answer per question.</p>
         </div>
       </div>
@@ -153,7 +153,7 @@
         {% endfor %}
       </ul>
       {% else %}
-      <p class="mt-2 text-sm text-neutral-500">Nothing yet — practise a few questions and rate them with Got it / Needs / Hard so the queue can fill.</p>
+      <p class="mt-2 text-sm text-neutral-500">Nothing yet. Practise a few questions and rate them with Got it / Needs / Hard so the queue can fill.</p>
       {% endif %}
     </div>
   </div>
@@ -193,7 +193,7 @@
       if (ctx) {
         const p = document.createElement("p");
         p.className = "text-sm text-neutral-500";
-        p.textContent = "No graded attempts yet — practise a few questions and they'll show up here.";
+        p.textContent = "No graded attempts yet. Practise a few questions and they'll show up here.";
         ctx.replaceWith(p);
       }
       return;

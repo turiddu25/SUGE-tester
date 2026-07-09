@@ -128,7 +128,10 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
                 "current_user": user,
                 "settings": settings,
                 "has_own_key": bool(settings.get("encrypted_llm_api_key")),
-                "default_budget": config.DEFAULT_MONTHLY_LLM_BUDGET_GBP,
+                "coursework_components": users.COURSEWORK_COMPONENTS,
+                "coursework": (user.get("grade_targets") or {}).get("coursework") or {},
+                "app_key_limit": config.APP_KEY_FREE_CALL_LIMIT,
+                "app_key_used": db.app_key_call_count(user["id"]),
             },
         )
 
@@ -140,17 +143,16 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         llm_base_url: str = Form(""),
         llm_model: str = Form(""),
         llm_api_key: str = Form(""),
-        monthly_budget_gbp: str = Form(""),
         use_own_key: str | None = Form(None),
+        quiz_1_2: str = Form(""),
+        quiz_3_4: str = Form(""),
+        quiz_5_7: str = Form(""),
+        main_assignment: str = Form(""),
     ):
         user = users.current_user(request)
         if not user:
             return RedirectResponse(url="/login?next=/settings", status_code=303)
         encrypted = users.encrypt_secret(llm_api_key.strip()) if llm_api_key.strip() else None
-        try:
-            budget = float(monthly_budget_gbp) if monthly_budget_gbp.strip() else None
-        except ValueError:
-            budget = config.DEFAULT_MONTHLY_LLM_BUDGET_GBP
         db.update_user_settings(
             user["id"],
             exam_year=exam_year.strip() or "2025-26",
@@ -158,9 +160,22 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             llm_base_url=llm_base_url.strip() or None,
             llm_model=llm_model.strip() or None,
             encrypted_llm_api_key=encrypted,
-            monthly_budget_gbp=budget,
             use_own_key=bool(use_own_key),
         )
+        existing_coursework = (user.get("grade_targets") or {}).get("coursework") or {}
+        scores = {}
+        for key, value in {
+            "quiz_1_2": quiz_1_2,
+            "quiz_3_4": quiz_3_4,
+            "quiz_5_7": quiz_5_7,
+            "main_assignment": main_assignment,
+        }.items():
+            try:
+                scores[key] = float(value) if value.strip() else float(existing_coursework.get(key) or 0.0)
+            except ValueError:
+                scores[key] = float(existing_coursework.get(key) or 0.0)
+        target_data = users.coursework_exam_targets(scores)
+        db.update_user_grade_targets(user["id"], {**target_data["targets"], "coursework": target_data["coursework"], "coursework_points": target_data["coursework_points"]})
         return RedirectResponse(url="/settings?saved=1", status_code=303)
 
     @app.post("/users/logout")
