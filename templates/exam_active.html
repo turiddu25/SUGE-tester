@@ -9,13 +9,13 @@
   })'
   class="space-y-5"
 >
-  <div class="sticky top-0 z-10 -mx-6 border-b border-neutral-200 bg-white/90 backdrop-blur px-6 py-3">
-    <div class="flex items-center justify-between gap-4">
+  <div class="sticky top-0 z-10 -mx-4 border-b border-neutral-200 bg-white/90 px-4 py-3 backdrop-blur md:-mx-6 md:px-6">
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
       <div>
         <div class="text-xs uppercase tracking-wide text-neutral-500">Exam #{{ session_id }}</div>
         <div class="text-sm text-neutral-700">{{ questions|length }} questions · {{ total_marks }} marks</div>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center justify-between gap-4 md:justify-end">
         <div class="text-right">
           <div class="text-xs uppercase tracking-wide text-neutral-500">Time remaining</div>
           <div class="font-mono text-lg" :class="timeLeft < 600 ? 'text-rose-700' : 'text-neutral-900'" x-text="timeFormatted"></div>
@@ -24,7 +24,7 @@
           type="button"
           @click="confirmSubmit()"
           :disabled="submitting"
-          class="rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            class="rounded bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 md:px-4"
         >
           <span x-text="submitting ? 'Marking…' : 'Submit exam'"></span>
         </button>
@@ -38,7 +38,7 @@
   <div class="grid gap-6 md:grid-cols-[1fr_220px]">
     <div class="space-y-6">
       {% for q in questions %}
-      <article id="q-{{ q.id }}" class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+      <article id="q-{{ q.id }}" class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 md:p-5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2 text-xs">
             <span class="font-mono text-neutral-400">Q{{ loop.index }}</span>
@@ -93,10 +93,10 @@
   </div>
 
   <div x-show="confirmOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-    <div class="w-full max-w-md rounded-lg bg-white p-5 shadow-xl">
+    <div class="w-full max-w-md rounded-lg bg-white p-4 shadow-xl md:p-5">
       <div class="font-semibold">Submit exam?</div>
       <p class="mt-2 text-sm text-neutral-600">This will submit all 16 answers for AI marking (~16 LLM calls). You can't change them after this.</p>
-      <div class="mt-4 flex justify-end gap-2">
+      <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
         <button @click="confirmOpen = false" class="rounded border border-neutral-300 px-3 py-1.5 text-sm text-neutral-700">Cancel</button>
         <button @click="submitExam()" class="rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white">Submit</button>
       </div>

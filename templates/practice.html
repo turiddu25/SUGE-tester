@@ -11,7 +11,7 @@
   })'
   class="space-y-5"
 >
-  <div class="flex items-center justify-between text-sm">
+  <div class="flex flex-col gap-2 text-sm md:flex-row md:items-center md:justify-between">
     <a href="/questions" class="text-neutral-500 hover:text-indigo-700">← Back to questions</a>
     <div class="text-neutral-500">
       <span class="font-mono text-xs">{{ question.id }}</span>
@@ -56,7 +56,7 @@
 
     <div class="prose mt-4 max-w-none font-serif text-lg leading-relaxed text-neutral-900 dark:text-neutral-100" x-html="renderedQuestion"></div>
 
-    <div class="mt-4 flex items-center justify-between text-sm text-neutral-600">
+    <div class="mt-4 flex flex-col gap-1 text-sm text-neutral-600 md:flex-row md:items-center md:justify-between">
       <div>⏱ Recommended: ~{{ recommended_minutes }} min</div>
       <div>Elapsed: <span x-text="elapsedFormatted" class="font-mono"></span></div>
     </div>
@@ -72,21 +72,21 @@
       ></textarea>
     </div>
 
-    <div class="mt-3 flex flex-wrap items-center gap-2">
+    <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
       {% if current_user %}
       <button
         type="button"
         @click="submit()"
         :disabled="loading || !answer.trim()"
-        class="inline-flex items-center gap-2 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+        class="inline-flex w-full items-center justify-center gap-2 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 sm:w-auto"
       >
         <svg x-show="loading" class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"></circle><path d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4" class="opacity-75"></path></svg>
         <span x-text="loading ? 'Marking…' : 'Submit for marking'"></span>
       </button>
       {% else %}
-      <a href="/login?next={{ request.url.path | urlencode }}" class="inline-flex items-center rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">Sign in to submit</a>
+      <a href="/login?next={{ request.url.path | urlencode }}" class="inline-flex w-full items-center justify-center rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 sm:w-auto">Sign in to submit</a>
       {% endif %}
-      <button type="button" @click="toggleModel()" class="rounded border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+      <button type="button" @click="toggleModel()" class="w-full rounded border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 sm:w-auto">
         <span x-text="showModel ? 'Hide model answer' : 'Show model answer'"></span>
       </button>
       <button type="button" @click="reset()" class="text-sm text-neutral-500 hover:text-indigo-700">Reset</button>
@@ -104,7 +104,7 @@
 
     <template x-if="result && !error">
       <div class="mt-6 space-y-4">
-        <div class="flex items-end justify-between border-t border-neutral-200 pt-5">
+        <div class="flex flex-col gap-3 border-t border-neutral-200 pt-5 md:flex-row md:items-end md:justify-between">
           <div>
             <div class="text-xs uppercase tracking-wide text-neutral-500">Score</div>
             <div class="mt-0.5 text-3xl font-semibold tracking-tight">
@@ -188,7 +188,7 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-3 pt-2">
+        <div class="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center">
           <a href="/practice/random" class="rounded border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-800 hover:bg-indigo-100">🎲 Random next</a>
           <a href="/questions" class="text-sm text-neutral-500 hover:text-indigo-700">Back to questions</a>
         </div>
@@ -225,7 +225,7 @@
     <div class="text-xs uppercase tracking-wide text-neutral-500">Your previous attempts</div>
     <ul id="history-list" class="mt-2 space-y-1 text-sm">
       {% for a in history[:10] %}
-      <li id="attempt-row-{{ a.id }}" class="flex items-center justify-between gap-3 text-neutral-700 dark:text-neutral-300">
+      <li id="attempt-row-{{ a.id }}" class="flex flex-col gap-2 text-neutral-700 dark:text-neutral-300 sm:flex-row sm:items-center sm:justify-between">
         <span class="font-mono text-xs text-neutral-400">{{ a.attempted_at[:19] }}</span>
         <div class="flex items-center gap-3">
           <span class="{% if a.marks_awarded is none %}text-rose-600 dark:text-rose-400{% endif %}">
