@@ -62,7 +62,7 @@
 
     {% set best_pct = best_exam.percentage if best_exam else 0 %}
     <div class="mt-3 space-y-2">
-      {% for grade, target in current_user.grade_targets.items() | list | sort(attribute=1, reverse=true) if target is number %}
+      {% for grade, target in grade_targets_display %}
       {% set hit = best_exam and best_pct >= target %}
       <div class="flex items-center gap-3">
         <div class="w-10 text-sm font-semibold {% if hit %}text-emerald-700 dark:text-emerald-300{% else %}text-neutral-500{% endif %}">{{ grade }}</div>

@@ -94,6 +94,17 @@ async def home(request: Request):
         if user and best_exam
         else None
     )
+    grade_targets_display = []
+    if user and user.get("grade_targets"):
+        grade_targets_display = sorted(
+            [
+                (grade, target)
+                for grade, target in user["grade_targets"].items()
+                if isinstance(target, (int, float))
+            ],
+            key=lambda item: item[1],
+            reverse=True,
+        )
 
     return templates.TemplateResponse(
         request,
@@ -110,6 +121,7 @@ async def home(request: Request):
             "recommended": recommended,
             "best_exam": best_exam,
             "grade_status": grade_status,
+            "grade_targets_display": grade_targets_display,
             "days_to_exam": days_to_exam(),
             "exam_date": config.EXAM_DATE,
             "config": {
