@@ -66,7 +66,13 @@ function examMode({ sessionId, durationSeconds, questionIds }) {
         clearInterval(fakeProgress);
         this.markedCount = this.questionIds.length;
         if (!resp.ok) {
-          const text = await resp.text();
+          let payload = null;
+          try { payload = await resp.json(); } catch (e) {}
+          if (resp.status === 401 && payload && payload.login_url) {
+            window.location.href = payload.login_url;
+            return;
+          }
+          const text = payload ? JSON.stringify(payload) : await resp.text();
           throw new Error(`HTTP ${resp.status}: ${text.slice(0, 300)}`);
         }
         window.location.href = `/exam-sim/results/${this.sessionId}`;

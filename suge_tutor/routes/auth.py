@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from urllib.parse import quote
+
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -9,16 +11,50 @@ from ..config import config
 
 
 def register(app: FastAPI, templates: Jinja2Templates) -> None:
+    def _auth_url(path: str, next_url: str, **params: str) -> str:
+        query = f"next={quote(users.safe_next_url(next_url), safe='')}"
+        for key, value in params.items():
+            query += f"&{key}={quote(value, safe='')}"
+        return f"{path}?{query}"
+
     @app.get("/users")
     async def picker(request: Request):
+        if config.ALLOW_LOCAL_USER_PICKER:
+            return templates.TemplateResponse(
+                request,
+                "user_picker.html",
+                {
+                    "users_": users.all_users(),
+                    "current": users.current_user(request),
+                    "current_user": users.current_user(request),
+                    "next_url": users.safe_next_url(request.query_params.get("next")),
+                    "allow_local_picker": config.ALLOW_LOCAL_USER_PICKER,
+                },
+            )
+        return RedirectResponse(url=_auth_url("/login", users.safe_next_url(request.query_params.get("next"))), status_code=303)
+
+    @app.get("/login")
+    async def login_page(request: Request):
         return templates.TemplateResponse(
             request,
-            "user_picker.html",
+            "login.html",
             {
-                "users_": users.all_users(),
-                "current": users.current_user(request),
-                "next_url": request.query_params.get("next", "/"),
-                "allow_local_picker": config.ALLOW_LOCAL_USER_PICKER,
+                "current_user": users.current_user(request),
+                "next_url": users.safe_next_url(request.query_params.get("next")),
+                "error": request.query_params.get("error") == "1",
+            },
+        )
+
+    @app.get("/register")
+    async def register_page(request: Request):
+        return templates.TemplateResponse(
+            request,
+            "register.html",
+            {
+                "current_user": users.current_user(request),
+                "next_url": users.safe_next_url(request.query_params.get("next")),
+                "error": request.query_params.get("error") or "",
+                "min_password_length": users.MIN_PASSWORD_LENGTH,
             },
         )
 
@@ -27,10 +63,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         if not users.is_valid_user(uid):
             raise HTTPException(status_code=404, detail="Unknown user")
         form = await request.form()
-        next_url = form.get("next") or request.query_params.get("next") or "/"
-        # Keep redirects local to avoid open-redirect oddities.
-        if not next_url.startswith("/"):
-            next_url = "/"
+        next_url = users.safe_next_url(str(form.get("next") or request.query_params.get("next") or "/"))
         resp = RedirectResponse(url=next_url, status_code=303)
         # Long-lived cookie — this is a single-machine app and the user explicitly picked.
         resp.set_cookie(
@@ -39,6 +72,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             max_age=60 * 60 * 24 * 365,
             httponly=False,
             samesite="lax",
+            secure=users.secure_cookie(request),
         )
         return resp
 
@@ -48,13 +82,11 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         name = str(form.get("name") or "").strip()
         email = str(form.get("email") or "").strip().lower()
         password = str(form.get("password") or "")
-        next_url = str(form.get("next") or "/")
-        if not next_url.startswith("/"):
-            next_url = "/"
-        if not name or not email or len(password) < 8:
-            raise HTTPException(status_code=400, detail="Name, email, and an 8+ character password are required")
+        next_url = users.safe_next_url(str(form.get("next") or "/"))
+        if not name or not email or len(password) < users.MIN_PASSWORD_LENGTH:
+            return RedirectResponse(url=_auth_url("/register", next_url, error="weak"), status_code=303)
         if db.get_user_by_email(email):
-            raise HTTPException(status_code=409, detail="Email already registered")
+            return RedirectResponse(url=_auth_url("/register", next_url, error="invalid"), status_code=303)
         user = db.create_user(
             user_id=users.user_id_from_email(email),
             name=name,
@@ -64,7 +96,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         )
         token, expires = users.create_session(user["id"])
         resp = RedirectResponse(url=next_url, status_code=303)
-        resp.set_cookie(users.SESSION_COOKIE_NAME, token, expires=expires, httponly=True, samesite="lax")
+        resp.set_cookie(users.SESSION_COOKIE_NAME, token, expires=expires, httponly=True, samesite="lax", secure=users.secure_cookie(request))
         resp.delete_cookie(users.COOKIE_NAME)
         return resp
 
@@ -73,15 +105,13 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
         form = await request.form()
         email = str(form.get("email") or "").strip().lower()
         password = str(form.get("password") or "")
-        next_url = str(form.get("next") or "/")
-        if not next_url.startswith("/"):
-            next_url = "/"
+        next_url = users.safe_next_url(str(form.get("next") or "/"))
         user = db.get_user_by_email(email)
         if not user or not users.verify_password(password, user.get("password_hash")):
-            raise HTTPException(status_code=401, detail="Invalid email or password")
+            return RedirectResponse(url=_auth_url("/login", next_url, error="1"), status_code=303)
         token, expires = users.create_session(user["id"])
         resp = RedirectResponse(url=next_url, status_code=303)
-        resp.set_cookie(users.SESSION_COOKIE_NAME, token, expires=expires, httponly=True, samesite="lax")
+        resp.set_cookie(users.SESSION_COOKIE_NAME, token, expires=expires, httponly=True, samesite="lax", secure=users.secure_cookie(request))
         resp.delete_cookie(users.COOKIE_NAME)
         return resp
 
@@ -89,7 +119,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
     async def settings(request: Request):
         user = users.current_user(request)
         if not user:
-            return RedirectResponse(url="/users?next=/settings", status_code=303)
+            return RedirectResponse(url="/login?next=/settings", status_code=303)
         settings = db.ensure_user_settings(user["id"])
         return templates.TemplateResponse(
             request,
@@ -115,7 +145,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
     ):
         user = users.current_user(request)
         if not user:
-            return RedirectResponse(url="/users?next=/settings", status_code=303)
+            return RedirectResponse(url="/login?next=/settings", status_code=303)
         encrypted = users.encrypt_secret(llm_api_key.strip()) if llm_api_key.strip() else None
         try:
             budget = float(monthly_budget_gbp) if monthly_budget_gbp.strip() else None
@@ -136,7 +166,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
     @app.post("/users/logout")
     async def logout(request: Request):
         users.delete_session(request.cookies.get(users.SESSION_COOKIE_NAME))
-        resp = RedirectResponse(url="/users", status_code=303)
+        resp = RedirectResponse(url="/", status_code=303)
         resp.delete_cookie(users.COOKIE_NAME)
         resp.delete_cookie(users.SESSION_COOKIE_NAME)
         return resp

@@ -86,7 +86,15 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ rating }),
         });
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        if (!resp.ok) {
+          let payload = null;
+          try { payload = await resp.json(); } catch (e) {}
+          if (resp.status === 401 && payload && payload.login_url) {
+            window.location.href = payload.login_url;
+            return;
+          }
+          throw new Error(`HTTP ${resp.status}`);
+        }
         const data = await resp.json();
         this.rated = true;
         const next = new Date(data.next_review_at);
@@ -115,7 +123,13 @@ function practice({ questionId, marksTotal, recommendedMinutes, questionMarkdown
           }),
         });
         if (!resp.ok) {
-          const text = await resp.text();
+          let payload = null;
+          try { payload = await resp.json(); } catch (e) {}
+          if (resp.status === 401 && payload && payload.login_url) {
+            window.location.href = payload.login_url;
+            return;
+          }
+          const text = payload ? JSON.stringify(payload) : await resp.text();
           throw new Error(`HTTP ${resp.status}: ${text.slice(0, 300)}`);
         }
         const data = await resp.json();

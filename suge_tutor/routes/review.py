@@ -22,7 +22,7 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             raise HTTPException(status_code=400, detail="invalid rating")
         user = users.current_user(request)
         if user is None:
-            raise HTTPException(status_code=401, detail="pick a user first")
+            return JSONResponse({"error": "auth", "message": "Sign in to use spaced review.", "login_url": "/login?next=/review"}, status_code=401)
         if not db.get_question(question_id):
             raise HTTPException(status_code=404, detail="question not found")
 

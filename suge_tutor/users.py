@@ -49,6 +49,7 @@ LOCAL_USERS: dict[str, dict] = {
 
 COOKIE_NAME = "suge_user"
 SESSION_COOKIE_NAME = "suge_session"
+MIN_PASSWORD_LENGTH = 15
 
 
 def _db():
@@ -89,6 +90,23 @@ def create_session(user_id: str) -> tuple[str, datetime]:
     expires = created + timedelta(days=365)
     _db().create_session(token, user_id, created.isoformat(), expires.isoformat())
     return token, expires
+
+
+def secure_cookie(request: Request) -> bool:
+    return request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
+
+
+def safe_next_url(value: str | None, default: str = "/") -> str:
+    if not value or not value.startswith("/") or value.startswith("//"):
+        return default
+    return value
+
+
+def next_url_for(request: Request) -> str:
+    path = request.url.path
+    if request.url.query:
+        path = f"{path}?{request.url.query}"
+    return safe_next_url(path)
 
 
 def delete_session(token: str | None) -> None:

@@ -31,6 +31,18 @@
     </div>
   </div>
 
+  {% if not current_user %}
+  <div class="rounded-lg border border-indigo-200 bg-indigo-50 p-5 dark:border-indigo-900/50 dark:bg-indigo-950/40">
+    <div class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">Guest mode</div>
+    <h2 class="mt-1 font-serif text-2xl tracking-tight text-neutral-950 dark:text-neutral-50">Browse the tutor before creating an account.</h2>
+    <p class="mt-2 max-w-3xl text-sm leading-6 text-neutral-700 dark:text-neutral-300">The question bank, product crib sheets, exam format, and reference material are public. Sign in when you want AI marking, saved attempts, spaced review, exam history, BYOK, and monthly budget controls.</p>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <a href="/questions" class="rounded bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">Explore questions</a>
+      <a href="/register" class="rounded border border-indigo-300 bg-white px-3 py-2 text-sm font-medium text-indigo-800 hover:border-indigo-500 dark:border-indigo-800 dark:bg-indigo-950 dark:text-indigo-100">Create account</a>
+    </div>
+  </div>
+  {% endif %}
+
   {% if current_user and current_user.grade_targets %}
   <div class="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
     <div class="flex items-baseline justify-between">

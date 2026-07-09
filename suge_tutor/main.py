@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -40,28 +40,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="SUGE Tutor", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
-
-
-# Pages that don't require a picked user.
-_OPEN_PATHS = {"/users", "/users/logout"}
-_OPEN_PREFIXES = ("/users/switch/", "/static/")
-
-
-@app.middleware("http")
-async def require_user_middleware(request: Request, call_next):
-    path = request.url.path
-    if (
-        path in _OPEN_PATHS
-        or any(path.startswith(p) for p in _OPEN_PREFIXES)
-        or path.startswith("/api/")  # APIs return JSON; client passes the cookie anyway
-    ):
-        return await call_next(request)
-    if users.current_user(request) is None:
-        next_url = request.url.path
-        if request.url.query:
-            next_url = f"{next_url}?{request.url.query}"
-        return RedirectResponse(url=f"/users?next={next_url}", status_code=303)
-    return await call_next(request)
 
 
 @app.get("/")

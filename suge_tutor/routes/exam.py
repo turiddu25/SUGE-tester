@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from .. import db, users
@@ -29,6 +29,9 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
 
     @app.post("/exam-sim/start")
     async def exam_start(request: Request):
+        user = users.current_user(request)
+        if user is None:
+            return RedirectResponse(url="/login?next=/exam-sim", status_code=303)
         form = await request.form()
         seed_str = form.get("seed", "").strip()
         seed = int(seed_str) if seed_str else None
@@ -44,7 +47,6 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
             "total_marks": sum(int(q["marks"]) for q in questions),
             "duration_minutes": 105,
         }
-        user = users.current_user(request)
         session_id = db.create_exam_session(
             mode="exam_simulation",
             started_at=started_at,
@@ -67,11 +69,13 @@ def register(app: FastAPI, templates: Jinja2Templates) -> None:
 
     @app.post("/api/exam/submit")
     async def exam_submit(payload: ExamSubmitRequest, request: Request):
+        user = users.current_user(request)
+        if user is None:
+            return JSONResponse({"error": "auth", "message": "Sign in to submit and save exams.", "login_url": "/login?next=/exam-sim"}, status_code=401)
         session = db.get_exam_session(payload.session_id)
         if not session:
             raise HTTPException(status_code=404, detail="Exam session not found")
 
-        user = users.current_user(request)
         question_ids = [item.question_id for item in payload.items]
         questions = {q["id"]: q for q in db.get_questions_by_ids(question_ids)}
 
